@@ -1,0 +1,20 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lighthouse Club">
+  <defs>
+    <linearGradient id="lh-beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd89b"/>
+      <stop offset="1" stop-color="#ffc36b"/>
+    </linearGradient>
+  </defs>
+  <!-- light glow -->
+  <circle cx="32" cy="14" r="6" fill="url(#lh-beam)"/>
+  <!-- tower -->
+  <path d="M27 22 h10 l2 30 h-14 z" fill="#2c4366"/>
+  <path d="M28 32 h8 M27.4 40 h9.2" stroke="#ffc36b" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- lantern room -->
+  <rect x="26" y="16" width="12" height="7" rx="1.5" fill="#1b2c47"/>
+  <rect x="28.5" y="17.5" width="7" height="4" rx="1" fill="url(#lh-beam)"/>
+  <!-- roof -->
+  <path d="M24.5 16 L32 9 L39.5 16 z" fill="#1b2c47"/>
+  <!-- base -->
+  <path d="M22 52 h20 l1.5 5 h-23 z" fill="#1b2c47"/>
+</svg>

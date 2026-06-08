@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lighthouse Club — 把生活、学习、兴趣，聊到一起的地方</title>
+  <meta name="description" content="Lighthouse Club 是一个把生活、学习、兴趣，也聊市场话题带到一起的多元交流社区。月度会员制，会员专属内容与频道，省心的自动会员管理。运营方：シンクバリュー株式会社。">
+  <meta property="og:title" content="Lighthouse Club — 多元兴趣交流社区">
+  <meta property="og:description" content="把生活、学习、兴趣，也聊市场话题带到一起的多元交流社区。会员专属内容与频道，省心会员管理。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lighthouse.sync-value.com/">
+  <link rel="icon" type="image/svg+xml" href="assets/img/lighthouse.svg">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body id="top">
+
+  <!-- ============ Header ============ -->
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Lighthouse Club 首页">
+        <img class="logo" src="assets/img/lighthouse.svg" alt="">
+        <span class="name">
+          <span class="en">Lighthouse Club</span>
+          <span class="tag">多元交流社区</span>
+        </span>
+      </a>
+      <nav class="main" aria-label="主导航">
+        <a href="#about">关于</a>
+        <a href="#benefits">价值</a>
+        <a href="#inside">板块</a>
+        <a href="#pricing">价格</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn-login" href="account/">登录</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn-login" href="account/">登录</a>
+        <!-- 加入 CTA：未来填 Stripe Payment Link / Checkout -->
+        <a class="cta sm" href="#join" data-stripe-link>加入社区</a>
+        <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="主导航">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ Hero ============ -->
+  <div class="hero">
+    <div class="container">
+      <div class="hero-copy">
+        <div class="eyebrow">Lighthouse Club</div>
+        <h1>把生活、学习、兴趣，<br><span class="hl">聊到一起</span>的地方</h1>
+        <p class="sub">一个把生活、学习、兴趣，也聊市场话题带到一起的多元交流社区。这里聚集了背景各异的伙伴，珍惜互相尊重、能安心畅聊的氛围。</p>
+        <div class="actions">
+          <a class="cta" href="#join" data-stripe-link>加入社区 →</a>
+          <a class="cta ghost" href="#about">了解更多</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <!-- 灯塔意象 -->
+        <svg viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffd89b"/><stop offset="1" stop-color="#ffc36b"/>
+            </linearGradient>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#ffd89b" stop-opacity=".9"/>
+              <stop offset="1" stop-color="#ffd89b" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- light beams -->
+          <path d="M110 70 L20 8 L40 0 L110 70Z" fill="url(#beam)" opacity=".22"/>
+          <path d="M110 70 L200 8 L180 0 L110 70Z" fill="url(#beam)" opacity=".22"/>
+          <path d="M110 70 L8 60 L8 36 L110 70Z" fill="url(#beam)" opacity=".14"/>
+          <path d="M110 70 L212 60 L212 36 L110 70Z" fill="url(#beam)" opacity=".14"/>
+          <circle cx="110" cy="66" r="34" fill="url(#glow)"/>
+          <!-- tower -->
+          <path d="M92 96 h36 l9 150 h-54 z" fill="#2c4366"/>
+          <path d="M95 130 h30 M93 168 h34 M91 206 h38" stroke="#ffc36b" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+          <!-- lantern room -->
+          <rect x="88" y="78" width="44" height="22" rx="3" fill="#1b2c47"/>
+          <rect x="97" y="82" width="26" height="14" rx="2" fill="url(#beam)"/>
+          <!-- railing -->
+          <rect x="84" y="96" width="52" height="6" rx="2" fill="#1b2c47"/>
+          <!-- roof -->
+          <path d="M82 78 L110 50 L138 78 Z" fill="#1b2c47"/>
+          <circle cx="110" cy="48" r="4" fill="#ffc36b"/>
+          <!-- base / rocks -->
+          <path d="M70 246 h80 l16 26 h-112 z" fill="#1b2c47"/>
+          <path d="M40 272 q40 -16 70 -8 q34 -10 70 8 z" fill="#0e1c33"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 这是什么 / 为谁 ============ -->
+  <section id="about">
+    <div class="container">
+      <div class="sec-label">关于我们</div>
+      <h2>一个多元、安心、有归属感的社区</h2>
+      <p class="lead">日常杂谈、读书学习、技能分享，也有对市场感兴趣的伙伴交流个人见解、互相学习。我们珍惜彼此尊重、能安心畅聊的氛围——这里看重的是交流本身。</p>
+      <div class="values">
+        <div class="value-item"><span class="dot">1</span><p>分享经历，胜过给结论</p></div>
+        <div class="value-item"><span class="dot">2</span><p>遇分歧，先倾听</p></div>
+        <div class="value-item"><span class="dot">3</span><p>为彼此的进步喝彩</p></div>
+        <div class="value-item"><span class="dot">4</span><p>多给善意、有用的反馈</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 会员价值 Benefits ============ -->
+  <section id="benefits" class="alt">
+    <div class="container">
+      <div class="sec-label">会员价值</div>
+      <h2>加入后，你会得到什么</h2>
+      <p class="lead">不只是一个群——而是一套让你省心、随时安心参与的会员体验。</p>
+      <div class="grid cols-4">
+        <div class="card reveal">
+          <span class="ic">💬</span>
+          <h3>多元板块，随心交流</h3>
+          <p>生活、学习、兴趣、市场观察并列，在你感兴趣的频道随心参与，不被单一话题绑定。</p>
+        </div>
+        <div class="card reveal">
+          <span class="ic">🔒</span>
+          <h3>会员专属内容与频道</h3>
+          <p>加入后解锁会员专属频道与内容，和认真参与的伙伴在一起，氛围更纯粹。</p>
+        </div>
+        <div class="card reveal">
+          <span class="ic">🛎️</span>
+          <h3>省心的会员管理</h3>
+          <p>付款后自动开通会员身份，到期前自动提醒续费——无需自己盯日期，也不会有「僵尸会员」。</p>
+        </div>
+        <div class="card reveal">
+          <span class="ic">💳</span>
+          <h3>安全便捷支付</h3>
+          <p>支付流程清晰、可追溯，续费按同一套流程走，随时可停，账户记录透明可查。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 社区板块 What's inside ============ -->
+  <section id="inside">
+    <div class="container">
+      <div class="sec-label">社区板块</div>
+      <h2>社区里都聊些什么</h2>
+      <p class="lead">板块会随社区成长不断调整，欢迎在你感兴趣的频道参与。</p>
+      <div class="grid cols-4">
+        <div class="card reveal">
+          <span class="ic">💬</span>
+          <h3>生活 · 兴趣</h3>
+          <p>日常杂谈、爱好分享、城市与生活方式，轻松随意地认识同频的人。</p>
+        </div>
+        <div class="card reveal">
+          <span class="ic">📚</span>
+          <h3>学习 · 成长</h3>
+          <p>读书、技能分享、经验交流——把彼此的所学带到一起，互相启发。</p>
+        </div>
+        <div class="card reveal">
+          <span class="ic">📈</span>
+          <h3>市场观察</h3>
+          <p>对市场感兴趣的伙伴交流个人见解、互相学习。</p>
+          <span class="micro">个人交流 · 非投资建议</span>
+        </div>
+        <div class="card reveal">
+          <span class="ic">🔮</span>
+          <h3>塔罗 · 周易</h3>
+          <p>东西方的趣味文化交流，给日常添一点好奇与乐趣。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 社群证明 ============ -->
+  <section class="alt center">
+    <div class="container">
+      <div class="sec-label">社群</div>
+      <h2>一群认真生活、乐于交流的人</h2>
+      <p class="lead">社区在持续生长，氛围活跃而多元。</p>
+      <div class="proof">
+        <div class="stat">
+          <div class="num">~1,500<span class="unit"> 名</span></div>
+          <div class="lbl">社区成员</div>
+        </div>
+        <div class="stat">
+          <div class="num">4<span class="unit"> 类</span></div>
+          <div class="lbl">并列板块</div>
+        </div>
+        <div class="stat">
+          <div class="num">每日<span class="unit"> 活跃</span></div>
+          <div class="lbl">持续的交流氛围</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 价格 Pricing ============ -->
+  <section id="pricing">
+    <div class="container center">
+      <div class="sec-label">价格</div>
+      <h2>简单透明的会员制</h2>
+      <p class="lead">一个价格，解锁全部会员板块与专属内容。到期可续，随时可停。</p>
+      <div class="price-wrap">
+        <div class="price-card reveal">
+          <div class="plan">季度会员</div>
+          <div class="amount">
+            <span class="cur">$</span><span class="val">180</span><span class="per"> / 3 个月</span>
+          </div>
+          <div class="note">约合每月 $60 · 到期可续 · 随时可停</div>
+          <ul>
+            <li>全部会员板块与专属频道</li>
+            <li>付款后自动开通会员身份</li>
+            <li>到期前自动提醒续费</li>
+            <li>账户与订阅记录透明可查</li>
+          </ul>
+          <!-- 加入 CTA：未来填 Stripe Payment Link / Checkout -->
+          <a class="cta" href="#join" data-stripe-link>加入社区</a>
+          <p class="fine">付款即表示同意 <a href="legal/tos.html">服务条款</a>，退款说明见条款。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 加入流程 How to join ============ -->
+  <section id="join" class="alt">
+    <div class="container">
+      <div class="sec-label">如何加入</div>
+      <h2>三步，进入社区</h2>
+      <p class="lead">流程清晰，开通自动——付款后很快就能进入会员频道。</p>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="n">1</div>
+          <h3>注册并付费</h3>
+          <p>选择会员、完成支付，提交付款信息。</p>
+        </div>
+        <div class="step reveal">
+          <div class="n">2</div>
+          <h3>自动开通</h3>
+          <p>付款确认后，系统自动为你开通会员身份与频道权限。</p>
+        </div>
+        <div class="step reveal">
+          <div class="n">3</div>
+          <h3>进入会员频道</h3>
+          <p>解锁全部会员专属频道，开始和大家一起交流。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq">
+    <div class="container">
+      <div class="sec-label">常见问题</div>
+      <h2>FAQ</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">如何加入？<span class="chev">+</span></button>
+          <div class="faq-a"><div class="inner">完成注册与付费、提交付款信息后，系统会自动为你开通会员身份，你即可进入会员专属频道。整个流程清晰、开通自动。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">支持哪些支付方式？<span class="chev">+</span></button>
+          <div class="faq-a"><div class="inner">支付流程清晰、可追溯。具体可用的支付方式以加入页面展示为准，续费也按同一套流程进行。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">可以退款吗？<span class="chev">+</span></button>
+          <div class="faq-a"><div class="inner">退款相关说明以 <a href="legal/tos.html">服务条款</a> 与 <a href="legal/tokushoho.html">特定商取引法に基づく表記</a> 为准，请在加入前阅读。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">市场板块是投资建议吗？<span class="chev">+</span></button>
+          <div class="faq-a"><div class="inner">不是。运营方提供的是交流环境与社区服务，本身不提供任何投资建议。社区里每个人的发言均为其个人见解，不代表运营方；涉及市场的内容仅供交流学习，不构成投资建议，投资决策请独立判断、自负其责。任何过往记录仅供参考，不预示未来表现。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">如何退订？<span class="chev">+</span></button>
+          <div class="faq-a"><div class="inner">会员可随时停止续费，到期后会员身份自然结束，不会自动扣费续期。账户与订阅管理入口（<a href="account/">会员中心</a>）正在完善中。</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Final CTA ============ -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>准备好，加入我们了吗？</h2>
+      <p>把生活、学习、兴趣，聊到一起。来 Lighthouse Club，认识一群同频的人。</p>
+      <a class="cta" href="#join" data-stripe-link>加入社区 →</a>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="en">Lighthouse Club</div>
+          <div class="op">
+            運営：シンクバリュー株式会社（Syncvalue Inc.）<br>
+            オンラインコミュニティ・サブスクリプション事業の運営および技術サービス
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>社区</h4>
+          <a href="#about">关于</a>
+          <a href="#benefits">会员价值</a>
+          <a href="#inside">社区板块</a>
+          <a href="#pricing">价格</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>法律与账户</h4>
+          <a href="legal/tos.html">服务条款</a>
+          <a href="legal/privacy.html">隐私政策</a>
+          <a href="legal/tokushoho.html">特定商取引法に基づく表記</a>
+          <a href="account/">会员中心 / 登录</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 シンクバリュー株式会社（Syncvalue Inc.）</span>
+        <span>Lighthouse Club</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

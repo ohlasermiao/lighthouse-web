@@ -1,4 +1,4 @@
-/* Lighthouse Club — 极简交互：移动端导航、FAQ 手风琴、滚动淡入 */
+/* Lighthouse Club — 极简交互：移动端导航、FAQ 手风琴、滚动淡入、Header 阴影、年份 */
 (function () {
   'use strict';
 
@@ -11,7 +11,6 @@
       toggle.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-    // 点击导航项后收起
     nav.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () {
         nav.classList.remove('open');
@@ -33,7 +32,7 @@
     });
   });
 
-  // ---- 滚动淡入 ----
+  // ---- 滚动淡入（含错峰 data-delay） ----
   var reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && reveals.length) {
     var io = new IntersectionObserver(function (entries) {
@@ -45,4 +44,16 @@
   } else {
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
+
+  // ---- Header 滚动阴影 ----
+  var header = document.querySelector('header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // ---- 当前年份 ----
+  var yearEl = document.getElementById('year');
+  if (yearEl) { yearEl.textContent = String(new Date().getFullYear()); }
 })();

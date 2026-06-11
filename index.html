@@ -38,8 +38,7 @@
         <a class="btn-login" href="account/">登录</a>
       </nav>
       <div class="header-cta">
-        <!-- 加入 CTA：未来填 Stripe Payment Link / Checkout -->
-        <a class="cta sm" href="#join" data-stripe-link>加入社区</a>
+        <a class="cta sm" href="apply/">申请加入</a>
         <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="primary-nav">
           <span></span><span></span><span></span>
         </button>
@@ -52,11 +51,11 @@
   <div class="hero">
     <div class="container">
       <div class="hero-copy">
-        <span class="eyebrow">月度会员制 · 多元交流社区</span>
+        <span class="eyebrow">会员制 · 多元交流社区</span>
         <h1>把生活、学习、兴趣，<br><span class="hl">聊到一起</span>的地方</h1>
         <p class="sub">一个把生活、学习、兴趣，也聊市场话题带到一起的多元交流社区。这里聚集了背景各异的伙伴，珍惜互相尊重、能安心畅聊的氛围。</p>
         <div class="actions">
-          <a class="cta lg" href="#join" data-stripe-link>加入社区 →</a>
+          <a class="cta lg" href="apply/">申请加入 →</a>
           <a class="cta ghost" href="#about">了解更多</a>
         </div>
         <div class="hero-trust">
@@ -157,13 +156,13 @@
         </div>
         <div class="card reveal" data-delay="2">
           <span class="ic">🛎️</span>
-          <h3>省心的会员管理</h3>
-          <p>付款后自动开通会员身份，到期前自动提醒续费——无需自己盯日期，也不会有「僵尸会员」。</p>
+          <h3>不被悄悄扣费</h3>
+          <p>到期前我们会提醒你，续费与否始终由你决定——不自动扣款，也不用自己盯日期。</p>
         </div>
         <div class="card reveal" data-delay="3">
           <span class="ic">💳</span>
-          <h3>安全便捷支付</h3>
-          <p>支付流程清晰、可追溯，续费按同一套流程走，随时可停，账户记录透明可查。</p>
+          <h3>透明的会员状态</h3>
+          <p>加入与续费流程清晰透明，你的会员状态与记录随时可查，随时可停。</p>
         </div>
       </div>
     </div>
@@ -239,13 +238,12 @@
           <div class="note">约合每月 $60 · 价格不含税（适用税率因国家/地区而异）· 到期不自动扣款，续费需本人确认 · 随时可停</div>
           <ul>
             <li>全部会员板块与专属频道</li>
-            <li>付款后 24 小时内开通：邮件发送 Discord 邀请并授予会员身份</li>
+            <li>审核通过后即可加入全部会员频道</li>
             <li>到期前提醒续费，不自动扣款</li>
             <li>账户与订阅记录透明可查</li>
           </ul>
-          <!-- 加入 CTA：未来填 Stripe Payment Link / Checkout -->
-          <a class="cta" href="#join" data-stripe-link>加入社区</a>
-          <p class="fine">付款即表示同意 <a href="legal/tos.html">服务条款</a>，退款说明见条款。</p>
+          <a class="cta" href="apply/">申请加入</a>
+          <p class="fine">审核通过后我们会在邮件中说明付款方式 · 到期可续，随时可停</p>
         </div>
       </div>
     </div>
@@ -256,24 +254,25 @@
     <div class="container">
       <div class="sec-label">如何加入</div>
       <h2>三步，进入社区</h2>
-      <p class="lead">流程清晰，开通自动——付款后很快就能进入会员频道。</p>
+      <p class="lead">我们会认真对待每一份申请，保证社区的讨论质量与氛围。</p>
       <div class="steps">
         <div class="step reveal">
           <div class="n">1</div>
-          <h3>注册并付费</h3>
-          <p>选择会员、完成支付，提交付款信息。</p>
+          <h3>提交申请</h3>
+          <p>填写申请表，告诉我们你希望从社区获得什么——只有 4 个小问题，3 分钟填完。</p>
         </div>
         <div class="step reveal" data-delay="1">
           <div class="n">2</div>
-          <h3>自动开通</h3>
-          <p>付款确认后，最迟 24 小时内通过邮件发送 Discord 邀请，并为你开通会员身份与频道权限。</p>
+          <h3>人工审核</h3>
+          <p>我们会认真阅读每一份申请，2 个工作日内邮件回复结果。</p>
         </div>
         <div class="step reveal" data-delay="2">
           <div class="n">3</div>
-          <h3>进入会员频道</h3>
-          <p>解锁全部会员专属频道，开始和大家一起交流。</p>
+          <h3>收到邀请</h3>
+          <p>通过后你会收到付款方式、Discord 邀请与入门指引，加入全部会员频道。</p>
         </div>
       </div>
+      <p class="center" style="margin-top:28px"><a class="cta" href="apply/">申请加入 →</a></p>
     </div>
   </section>
 
@@ -284,23 +283,23 @@
       <h2 class="center">FAQ</h2>
       <div class="faq">
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">如何加入？<span class="chev" aria-hidden="true"></span></button>
-          <div class="faq-a"><div class="inner">完成注册与付费后，最迟 24 小时内你会收到邮件发送的 Discord 邀请链接，并被授予会员身份，即可进入会员专属频道。整个流程清晰、开通自动。</div></div>
+          <button class="faq-q" aria-expanded="false">如何加入？审核会问什么？<span class="chev" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="inner">在<a href="apply/">申请页</a>填一份只有 4 个小问题的申请表（3 分钟填完），我们会在 2 个工作日内邮件回复。通过后你会收到付款方式与 Discord 邀请。</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">支持哪些支付方式？<span class="chev" aria-hidden="true"></span></button>
-          <div class="faq-a"><div class="inner">支付流程清晰、可追溯。具体可用的支付方式以加入页面展示为准，续费也按同一套流程进行。</div></div>
+          <button class="faq-q" aria-expanded="false">我是新手，适合加入吗？<span class="chev" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="inner">适合。社区看重的是交流本身——背景各异的伙伴互相分享经历、彼此启发，认真参与比经验深浅更重要。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">社区里都聊些什么？<span class="chev" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="inner">生活兴趣、读书学习、技能分享、市场观察四类并列板块，大家以个人经历和见解交流。共同的约定见<a href="legal/guidelines.html">社区公约</a>。</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">可以退款吗？<span class="chev" aria-hidden="true"></span></button>
           <div class="faq-a"><div class="inner">退款相关说明以 <a href="legal/tos.html">服务条款</a> 与 <a href="legal/tokushoho.html">特定商取引法に基づく表記</a> 为准，请在加入前阅读。</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">市场板块是投资建议吗？<span class="chev" aria-hidden="true"></span></button>
-          <div class="faq-a"><div class="inner">不是。运营方提供的是交流环境与社区服务，本身不提供任何投资建议。社区里每个人的发言均为其个人见解，不代表运营方；涉及市场的内容仅供交流学习，不构成投资建议，投资决策请独立判断、自负其责。任何过往记录仅供参考，不预示未来表现。</div></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">如何退订？<span class="chev" aria-hidden="true"></span></button>
+          <button class="faq-q" aria-expanded="false">如何退出？<span class="chev" aria-hidden="true"></span></button>
           <div class="faq-a"><div class="inner">会员可随时停止续费，到期后会员身份自然结束，不会自动扣费续期。账户与订阅管理入口（<a href="account/">会员中心</a>）正在完善中。</div></div>
         </div>
         <div class="faq-item">
@@ -316,13 +315,14 @@
     <div class="container">
       <h2>准备好，加入我们了吗？</h2>
       <p>把生活、学习、兴趣，聊到一起。来 Lighthouse Club，认识一群同频的人。</p>
-      <a class="cta lg" href="#join" data-stripe-link>加入社区 →</a>
+      <a class="cta lg" href="apply/">申请加入 →</a>
     </div>
   </section>
 
   </main>
 
   <!-- ============ Footer ============ -->
+  <!-- FOOTER:v1 START -->
   <footer>
     <div class="container">
       <div class="footer-top">
@@ -331,38 +331,32 @@
             <img src="assets/img/lighthouse.svg" alt="">
             <span class="en">Lighthouse Club</span>
           </div>
-          <div class="op">
-            運営：<a href="https://sync-value.com/" style="color:inherit">シンクバリュー株式会社（Syncvalue Inc.）</a><br>
-            日本法人が運営する中国語話者向け会費制オンラインコミュニティ（オンラインサロン）<br>
-            会社情報：<a href="https://sync-value.com/" style="color:inherit">sync-value.com</a> ・ お問い合わせ：<a href="mailto:hello@sync-value.com" style="color:inherit">hello@sync-value.com</a><br>
-            <a href="about-en.html" style="color:inherit">English</a> ・ <a href="about-ja.html" style="color:inherit">日本語</a>
-          </div>
+          <div class="op">把生活、学习、兴趣，聊到一起的多元交流社区。</div>
         </div>
         <div class="footer-col">
           <h4>社区</h4>
-          <a href="#about">关于</a>
-          <a href="#benefits">会员价值</a>
-          <a href="#inside">社区板块</a>
-          <a href="#pricing">价格</a>
-          <a href="#faq">FAQ</a>
+          <a href="index.html#about">关于</a>
+          <a href="index.html#benefits">会员价值</a>
+          <a href="index.html#pricing">价格</a>
+          <a href="index.html#faq">FAQ</a>
+          <a href="apply/">申请加入</a>
         </div>
         <div class="footer-col">
-          <h4>法律与联系</h4>
-          <a href="legal/tos.html">服务条款</a>
-          <a href="legal/guidelines.html">社区公约</a>
-          <a href="legal/privacy.html">隐私政策</a>
-          <a href="legal/tokushoho.html">特定商取引法に基づく表記</a>
+          <h4>支持</h4>
           <a href="account/">会员中心 / 登录</a>
           <a href="mailto:hello@sync-value.com">hello@sync-value.com</a>
-          <a href="https://sync-value.com/#contact">联系我们 / お問い合わせ</a>
         </div>
       </div>
+      <div class="footer-legal">
+        <a href="legal/tos.html">服务条款</a><span class="sep">·</span><a href="legal/guidelines.html">社区公约</a><span class="sep">·</span><a href="legal/privacy.html">隐私政策</a><span class="sep">·</span><a href="legal/tokushoho.html">特定商取引法に基づく表記</a>
+      </div>
       <div class="footer-bottom">
-        <span>&copy; <span id="year">2026</span> シンクバリュー株式会社（Syncvalue Inc.）</span>
-        <span>Lighthouse Club</span>
+        <span>&copy; 2026 Syncvalue Inc.</span>
+        <span>運営会社：<a href="https://sync-value.com/">シンクバリュー株式会社</a></span>
       </div>
     </div>
   </footer>
+  <!-- FOOTER:v1 END -->
 
   <script src="assets/js/main.js"></script>
 </body>

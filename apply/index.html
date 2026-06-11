@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>申请加入 — Lighthouse Club</title>
+  <meta name="description" content="申请加入 Lighthouse Club——把生活、学习、兴趣，聊到一起的多元交流社区。">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/lighthouse.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Lighthouse Club 首页">
+        <img class="logo" src="../assets/img/lighthouse.svg" alt="">
+        <span class="name"><span class="en">Lighthouse Club</span><span class="tag">多元交流社区</span></span>
+      </a>
+      <div class="header-cta">
+        <a class="cta sm ghost" href="../index.html">回到首页</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="subpage">
+    <div class="container apply-wrap">
+      <a class="back-link" href="../index.html">← 返回首页</a>
+      <h1>申请加入 Lighthouse Club</h1>
+      <p>我们刻意保持小规模——每一位成员的申请都会被认真阅读，以保证讨论的质量和社区的氛围。提交后 <strong>2 个工作日内</strong>，我们会把结果回复到你的邮箱；通过后你会收到付款方式、Discord 邀请与入门指引。</p>
+
+      <form id="apply-form" action="https://formspree.io/f/xdavnypw" method="POST">
+        <input type="hidden" name="_subject" value="Lighthouse Club 入会申请">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="form-field">
+          <label for="f-name">怎么称呼你？</label>
+          <input type="text" id="f-name" name="name" required placeholder="昵称或称呼">
+        </div>
+        <div class="form-field">
+          <label for="f-email">邮箱</label>
+          <input type="email" id="f-email" name="email" required placeholder="you@example.com">
+          <div class="hint">审核结果将发送到这个邮箱，请确认无误。</div>
+        </div>
+        <div class="form-field">
+          <label for="f-motivation">一句话：你希望从社区获得什么？</label>
+          <textarea id="f-motivation" name="motivation" required placeholder="随便聊聊——交朋友、学东西、找个能安心说话的地方，都可以"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="f-source">从哪里了解到我们？<span style="font-weight:400">（选填）</span></label>
+          <input type="text" id="f-source" name="source" placeholder="朋友推荐 / 社交媒体 / 其他">
+        </div>
+        <div class="form-actions">
+          <button class="cta" type="submit" id="apply-submit">提交申请</button>
+          <p class="fine">提交即表示同意 <a href="../legal/tos.html">服务条款</a> 与 <a href="../legal/privacy.html">隐私政策</a></p>
+          <p class="form-error" id="apply-error">提交没有成功，请稍后再试，或直接发邮件到 <a href="mailto:hello@sync-value.com">hello@sync-value.com</a>。</p>
+        </div>
+      </form>
+
+      <div class="form-success" id="apply-success">
+        <h2 style="margin-top:0">已收到你的申请 🎉</h2>
+        <p>我们会认真阅读每一份申请，并在 <strong>2 个工作日内</strong>回复到你的邮箱，请留意收件箱（包括垃圾箱）。</p>
+        <p style="margin-bottom:0"><a href="../index.html">← 回到首页</a></p>
+      </div>
+
+      <div class="apply-note">
+        <strong>加入须知</strong><br>
+        加入即表示同意<a href="../legal/guidelines.html">社区公约</a>：分享经历胜过给结论、互相尊重、不传播会员专属内容。会员费 $180 / 3 个月，审核通过后我们会在邮件中说明付款方式——到期不自动扣款，续费始终由你决定。
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER:v1 START -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="fb-name">
+            <img src="../assets/img/lighthouse.svg" alt="">
+            <span class="en">Lighthouse Club</span>
+          </div>
+          <div class="op">把生活、学习、兴趣，聊到一起的多元交流社区。</div>
+        </div>
+        <div class="footer-col">
+          <h4>社区</h4>
+          <a href="../index.html#about">关于</a>
+          <a href="../index.html#benefits">会员价值</a>
+          <a href="../index.html#pricing">价格</a>
+          <a href="../index.html#faq">FAQ</a>
+          <a href="../apply/">申请加入</a>
+        </div>
+        <div class="footer-col">
+          <h4>支持</h4>
+          <a href="../account/">会员中心 / 登录</a>
+          <a href="mailto:hello@sync-value.com">hello@sync-value.com</a>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <a href="../legal/tos.html">服务条款</a><span class="sep">·</span><a href="../legal/guidelines.html">社区公约</a><span class="sep">·</span><a href="../legal/privacy.html">隐私政策</a><span class="sep">·</span><a href="../legal/tokushoho.html">特定商取引法に基づく表記</a>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Syncvalue Inc.</span>
+        <span>運営会社：<a href="https://sync-value.com/">シンクバリュー株式会社</a></span>
+      </div>
+    </div>
+  </footer>
+  <!-- FOOTER:v1 END -->
+
+  <script>
+    (function () {
+      var form = document.getElementById('apply-form');
+      var success = document.getElementById('apply-success');
+      var error = document.getElementById('apply-error');
+      var btn = document.getElementById('apply-submit');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        error.style.display = 'none';
+        btn.disabled = true;
+        btn.textContent = '提交中…';
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        }).then(function (res) {
+          if (res.ok) {
+            form.style.display = 'none';
+            success.style.display = 'block';
+            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else { throw new Error('bad status'); }
+        }).catch(function () {
+          error.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = '提交申请';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

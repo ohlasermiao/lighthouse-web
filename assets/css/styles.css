@@ -398,3 +398,26 @@ table.profile th { width: 32%; color: var(--ink); font-weight: 600; white-space:
   table.profile th, table.profile td { display: block; width: 100%; padding: 6px 0; border-bottom: none; }
   table.profile td { padding-bottom: 16px; border-bottom: 1px solid var(--line); }
 }
+
+/* ============ Footer legal row (FOOTER:v1) ============ */
+.footer-legal { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.08); font-size: .85rem; }
+.footer-legal a { color: #93a1b8; transition: color .2s; }
+.footer-legal a:hover { color: var(--gold); }
+.footer-legal .sep { margin: 0 10px; color: #4a586e; }
+
+/* ============ Apply form ============ */
+.apply-wrap { max-width: 580px; }
+.apply-note { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-md); padding: 18px 20px; font-size: .9rem; color: var(--ink-2, inherit); margin: 26px 0; line-height: 1.8; }
+.form-field { margin-bottom: 22px; }
+.form-field label { display: block; font-weight: 600; font-size: .92rem; margin-bottom: 8px; }
+.form-field .hint { font-size: .8rem; color: var(--ink-3); margin-top: 6px; }
+.form-field input, .form-field textarea {
+  width: 100%; padding: 12px 14px; box-sizing: border-box;
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+  font-family: var(--font-sans); font-size: .95rem; color: var(--ink); background: var(--surface);
+}
+.form-field input:focus-visible, .form-field textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.form-field textarea { min-height: 120px; resize: vertical; }
+.form-actions .fine { margin-top: 12px; font-size: .8rem; color: var(--ink-3); }
+.form-success { display: none; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-md); padding: 28px; line-height: 2; }
+.form-error { display: none; color: #b3413f; font-size: .88rem; margin-top: 10px; }

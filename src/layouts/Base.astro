@@ -46,13 +46,17 @@ const { title, description = 'Lighthouse Club — 全球华人青年的会员制
       const open = nav?.classList.toggle('open');
       toggle.setAttribute('aria-expanded', String(!!open));
     });
-    // FAQ 手风琴
+    // FAQ 手风琴（折叠内容用 inert 移出焦点序列与可访问树）
+    document.querySelectorAll('.faq-a').forEach((a) => a.toggleAttribute('inert', true));
     document.querySelectorAll('.faq-q').forEach((q) => {
       q.addEventListener('click', () => {
         const expanded = q.getAttribute('aria-expanded') === 'true';
         const a = q.nextElementSibling as HTMLElement | null;
         q.setAttribute('aria-expanded', String(!expanded));
-        if (a) a.style.maxHeight = expanded ? '0' : a.scrollHeight + 'px';
+        if (a) {
+          a.style.maxHeight = expanded ? '0' : a.scrollHeight + 'px';
+          a.toggleAttribute('inert', expanded);
+        }
       });
     });
     // 滚动浮现

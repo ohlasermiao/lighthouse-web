@@ -279,7 +279,7 @@ footer.site { background: var(--night-950); color: var(--moon-3); font-size: .9r
 .footer-legal a { color: var(--moon-3); }
 .footer-legal a:hover { color: var(--gold-soft); }
 .footer-legal .sep { margin: 0 10px; color: var(--night-700); }
-.footer-bottom { padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: .82rem; color: #5c6e8c; }
+.footer-bottom { padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: .82rem; color: #7488a6; }
 .footer-bottom a { color: var(--moon-3); }
 .footer-bottom a:hover { color: var(--gold-soft); }
 

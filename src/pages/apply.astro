@@ -13,11 +13,11 @@ import Base from '../layouts/Base.astro';
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="form-field">
           <label for="f-name">怎么称呼你？</label>
-          <input type="text" id="f-name" name="name" required placeholder="昵称或称呼" />
+          <input type="text" id="f-name" name="name" required placeholder="昵称或称呼" autocomplete="nickname" />
         </div>
         <div class="form-field">
           <label for="f-email">邮箱</label>
-          <input type="email" id="f-email" name="email" required placeholder="you@example.com" />
+          <input type="email" id="f-email" name="email" required placeholder="you@example.com" autocomplete="email" />
           <div class="hint">审核结果将发送到这个邮箱，请确认无误。</div>
         </div>
         <div class="form-field">

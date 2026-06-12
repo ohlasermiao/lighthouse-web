@@ -19,6 +19,13 @@ const { title, description = 'Lighthouse Club — 全球华人青年的会员制
   <title>{title}</title>
   <meta name="description" content={description} />
   {noindex && <meta name="robots" content="noindex" />}
+  <meta name="theme-color" content="#060c1c" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lighthouse Club" />
+  <meta property="og:url" content={Astro.url} />
+  <meta name="twitter:card" content="summary" />
   <link rel="icon" type="image/svg+xml" href="/assets/img/lighthouse.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

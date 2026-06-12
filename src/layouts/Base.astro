@@ -1,0 +1,58 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  lang?: string;
+}
+const { title, description = 'Lighthouse Club — 全球华人青年的会员制交流社区。', noindex = false, lang = 'zh-CN' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <link rel="icon" type="image/svg+xml" href="/assets/img/lighthouse.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <Header />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+  <script>
+    // 移动端导航
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('nav.primary');
+    toggle?.addEventListener('click', () => {
+      const open = nav?.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(!!open));
+    });
+    // FAQ 手风琴
+    document.querySelectorAll('.faq-q').forEach((q) => {
+      q.addEventListener('click', () => {
+        const expanded = q.getAttribute('aria-expanded') === 'true';
+        const a = q.nextElementSibling as HTMLElement | null;
+        q.setAttribute('aria-expanded', String(!expanded));
+        if (a) a.style.maxHeight = expanded ? '0' : a.scrollHeight + 'px';
+      });
+    });
+    // 滚动浮现
+    const io = new IntersectionObserver((es) => {
+      es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

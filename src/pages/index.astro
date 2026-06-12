@@ -1,0 +1,231 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Lighthouse Club — 在时代的海上，找到同航的人" description="全球华人青年的会员制交流社区：AI、出海、留学、职业、生活——分享真实经验，交换一手观察，在彼此身上看见光。">
+
+  <!-- ============ Hero ============ -->
+  <div class="night">
+    <svg class="stars" width="100%" height="100%" aria-hidden="true">
+      <circle cx="8%" cy="18%" r="1.4" fill="#fff" opacity=".7"/>
+      <circle cx="16%" cy="64%" r="1" fill="#fff" opacity=".4"/>
+      <circle cx="23%" cy="32%" r="1.2" fill="#7cd4e5" opacity=".6"/>
+      <circle cx="36%" cy="12%" r="1" fill="#fff" opacity=".5"/>
+      <circle cx="44%" cy="42%" r="1.6" fill="#ffd89b" opacity=".55"/>
+      <circle cx="55%" cy="20%" r="1" fill="#fff" opacity=".45"/>
+      <circle cx="63%" cy="70%" r="1.2" fill="#a78bfa" opacity=".5"/>
+      <circle cx="72%" cy="34%" r="1" fill="#fff" opacity=".6"/>
+      <circle cx="81%" cy="58%" r="1.4" fill="#7cd4e5" opacity=".5"/>
+      <circle cx="90%" cy="22%" r="1.1" fill="#fff" opacity=".5"/>
+      <circle cx="95%" cy="76%" r="1" fill="#ffd89b" opacity=".4"/>
+      <circle cx="30%" cy="82%" r="1" fill="#fff" opacity=".35"/>
+    </svg>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">全球华人青年 · 会员制社区</span>
+          <h1 class="hero-title">在时代的海上，<br />找到<span class="light">同航的人</span></h1>
+          <p class="hero-sub">AI、出海、留学、新职业、新机会——浪一波接一波，一个人看不过来。Lighthouse Club 聚集了 700+ 位认真生活的华人青年：分享真实经验，交换一手观察，在彼此身上看见光。</p>
+          <div class="hero-actions">
+            <a class="btn gold lg" href="/apply/">申请加入 →</a>
+            <a class="btn ghost-night lg" href="#about">这里是什么</a>
+          </div>
+          <div class="hero-trust">
+            <span class="t"><b>700+</b>付费会员</span>
+            <span class="t"><b>7</b>大板块</span>
+            <span class="t"><b>每日</b>活跃交流</span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="灯塔">
+            <defs>
+              <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#ffd89b" stop-opacity="0"/>
+                <stop offset=".5" stop-color="#ffd89b" stop-opacity=".5"/>
+                <stop offset="1" stop-color="#ffd89b" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="tower" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#f4f6fb"/>
+                <stop offset="1" stop-color="#c7d2e4"/>
+              </linearGradient>
+            </defs>
+            <g style="transform-origin:120px 78px" class="beam-rot">
+              <polygon points="120,72 -150,30 -150,126" fill="url(#beam)"/>
+            </g>
+            <circle cx="120" cy="76" r="10" fill="#ffd89b">
+              <animate attributeName="opacity" values="1;.55;1" dur="2.6s" repeatCount="indefinite"/>
+            </circle>
+            <rect x="106" y="88" width="28" height="14" rx="3" fill="#0e1b38" stroke="#2c4366"/>
+            <path d="M104 102 L136 102 L148 246 L92 246 Z" fill="url(#tower)"/>
+            <rect x="98" y="128" width="44" height="18" fill="#e8a94a" opacity=".9"/>
+            <rect x="96" y="168" width="50" height="18" fill="#e8a94a" opacity=".9"/>
+            <rect x="93" y="208" width="56" height="18" fill="#e8a94a" opacity=".9"/>
+            <path d="M60 252 Q90 242 120 252 T180 252" fill="none" stroke="#7cd4e5" stroke-width="2" opacity=".55"/>
+            <path d="M48 266 Q86 254 124 266 T196 264" fill="none" stroke="#a78bfa" stroke-width="2" opacity=".3"/>
+            <path d="M40 280 Q90 268 140 280 T236 278" fill="none" stroke="#7cd4e5" stroke-width="2" opacity=".25"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+    <svg class="contour" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true" style="height:70px">
+      <path d="M0,40 C240,70 480,8 720,32 C960,56 1200,14 1440,42 L1440,70 L0,70 Z" fill="#faf8f3"/>
+    </svg>
+  </div>
+
+  <!-- ============ 宣言 / 关于 ============ -->
+  <section class="block" id="about">
+    <div class="container">
+      <div class="sec-label">为什么是灯塔</div>
+      <div class="manifesto">
+        <blockquote class="reveal">
+          人在海上，最怕的不是浪大，<br />
+          是不知道<em>光</em>在哪里。<br />
+          我们把各自看到的光带到一起——<br />
+          就没有谁是独自在航行。
+        </blockquote>
+        <p class="origin reveal">Lighthouse Club 最初由创作者 Nunu 建立，2026 年起由日本公司 Syncvalue 正式运营。从一个聊天群，到 700+ 人的会员社区，这里一直在做同一件事：让认真生活的华人青年，在变化的时代里互相照亮。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 板块 ============ -->
+  <section class="block alt" id="inside">
+    <div class="container">
+      <div class="sec-label">社区板块</div>
+      <h2 class="sec-title">大家都在聊什么</h2>
+      <p class="sec-lead">七大板块随社区一起生长，在你感兴趣的频道随心参与，不被单一话题绑定。</p>
+      <div class="grid cols-4">
+        <div class="card hue-star reveal"><span class="chip">🤖</span><h3>AI · 科技前沿</h3><p>新工具、新玩法、新机会——谁先用上，谁先看懂下一波。</p></div>
+        <div class="card hue-gold reveal"><span class="chip">✈️</span><h3>留学 · 出海</h3><p>申请、签证、落地生活的一手经验，少走别人走过的弯路。</p></div>
+        <div class="card hue-leaf reveal"><span class="chip">💼</span><h3>职业 · 机会</h3><p>实习、求职、副业与行业观察，把机会聊给彼此听。</p></div>
+        <div class="card hue-tide reveal"><span class="chip">🌱</span><h3>生活 · 兴趣</h3><p>城市、美食、爱好与日常，轻松认识同频的人。</p></div>
+        <div class="card hue-gold reveal"><span class="chip">📚</span><h3>学习 · 成长</h3><p>读书、技能、经验交流——把彼此的所学带到一起。</p></div>
+        <div class="card hue-star reveal"><span class="chip">📈</span><h3>市场观察</h3><p>聊聊行情、宏观与身边的经济话题，交换彼此的观察。</p></div>
+        <div class="card hue-tide reveal"><span class="chip">🔮</span><h3>玄学 · 塔罗周易</h3><p>东西方的神秘文化，给日常添一点好奇与乐趣。</p></div>
+        <div class="card hue-leaf reveal"><span class="chip">✨</span><h3>新板块孵化中</h3><p>板块由社区共同生长——你想聊的话题，可能就是下一个板块。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 数字 ============ -->
+  <section class="block">
+    <div class="container center">
+      <div class="sec-label center">社群</div>
+      <h2 class="sec-title">一群认真生活、乐于交流的人</h2>
+      <p class="sec-lead" style="margin-inline:auto">来自世界各地的华人青年，因为同样的好奇心聚在一起。</p>
+      <div class="stats">
+        <div class="stat reveal"><div class="num">700+</div><div class="lab">付费会员</div></div>
+        <div class="stat reveal"><div class="num">7</div><div class="lab">大板块</div></div>
+        <div class="stat reveal"><div class="num">每日</div><div class="lab">持续的交流氛围</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 会员价值 ============ -->
+  <section class="block alt" id="benefits">
+    <div class="container">
+      <div class="sec-label">会员价值</div>
+      <h2 class="sec-title">加入后，你会得到什么</h2>
+      <p class="sec-lead">不只是一个群——是一群人、一套让你安心参与的会员体验。</p>
+      <div class="grid cols-4">
+        <div class="card hue-gold reveal"><span class="chip">💬</span><h3>七大板块，随心交流</h3><p>从 AI 到塔罗，在你感兴趣的频道随心参与，认识各行各业的同路人。</p></div>
+        <div class="card hue-star reveal"><span class="chip">🔒</span><h3>会员专属频道</h3><p>和认真参与的伙伴在一起，氛围更纯粹，讨论更有质量。</p></div>
+        <div class="card hue-leaf reveal"><span class="chip">🛎️</span><h3>不被悄悄扣费</h3><p>到期前我们会提醒你，续费与否始终由你决定——不自动扣款。</p></div>
+        <div class="card hue-tide reveal"><span class="chip">💳</span><h3>透明的会员状态</h3><p>加入与续费流程清晰透明，你的会员状态随时可查，随时可停。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 价格 ============ -->
+  <section class="block" id="pricing">
+    <div class="container center">
+      <div class="sec-label center">价格</div>
+      <h2 class="sec-title">简单透明的会员制</h2>
+      <p class="sec-lead" style="margin-inline:auto">一个价格，解锁全部板块与会员频道。</p>
+      <div class="price-card reveal">
+        <div class="plan">季度会员</div>
+        <div class="amount"><span class="cur">$</span><span class="val">180</span><span class="per">/ 3 个月</span></div>
+        <div class="note">约合每月 $60 · 价格不含税（适用税率因国家/地区而异）<br />到期不自动扣款，续费需本人确认 · 随时可停</div>
+        <ul>
+          <li>全部会员板块与专属频道</li>
+          <li>审核通过后即可加入全部会员频道</li>
+          <li>到期前提醒续费，不自动扣款</li>
+          <li>账户与订阅记录透明可查</li>
+        </ul>
+        <a class="btn gold lg" href="/apply/" style="width:100%">申请加入</a>
+        <p class="fine">审核通过后我们会在邮件中说明付款方式 · 到期可续，随时可停</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 如何加入 ============ -->
+  <section class="block alt" id="join">
+    <div class="container">
+      <div class="sec-label">如何加入</div>
+      <h2 class="sec-title">三步，上船</h2>
+      <p class="sec-lead">我们认真对待每一份申请，保证社区的讨论质量与氛围。</p>
+      <div class="steps">
+        <div class="step reveal"><div class="n">1</div><h3>提交申请</h3><p>填写申请表，告诉我们你希望从社区获得什么——只有 4 个小问题，3 分钟填完。</p></div>
+        <div class="step reveal"><div class="n">2</div><h3>人工审核</h3><p>我们会认真阅读每一份申请，2 个工作日内邮件回复结果。</p></div>
+        <div class="step reveal"><div class="n">3</div><h3>收到邀请</h3><p>通过后你会收到付款方式、Discord 邀请与入门指引，加入全部会员频道。</p></div>
+      </div>
+      <p class="center" style="margin-top:36px"><a class="btn gold" href="/apply/">申请加入 →</a></p>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="block" id="faq">
+    <div class="container">
+      <h2 class="sec-title center">常见问题</h2>
+      <div class="faq" style="margin-top:40px">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">如何加入？审核会问什么？<span class="chev" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="inner">在<a href="/apply/">申请页</a>填一份只有 4 个小问题的申请表（3 分钟填完），我们会在 2 个工作日内邮件回复。通过后你会收到付款方式与 Discord 邀请。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">我是新手 / 还是学生，适合加入吗？<span class="chev" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="inner">适合。社区看重的是交流本身——背景各异的伙伴互相分享经历、彼此启发，认真参与比资历深浅更重要。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">社区里都聊些什么？<span class="chev" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="inner">AI 科技、留学出海、职业机会、生活兴趣、学习成长、市场观察、玄学塔罗——七大板块随社区生长。共同的约定见<a href="/legal/guidelines/">社区公约</a>。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">可以退款吗？<span class="chev" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="inner">退款相关说明以<a href="/legal/tos/">服务条款</a>与<a href="/legal/tokushoho/">特定商取引法に基づく表記</a>为准，请在加入前阅读。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">如何退出？<span class="chev" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="inner">会员可随时停止续费，到期后会员身份自然结束，不会自动扣费续期。账户与订阅管理入口（<a href="/account/">会员中心</a>）正在完善中。</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">遇到问题怎么联系我们？<span class="chev" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="inner">任何关于会员、付款或社区的问题，发邮件到 <a href="mailto:hello@sync-value.com">hello@sync-value.com</a>，或在社区内通过官方渠道联系管理团队。我们会尽快回复。</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Final CTA ============ -->
+  <div class="night flip">
+    <svg class="stars" width="100%" height="100%" aria-hidden="true">
+      <circle cx="12%" cy="30%" r="1.3" fill="#fff" opacity=".6"/>
+      <circle cx="28%" cy="68%" r="1" fill="#7cd4e5" opacity=".5"/>
+      <circle cx="46%" cy="22%" r="1.5" fill="#ffd89b" opacity=".55"/>
+      <circle cx="66%" cy="60%" r="1" fill="#fff" opacity=".45"/>
+      <circle cx="84%" cy="28%" r="1.2" fill="#a78bfa" opacity=".5"/>
+    </svg>
+    <section class="final-cta">
+      <div class="container">
+        <h2>浪还在涨，灯一直亮着</h2>
+        <p>来 Lighthouse Club，和 700+ 位同航的人一起看见光。</p>
+        <a class="btn gold lg" href="/apply/">申请加入 →</a>
+      </div>
+    </section>
+  </div>
+
+</Base>
+
+<style>
+  .beam-rot { animation: sweep 9s ease-in-out infinite alternate; }
+  @keyframes sweep { from { transform: rotate(-7deg); } to { transform: rotate(10deg); } }
+</style>

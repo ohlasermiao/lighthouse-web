@@ -1,0 +1,69 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="入会申請 — Lighthouse Club" description="Lighthouse Club への入会申請。" lang="ja" routeKey="apply">
+  <div class="subpage">
+    <div class="container apply-wrap">
+      <a class="back-link" href="/ja/">← トップに戻る</a>
+      <h1>Lighthouse Club 入会申請</h1>
+      <p style="margin-bottom:28px">私たちはあえて小規模を保っています——すべての申請に人の目を通し、議論の質と雰囲気を守るためです。提出後 <strong>2 営業日以内</strong>にメールで結果をお知らせします。通過された方には、お支払い方法・Discord 招待・スタートガイドをお送りします。なお、コミュニティ内の会話は中国語です。</p>
+
+      <form id="apply-form" action="https://formspree.io/f/mqeoygjz" method="POST">
+        <input type="hidden" name="_subject" value="Lighthouse Club 入会申請 (JA)" />
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="form-field">
+          <label for="f-name">お名前（ニックネーム可）</label>
+          <input type="text" id="f-name" name="name" required placeholder="お呼びする名前" autocomplete="nickname" />
+        </div>
+        <div class="form-field">
+          <label for="f-email">メールアドレス</label>
+          <input type="email" id="f-email" name="email" required placeholder="you@example.com" autocomplete="email" />
+          <div class="hint">審査結果はこのアドレスにお送りします。</div>
+        </div>
+        <div class="form-field">
+          <label for="f-motivation">一言：コミュニティに何を期待しますか？</label>
+          <textarea id="f-motivation" name="motivation" required placeholder="友人づくり、学び、方向探し——何でも構いません"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="f-source">どこで知りましたか？<span style="font-weight:400">（任意）</span></label>
+          <input type="text" id="f-source" name="source" placeholder="友人の紹介 / SNS / その他" />
+        </div>
+        <div class="form-actions">
+          <button class="btn gold" type="submit" id="apply-submit">申請を送信</button>
+          <p class="fine">送信をもって<a href="/legal/tos/">利用規約</a>と<a href="/legal/privacy/">プライバシーポリシー</a>（中文・正文）に同意したものとみなします</p>
+          <p class="form-error" id="apply-error">送信に失敗しました。時間をおいて再度お試しいただくか、<a href="/ja/contact/">お問い合わせ</a>よりご連絡ください。</p>
+        </div>
+      </form>
+
+      <div class="form-success" id="apply-success">
+        <h2 style="margin-top:0">申請を受け付けました 🎉</h2>
+        <p><strong>2 営業日以内</strong>にメールでご連絡します。受信箱（迷惑メールフォルダ含む）をご確認ください。</p>
+        <p style="margin-bottom:0"><a href="/ja/">← トップに戻る</a></p>
+      </div>
+
+      <div class="apply-note">
+        <strong>入会にあたって</strong><br />
+        入会は<a href="/legal/guidelines/">コミュニティガイドライン（中文）</a>への同意を意味します。会費は $180／3ヶ月。お支払い方法は審査通過後にご案内します——自動課金はなく、更新は常にご本人の判断です。
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('apply-form') as HTMLFormElement;
+    const success = document.getElementById('apply-success')!;
+    const error = document.getElementById('apply-error')!;
+    const btn = document.getElementById('apply-submit') as HTMLButtonElement;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      (error as HTMLElement).style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = '送信中…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then((res) => {
+          if (res.ok) { form.style.display = 'none'; (success as HTMLElement).style.display = 'block'; success.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+          else throw new Error('bad status');
+        })
+        .catch(() => { (error as HTMLElement).style.display = 'block'; btn.disabled = false; btn.textContent = '申請を送信'; });
+    });
+  </script>
+</Base>

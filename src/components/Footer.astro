@@ -1,5 +1,11 @@
 ---
+import { getLangFromUrl, useT, langPrefix } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useT(lang);
+const p = langPrefix[lang];
 const year = 2026;
+const tagline = useT(lang)('footer.tagline').split('\n');
 ---
 <footer class="site">
   <div class="container">
@@ -9,28 +15,29 @@ const year = 2026;
           <img src="/assets/img/lighthouse.svg" alt="" width="28" height="28" />
           <span class="en">Lighthouse Club</span>
         </div>
-        <div class="op">在时代的海上，和同航的人一起看见光。<br />全球华人青年的会员制交流社区。</div>
+        <div class="op">{tagline[0]}<br />{tagline[1]}</div>
       </div>
       <div class="footer-col">
-        <h4>社区</h4>
-        <a href="/#about">关于</a>
-        <a href="/#inside">板块</a>
-        <a href="/#pricing">价格</a>
-        <a href="/#faq">FAQ</a>
-        <a href="/apply/">申请加入</a>
+        <h4>{t('footer.community')}</h4>
+        <a href={lang === 'zh' ? '/about/' : p + '/about/'}>{t('nav.about')}</a>
+        {lang === 'zh' && <a href="/inside/">{t('nav.inside')}</a>}
+        <a href={lang === 'zh' ? '/pricing/' : p + '/pricing/'}>{t('nav.pricing')}</a>
+        {lang === 'zh' && <a href="/faq/">{t('nav.faq')}</a>}
+        <a href={lang === 'zh' ? '/apply/' : p + '/apply/'}>{t('nav.apply')}</a>
       </div>
       <div class="footer-col">
-        <h4>支持</h4>
-        <a href="/account/">会员中心 / 登录</a>
-        <a href="mailto:hello@sync-value.com">hello@sync-value.com</a>
+        <h4>{t('footer.support')}</h4>
+        <a href="/account/">{t('footer.account')}</a>
+        <a href={lang === 'zh' ? '/contact/' : p + '/contact/'}>{t('footer.contact')}</a>
+        <a href="/news/">{t('footer.news')}</a>
       </div>
     </div>
     <div class="footer-legal">
-      <a href="/legal/tos/">服务条款</a><span class="sep">·</span><a href="/legal/guidelines/">社区公约</a><span class="sep">·</span><a href="/legal/privacy/">隐私政策</a><span class="sep">·</span><a href="/legal/tokushoho/">特定商取引法に基づく表記</a>
+      <a href="/legal/tos/">{t('legal.tos')}</a><span class="sep">·</span><a href="/legal/guidelines/">{t('legal.guidelines')}</a><span class="sep">·</span><a href="/legal/privacy/">{t('legal.privacy')}</a><span class="sep">·</span><a href="/legal/tokushoho/">{t('legal.tokushoho')}</a>
     </div>
     <div class="footer-bottom">
       <span>&copy; {year} Syncvalue Inc.</span>
-      <span>運営会社：<a href="https://sync-value.com/" rel="noopener noreferrer">シンクバリュー株式会社</a></span>
+      <span>{t('footer.operator')}：<a href="https://sync-value.com/" rel="noopener noreferrer">シンクバリュー株式会社</a></span>
     </div>
   </div>
 </footer>

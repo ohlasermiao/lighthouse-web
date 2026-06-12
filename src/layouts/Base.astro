@@ -8,8 +8,9 @@ interface Props {
   description?: string;
   noindex?: boolean;
   lang?: string;
+  routeKey?: string;
 }
-const { title, description = 'Lighthouse Club — 全球华人青年的会员制交流社区。', noindex = false, lang = 'zh-CN' } = Astro.props;
+const { title, description = 'Lighthouse Club — 全球华人青年的会员制交流社区。', noindex = false, lang = 'zh-CN', routeKey } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -33,7 +34,7 @@ const { title, description = 'Lighthouse Club — 全球华人青年的会员制
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <Header />
+  <Header routeKey={routeKey} />
   <main id="main">
     <slot />
   </main>

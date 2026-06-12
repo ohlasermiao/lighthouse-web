@@ -363,3 +363,29 @@ table.profile th { width: 30%; font-weight: 700; white-space: nowrap; }
     radial-gradient(900px 700px at 18% 30%, rgba(167, 139, 250, .10), transparent 55%),
     linear-gradient(180deg, var(--night-800) 0%, var(--night-900) 45%, var(--night-950) 100%);
 }
+
+/* ============ 语言切换器 ============ */
+.lang-switch { display: flex; align-items: center; gap: 10px; font-size: .8rem; }
+.lang-switch a { color: var(--moon-3); transition: color .2s; }
+.lang-switch a:hover { color: var(--gold-soft); }
+.lang-switch .cur { color: var(--gold-soft); font-weight: 700; }
+@media (max-width: 680px) { .lang-switch { display: none; } }
+
+/* ============ 区块尾部「了解更多」链接 ============ */
+.more-link { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: .95rem; color: var(--gold-deep); margin-top: 26px; }
+.more-link:hover { color: var(--gold); }
+
+/* ============ 公告列表 ============ */
+.news-list { max-width: 760px; }
+.news-item { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: 24px 28px; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+.news-item .date { font-size: .8rem; color: var(--ink-3); letter-spacing: .04em; }
+.news-item h3 { font-size: 1.08rem; margin: 6px 0 8px; }
+.news-item p { color: var(--ink-2); font-size: var(--fs-sm); }
+.news-pin { border-color: rgba(255,195,107,.5); background: linear-gradient(180deg, rgba(255,195,107,.06), var(--card)); }
+
+/* ============ 板块详情 ============ */
+.board-row { display: grid; grid-template-columns: 56px 1fr; gap: 18px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+.board-row .chip { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; background: var(--paper-2); }
+.board-row h3 { font-size: 1.12rem; margin-bottom: 6px; }
+.board-row p { color: var(--ink-2); font-size: var(--fs-sm); margin-bottom: 4px; }
+.board-row .eg { font-size: .82rem; color: var(--ink-3); }

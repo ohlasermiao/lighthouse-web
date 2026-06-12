@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="联系我们 — Lighthouse Club" description="联系 Lighthouse Club 运营团队。" routeKey="contact">
+  <div class="subpage">
+    <div class="container apply-wrap">
+      <a class="back-link" href="/">← 返回首页</a>
+      <h1>联系我们</h1>
+      <p style="margin-bottom:28px">关于会员、付款或社区的任何问题，给我们留言——我们通常在 1 个工作日内回复到你的邮箱。会员也可以在社区内直接联系管理团队。</p>
+
+      <form id="contact-form" action="https://formspree.io/f/mqeoygjz" method="POST">
+        <input type="hidden" name="_subject" value="Lighthouse Club 网站联系" />
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="form-field">
+          <label for="c-name">怎么称呼你？</label>
+          <input type="text" id="c-name" name="name" required placeholder="昵称或称呼" autocomplete="nickname" />
+        </div>
+        <div class="form-field">
+          <label for="c-email">邮箱</label>
+          <input type="email" id="c-email" name="email" required placeholder="you@example.com" autocomplete="email" />
+          <div class="hint">回复将发送到这个邮箱，请确认无误。</div>
+        </div>
+        <div class="form-field">
+          <label for="c-message">想说什么？</label>
+          <textarea id="c-message" name="message" required placeholder="问题、建议、合作，都欢迎"></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn gold" type="submit" id="contact-submit">发送</button>
+          <p class="fine">提交即表示同意<a href="/legal/privacy/">隐私政策</a></p>
+          <p class="form-error" id="contact-error">发送没有成功，请稍后再试，或在社区内联系管理团队。</p>
+        </div>
+      </form>
+
+      <div class="form-success" id="contact-success">
+        <h2 style="margin-top:0">已收到你的留言 📨</h2>
+        <p>我们通常在 <strong>1 个工作日内</strong>回复到你的邮箱，请留意收件箱（包括垃圾箱）。</p>
+        <p style="margin-bottom:0"><a href="/">← 回到首页</a></p>
+      </div>
+
+      <div class="apply-note">
+        <strong>運営会社</strong><br />
+        シンクバリュー株式会社（Syncvalue Inc.）— 会社情報は<a href="https://sync-value.com/" rel="noopener noreferrer">sync-value.com</a>、法定表示は<a href="/legal/tokushoho/">特定商取引法に基づく表記</a>をご覧ください。
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const success = document.getElementById('contact-success')!;
+    const error = document.getElementById('contact-error')!;
+    const btn = document.getElementById('contact-submit') as HTMLButtonElement;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      (error as HTMLElement).style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = '发送中…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then((res) => {
+          if (res.ok) {
+            form.style.display = 'none';
+            (success as HTMLElement).style.display = 'block';
+            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else throw new Error('bad status');
+        })
+        .catch(() => {
+          (error as HTMLElement).style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = '发送';
+        });
+    });
+  </script>
+</Base>

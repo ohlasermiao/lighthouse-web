@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+
+const faqs = [
+  { q: '如何加入？审核会问什么？', a: '在<a href="/apply/">申请页</a>填一份只有 4 个小问题的申请表（3 分钟填完），我们会在 2 个工作日内邮件回复。通过后你会收到付款方式与 Discord 邀请。' },
+  { q: '我是新手 / 还是学生，适合加入吗？', a: '适合。社区看重的是交流本身——背景各异的伙伴互相分享经历、彼此启发，认真参与比资历深浅更重要。' },
+  { q: '社区里都聊些什么？', a: 'AI 科技、留学出海、职业机会、生活兴趣、学习成长、市场观察、玄学塔罗——<a href="/inside/">七大板块</a>随社区生长。共同的约定见<a href="/legal/guidelines/">社区公约</a>。' },
+  { q: '我可以只潜水看看吗？', a: '可以。没有发言任务，按自己的节奏参与就好——不过这里的氛围友善，大多数人待着待着就开口了。' },
+  { q: '社区用什么语言交流？', a: '中文。成员分布在世界各地，各个时区都有人在线。' },
+  { q: '在哪里交流？需要什么软件？', a: '社区主场在 Discord（桌面 / 手机 App 都有）。审核通过后你会收到邀请链接和入门指引，没用过 Discord 也能很快上手。' },
+  { q: '支持哪些付款方式？', a: '审核通过后，我们会在邮件中说明当前可用的付款方式。价格与续费规则见<a href="/pricing/">价格页</a>。' },
+  { q: '可以退款吗？', a: '首次开通起 7 天内可全额退款；超过 7 天后原则上不退。完整说明以<a href="/legal/tos/">服务条款</a>与<a href="/legal/tokushoho/">特定商取引法に基づく表記</a>为准。' },
+  { q: '如何退出？', a: '随时可以停止续费，到期后会员身份自然结束，不会自动扣费续期。账户与订阅管理入口（<a href="/account/">会员中心</a>）正在完善中。' },
+  { q: '遇到问题怎么联系你们？', a: '通过<a href="/contact/">联系我们</a>页面留言，或在社区内通过官方渠道联系管理团队，我们会尽快回复。' },
+];
+---
+<Base title="常见问题 — Lighthouse Club" description="关于加入、付款、退款、退出 Lighthouse Club 的常见问题。" routeKey="faq">
+  <div class="subpage">
+    <div class="container narrow">
+      <a class="back-link" href="/">← 返回首页</a>
+      <h1>常见问题</h1>
+      <p class="updated">没找到答案？<a href="/contact/">联系我们</a></p>
+
+      <div class="faq" style="margin-top:28px">
+        {faqs.map((f, i) => (
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false" aria-controls={`faq-a-${i + 1}`}>{f.q}<span class="chev" aria-hidden="true"></span></button>
+            <div class="faq-a" id={`faq-a-${i + 1}`}><div class="inner" set:html={f.a}></div></div>
+          </div>
+        ))}
+      </div>
+
+      <p style="margin-top:48px" class="center"><a class="btn gold" href="/apply/">申请加入 →</a></p>
+    </div>
+  </div>
+</Base>

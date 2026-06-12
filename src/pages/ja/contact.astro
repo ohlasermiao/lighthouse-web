@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="お問い合わせ — Lighthouse Club" description="Lighthouse Club 運営チームへのお問い合わせ。" lang="ja" routeKey="contact">
+  <div class="subpage">
+    <div class="container apply-wrap">
+      <a class="back-link" href="/ja/">← トップに戻る</a>
+      <h1>お問い合わせ</h1>
+      <p style="margin-bottom:28px">会員・お支払い・コミュニティに関するご質問は、こちらのフォームよりお寄せください。通常 1 営業日以内にメールで返信いたします。</p>
+
+      <form id="contact-form" action="https://formspree.io/f/mqeoygjz" method="POST">
+        <input type="hidden" name="_subject" value="Lighthouse Club お問い合わせ (JA)" />
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="form-field">
+          <label for="c-name">お名前</label>
+          <input type="text" id="c-name" name="name" required placeholder="お呼びする名前" autocomplete="nickname" />
+        </div>
+        <div class="form-field">
+          <label for="c-email">メールアドレス</label>
+          <input type="email" id="c-email" name="email" required placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <div class="form-field">
+          <label for="c-message">お問い合わせ内容</label>
+          <textarea id="c-message" name="message" required placeholder="ご質問・ご提案・ご相談など"></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn gold" type="submit" id="contact-submit">送信する</button>
+          <p class="fine">送信をもって<a href="/legal/privacy/">プライバシーポリシー（中文・正文）</a>に同意したものとみなします</p>
+          <p class="form-error" id="contact-error">送信に失敗しました。時間をおいて再度お試しください。</p>
+        </div>
+      </form>
+
+      <div class="form-success" id="contact-success">
+        <h2 style="margin-top:0">受け付けました 📨</h2>
+        <p>通常 <strong>1 営業日以内</strong>に返信いたします。</p>
+        <p style="margin-bottom:0"><a href="/ja/">← トップに戻る</a></p>
+      </div>
+
+      <div class="apply-note">
+        <strong>運営会社</strong><br />
+        シンクバリュー株式会社（Syncvalue Inc.）— 会社情報は <a href="https://sync-value.com/" rel="noopener noreferrer">sync-value.com</a>、法定表示は<a href="/legal/tokushoho/">特定商取引法に基づく表記</a>をご覧ください。
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const success = document.getElementById('contact-success')!;
+    const error = document.getElementById('contact-error')!;
+    const btn = document.getElementById('contact-submit') as HTMLButtonElement;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      (error as HTMLElement).style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = '送信中…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then((res) => {
+          if (res.ok) { form.style.display = 'none'; (success as HTMLElement).style.display = 'block'; success.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+          else throw new Error('bad status');
+        })
+        .catch(() => { (error as HTMLElement).style.display = 'block'; btn.disabled = false; btn.textContent = '送信する'; });
+    });
+  </script>
+</Base>

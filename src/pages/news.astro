@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+
+const news = [
+  {
+    date: '2026-06-13',
+    title: '官网全新改版上线',
+    body: '灯塔的新家上线了：全新的设计、更清晰的页面结构、真实可用的申请与联系入口。今后官网公告与社区状态都会在本页发布。',
+    pin: false,
+  },
+];
+---
+<Base title="公告 — Lighthouse Club" description="Lighthouse Club 官方公告与社区状态。" routeKey="news">
+  <div class="subpage">
+    <div class="container narrow">
+      <a class="back-link" href="/">← 返回首页</a>
+      <h1>公告 · 社区状态</h1>
+      <p class="updated">本页是 Lighthouse Club 的官方信息源</p>
+
+      <div class="news-item news-pin" style="margin-top:24px">
+        <div class="date">长期有效</div>
+        <h3>🏮 请把这一页加入书签</h3>
+        <p>任何时候社区出现异常（例如 Discord 无法访问），这里都是第一信息源：我们会在本页发布最新状态、说明与新的加入方式。记住这个地址：<strong>lighthouse.sync-value.com/news</strong></p>
+      </div>
+
+      <div class="news-list">
+        {news.map((n) => (
+          <div class={'news-item' + (n.pin ? ' news-pin' : '')}>
+            <div class="date">{n.date}</div>
+            <h3>{n.title}</h3>
+            <p>{n.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Base>

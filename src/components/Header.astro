@@ -1,22 +1,38 @@
 ---
+import { getLangFromUrl, useT, langPrefix, altUrls } from '../i18n/ui';
+
+interface Props { routeKey?: string }
+const { routeKey } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useT(lang);
+const p = langPrefix[lang];
+const alts = altUrls(routeKey);
+const langLabels = { zh: '中文', en: 'EN', ja: '日本語' } as const;
 ---
 <header class="site">
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label="Lighthouse Club 首页">
+    <a class="brand" href={p + '/'} aria-label="Lighthouse Club">
       <img src="/assets/img/lighthouse.svg" alt="" width="34" height="34" />
-      <span class="name"><span class="en">Lighthouse Club</span><span class="tag">全球华人青年社区</span></span>
+      <span class="name"><span class="en">Lighthouse Club</span><span class="tag">{t('brand.tag')}</span></span>
     </a>
-    <nav class="primary" id="primary-nav" aria-label="主导航">
-      <a href="/#about">关于</a>
-      <a href="/#inside">板块</a>
-      <a href="/#benefits">会员价值</a>
-      <a href="/#pricing">价格</a>
-      <a href="/#faq">FAQ</a>
-      <a href="/account/">登录</a>
+    <nav class="primary" id="primary-nav" aria-label="main">
+      <a href={lang === 'zh' ? '/about/' : p + '/about/'}>{t('nav.about')}</a>
+      {lang === 'zh' && <a href="/inside/">{t('nav.inside')}</a>}
+      <a href={lang === 'zh' ? '/pricing/' : p + '/pricing/'}>{t('nav.pricing')}</a>
+      {lang === 'zh' && <a href="/faq/">{t('nav.faq')}</a>}
+      {lang === 'zh' && <a href="/news/">{t('nav.news')}</a>}
+      <a href="/account/">{t('nav.login')}</a>
     </nav>
     <div class="header-cta">
-      <a class="btn gold sm" href="/apply/">申请加入</a>
-      <button type="button" class="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="primary-nav">
+      <div class="lang-switch" aria-label="Language">
+        {(['zh', 'en', 'ja'] as const).map((l) => (
+          l === lang
+            ? <span class="cur" aria-current="true">{langLabels[l]}</span>
+            : <a href={alts[l]}>{langLabels[l]}</a>
+        ))}
+      </div>
+      <a class="btn gold sm" href={lang === 'zh' ? '/apply/' : p + '/apply/'}>{t('nav.apply')}</a>
+      <button type="button" class="nav-toggle" aria-label={t('nav.menu')} aria-expanded="false" aria-controls="primary-nav">
         <span></span><span></span><span></span>
       </button>
     </div>

@@ -1,20 +1,20 @@
-export type Lang = 'zh' | 'en' | 'ja';
+export type Lang = 'zh' | 'en';
 
-export const langPrefix: Record<Lang, string> = { zh: '', en: '/en', ja: '/ja' };
+export const langPrefix: Record<Lang, string> = { zh: '', en: '/en' };
 
 export function getLangFromUrl(url: URL): Lang {
   const [, first] = url.pathname.split('/');
-  if (first === 'en' || first === 'ja') return first;
+  if (first === 'en') return 'en';
   return 'zh';
 }
 
 /** 各语言已存在的路由（语言切换器只链接真实存在的页面，绝不产生死链） */
 export const translatedRoutes: Record<string, Partial<Record<Lang, string>>> = {
-  home:    { zh: '/',         en: '/en/',         ja: '/ja/' },
-  about:   { zh: '/about/',   en: '/en/about/',   ja: '/ja/about/' },
-  pricing: { zh: '/pricing/', en: '/en/pricing/', ja: '/ja/pricing/' },
-  apply:   { zh: '/apply/',   en: '/en/apply/',   ja: '/ja/apply/' },
-  contact: { zh: '/contact/', en: '/en/contact/', ja: '/ja/contact/' },
+  home:    { zh: '/',         en: '/en/' },
+  about:   { zh: '/about/',   en: '/en/about/' },
+  pricing: { zh: '/pricing/', en: '/en/pricing/' },
+  apply:   { zh: '/apply/',   en: '/en/apply/' },
+  contact: { zh: '/contact/', en: '/en/contact/' },
   inside:  { zh: '/inside/' },
   faq:     { zh: '/faq/' },
   news:    { zh: '/news/' },
@@ -69,29 +69,6 @@ export const ui = {
     'legal.tokushoho': 'Legal Disclosure (ja)',
     'skip': 'Skip to main content',
   },
-  ja: {
-    'brand.tag': '中国語圏の若者のためのコミュニティ',
-    'nav.about': 'About',
-    'nav.inside': 'ボード',
-    'nav.pricing': '料金',
-    'nav.faq': 'FAQ',
-    'nav.news': 'お知らせ',
-    'nav.login': 'ログイン',
-    'nav.apply': '入会申請',
-    'nav.menu': 'メニューを開く',
-    'footer.tagline': '時代の海の上で、同じ航路の仲間と光を見つける。\n中国語圏の若者のための会員制コミュニティ。',
-    'footer.community': 'コミュニティ',
-    'footer.support': 'サポート',
-    'footer.account': '会員センター / ログイン',
-    'footer.contact': 'お問い合わせ',
-    'footer.news': 'お知らせ',
-    'footer.operator': '運営会社',
-    'legal.tos': '利用規約（中文）',
-    'legal.guidelines': 'コミュニティガイドライン（中文）',
-    'legal.privacy': 'プライバシーポリシー（中文）',
-    'legal.tokushoho': '特定商取引法に基づく表記',
-    'skip': '本文へスキップ',
-  },
 } as const;
 
 export function useT(lang: Lang) {
@@ -104,6 +81,5 @@ export function altUrls(routeKey: string | undefined): Record<Lang, string> {
   return {
     zh: r?.zh ?? '/',
     en: r?.en ?? '/en/',
-    ja: r?.ja ?? '/ja/',
   };
 }

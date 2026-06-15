@@ -7,7 +7,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useT(lang);
 const p = langPrefix[lang];
 const alts = altUrls(routeKey);
-const langLabels = { zh: '中文', en: 'EN', ja: '日本語' } as const;
+const langLabels = { zh: '中文', en: 'EN' } as const;
 ---
 <header class="site">
   <div class="container header-inner">
@@ -25,7 +25,7 @@ const langLabels = { zh: '中文', en: 'EN', ja: '日本語' } as const;
     </nav>
     <div class="header-cta">
       <div class="lang-switch" aria-label="Language">
-        {(['zh', 'en', 'ja'] as const).map((l) => (
+        {(['zh', 'en'] as const).map((l) => (
           l === lang
             ? <span class="cur" aria-current="true">{langLabels[l]}</span>
             : <a href={alts[l]}>{langLabels[l]}</a>

@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { PRICE, MEMBERS } from '../../data/site';
 ---
 <Base title="Lighthouse Club — Find your crew on the sea of our times" description="A membership community for global Chinese youth: AI, going global, studying abroad, careers, life — sharing real experience and first-hand observations." lang="en" routeKey="home">
   <div class="night">
@@ -8,13 +9,13 @@ import Base from '../../layouts/Base.astro';
         <div class="hero-copy">
           <span class="eyebrow">Global Chinese youth · Membership community</span>
           <h1 class="hero-title">On the sea of our times,<br />find <span class="light">your crew</span></h1>
-          <p class="hero-sub">AI, going global, studying abroad, new careers, new opportunities — the waves keep coming, and no one can watch them all alone. Lighthouse Club brings together 700+ Chinese-speaking young people around the world: sharing real experience, exchanging first-hand observations, finding light in each other.</p>
+          <p class="hero-sub">AI, going global, studying abroad, new careers, new opportunities — the waves keep coming, and no one can watch them all alone. Lighthouse Club brings together {MEMBERS.en} Chinese-speaking young people around the world: sharing real experience, exchanging first-hand observations, finding light in each other.</p>
           <div class="hero-actions">
             <a class="btn gold lg" href="/en/apply/">Apply to join →</a>
             <a class="btn ghost-night lg" href="/en/about/">What is this</a>
           </div>
           <div class="hero-trust">
-            <span class="t"><b>700+</b>paying members</span>
+            <span class="t"><b>Hundreds</b> of paying members</span>
             <span class="t"><b>7</b>channels</span>
             <span class="t"><b>Daily</b>active discussions</span>
           </div>
@@ -43,9 +44,9 @@ import Base from '../../layouts/Base.astro';
       <div class="sec-label center">Membership</div>
       <h2 class="sec-title">Simple, transparent pricing</h2>
       <div class="price-card" style="margin-top:36px">
-        <div class="plan">Quarterly</div>
-        <div class="amount"><span class="cur">$</span><span class="val">180</span><span class="per">/ 3 months</span></div>
-        <div class="note">≈ $60/month · tax not included (varies by country)<br />No auto-charge — renewal always requires your confirmation · Stop anytime</div>
+        <div class="plan">Membership</div>
+        <div class="amount"><span class="cur">{PRICE.symbol}</span><span class="val">{PRICE.perMonth}</span><span class="per">/ mo</span></div>
+        <div class="note">Billed {PRICE.symbol}{PRICE.total} every {PRICE.months} months · {PRICE.months}-month minimum · tax not included (varies by country)<br />No auto-charge — renewal always requires your confirmation · Stop anytime</div>
         <a class="btn gold lg" href="/en/apply/" style="width:100%">Apply to join</a>
         <p class="fine"><a href="/en/pricing/">Full pricing, renewal & refund details →</a></p>
       </div>
@@ -68,7 +69,7 @@ import Base from '../../layouts/Base.astro';
     <section class="final-cta">
       <div class="container">
         <h2>The light stays on</h2>
-        <p>Join 700+ members sailing the same sea.</p>
+        <p>Join {MEMBERS.en} members sailing the same sea.</p>
         <a class="btn gold lg" href="/en/apply/">Apply to join →</a>
       </div>
     </section>

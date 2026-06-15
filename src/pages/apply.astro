@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { PRICE } from '../data/site';
 ---
 <Base title="申请加入 — Lighthouse Club" description="申请加入 Lighthouse Club——全球华人青年的会员制交流社区。" routeKey="apply">
   <div class="subpage">
@@ -43,7 +44,7 @@ import Base from '../layouts/Base.astro';
 
       <div class="apply-note">
         <strong>加入须知</strong><br />
-        加入即表示同意<a href="/legal/guidelines/">社区公约</a>：分享经历胜过给结论、互相尊重、不传播会员专属内容。会员费 $180 / 3 个月，审核通过后我们会在邮件中说明付款方式——到期不自动扣款，续费始终由你决定。
+        加入即表示同意<a href="/legal/guidelines/">社区公约</a>：分享经历胜过给结论、互相尊重、不传播会员专属内容。会员费 {PRICE.symbol}{PRICE.perMonth}/月（{PRICE.months} 个月一期、每期 {PRICE.symbol}{PRICE.total}），审核通过后我们会在邮件中说明付款方式——到期不自动扣款，续费始终由你决定。
       </div>
     </div>
   </div>

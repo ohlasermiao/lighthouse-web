@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { PRICE } from '../../data/site';
 ---
 <Base title="服务条款 — Lighthouse Club" description="Lighthouse Club 服务条款。" noindex={true} lang="zh-CN">
   <div class="subpage">
@@ -28,7 +29,7 @@ import Base from '../../layouts/Base.astro';
 
       <h2>4. 订阅、费用与支付</h2>
       <ul>
-        <li>会员费以您<strong>购买时加入页面所展示的价格与计费周期</strong>为准（当前为 180 美元 / 3 个月）。价格不含税，适用税费因国家/地区而异，以支付页面显示的金额为准。</li>
+        <li>会员费以您<strong>购买时加入页面所展示的价格与计费周期</strong>为准（当前为每月约 {PRICE.symbol}{PRICE.perMonth}，{PRICE.months} 个月一期、每期 {PRICE.symbol}{PRICE.total}）。价格不含税，适用税费因国家/地区而异，以支付页面显示的金额为准。</li>
         <li>会员费是社区接入与运营服务的对价，价格对全体会员一致。</li>
         <li>支付方式以加入页面展示的方式为准。支付卡信息由支付服务商直接处理，运营方不接触、不存储。</li>
         <li>如加入页面采用自动续费方式，订阅将按计费周期以购买时的价格自动更新，直至您取消；您可以随时取消，取消自当期结束时生效，已开始的计费周期内仍可使用至期满。</li>

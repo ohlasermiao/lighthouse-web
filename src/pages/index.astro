@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { PRICE, MEMBERS } from '../data/site';
 ---
 <Base title="Lighthouse Club — 在时代的海上，找到同航的人" description="全球华人青年的会员制交流社区：AI、出海、留学、职业、生活——分享真实经验，交换一手观察，在彼此身上看见光。" routeKey="home">
 
@@ -13,13 +14,13 @@ import Base from '../layouts/Base.astro';
         <div class="hero-copy">
           <span class="eyebrow">全球华人青年 · 会员制社区</span>
           <h1 class="hero-title">在时代的海上，<br />找到<span class="light">同航的人</span></h1>
-          <p class="hero-sub">AI、出海、留学、新职业、新机会——浪一波接一波，一个人看不过来。Lighthouse Club 聚集了 700+ 位认真生活的华人青年：分享真实经验，交换一手观察，在彼此身上看见光。</p>
+          <p class="hero-sub">AI、出海、留学、新职业、新机会——浪一波接一波，一个人看不过来。Lighthouse Club 聚集了{MEMBERS.zh}认真生活的华人青年：分享真实经验，交换一手观察，在彼此身上看见光。</p>
           <div class="hero-actions">
             <a class="btn gold lg" href="/apply/">申请加入 →</a>
             <a class="btn ghost-night lg" href="/about/">这里是什么</a>
           </div>
           <div class="hero-trust">
-            <span class="t"><b>700+</b>付费会员</span>
+            <span class="t"><b>{MEMBERS.zh}</b>付费会员</span>
             <span class="t"><b>7</b>大板块</span>
             <span class="t"><b>每日</b>活跃交流</span>
           </div>
@@ -82,7 +83,7 @@ import Base from '../layouts/Base.astro';
       <h2 class="sec-title">一群认真生活、乐于交流的人</h2>
       <p class="sec-lead" style="margin-inline:auto">来自世界各地的华人青年，因为同样的好奇心聚在一起。</p>
       <div class="stats">
-        <div class="stat reveal"><div class="num">700+</div><div class="lab">付费会员</div></div>
+        <div class="stat reveal"><div class="num">{MEMBERS.zh}</div><div class="lab">付费会员</div></div>
         <div class="stat reveal"><div class="num">7</div><div class="lab">大板块</div></div>
         <div class="stat reveal"><div class="num">每日</div><div class="lab">持续的交流氛围</div></div>
       </div>
@@ -111,9 +112,9 @@ import Base from '../layouts/Base.astro';
       <h2 class="sec-title">简单透明的会员制</h2>
       <p class="sec-lead" style="margin-inline:auto">一个价格，解锁全部板块与会员频道。</p>
       <div class="price-card reveal">
-        <div class="plan">季度会员</div>
-        <div class="amount"><span class="cur">$</span><span class="val">180</span><span class="per">/ 3 个月</span></div>
-        <div class="note">约合每月 $60 · 价格不含税（适用税率因国家/地区而异）<br />到期不自动扣款，续费需本人确认 · 随时可停</div>
+        <div class="plan">会员</div>
+        <div class="amount"><span class="cur">{PRICE.symbol}</span><span class="val">{PRICE.perMonth}</span><span class="per">/ 月</span></div>
+        <div class="note">{PRICE.months} 个月一期 · 每期 {PRICE.symbol}{PRICE.total} 结算 · 价格不含税（适用税率因国家/地区而异）<br />到期不自动扣款，续费需本人确认 · 随时可停</div>
         <a class="btn gold lg" href="/apply/" style="width:100%">申请加入</a>
         <p class="fine"><a href="/pricing/">价格、续费与退款的完整说明 →</a></p>
       </div>
@@ -165,7 +166,7 @@ import Base from '../layouts/Base.astro';
     <section class="final-cta">
       <div class="container">
         <h2>浪还在涨，灯一直亮着</h2>
-        <p>来 Lighthouse Club，和 700+ 位同航的人一起看见光。</p>
+        <p>来 Lighthouse Club，和{MEMBERS.zh}同航的人一起看见光。</p>
         <a class="btn gold lg" href="/apply/">申请加入 →</a>
       </div>
     </section>

@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { PRICE } from '../../data/site';
 ---
-<Base title="Pricing — Lighthouse Club" description="Lighthouse Club membership: USD 180 per 3 months, no auto-charge, stop anytime." lang="en" routeKey="pricing">
+<Base title="Pricing — Lighthouse Club" description="Lighthouse Club membership: about USD 60/month, billed every 3 months, no auto-charge, stop anytime." lang="en" routeKey="pricing">
   <div class="subpage">
     <div class="container narrow">
       <a class="back-link" href="/en/">← Back to home</a>
@@ -9,9 +10,9 @@ import Base from '../../layouts/Base.astro';
       <p class="updated">One price · all channels included</p>
 
       <div class="price-card" style="margin:36px auto">
-        <div class="plan">Quarterly</div>
-        <div class="amount"><span class="cur">$</span><span class="val">180</span><span class="per">/ 3 months</span></div>
-        <div class="note">≈ $60/month · tax not included (applicable taxes vary by country/region)</div>
+        <div class="plan">Membership</div>
+        <div class="amount"><span class="cur">{PRICE.symbol}</span><span class="val">{PRICE.perMonth}</span><span class="per">/ mo</span></div>
+        <div class="note">Billed {PRICE.symbol}{PRICE.total} every {PRICE.months} months · {PRICE.months}-month minimum<br />tax not included (applicable taxes vary by country/region)</div>
         <ul>
           <li>All member channels included</li>
           <li>Access granted after your application is approved</li>

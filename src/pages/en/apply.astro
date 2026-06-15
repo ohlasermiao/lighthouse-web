@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { PRICE } from '../../data/site';
 ---
 <Base title="Apply — Lighthouse Club" description="Apply to join Lighthouse Club." lang="en" routeKey="apply">
   <div class="subpage">
@@ -43,7 +44,7 @@ import Base from '../../layouts/Base.astro';
 
       <div class="apply-note">
         <strong>Before you join</strong><br />
-        Joining means agreeing to our <a href="/legal/guidelines/">Community Guidelines</a>: share experience over conclusions, treat each other kindly, don't redistribute member-only content. Membership is $180 / 3 months; payment instructions follow approval — no auto-charge, renewal is always your decision.
+        Joining means agreeing to our <a href="/legal/guidelines/">Community Guidelines</a>: share experience over conclusions, treat each other kindly, don't redistribute member-only content. Membership is {PRICE.symbol}{PRICE.perMonth}/month (billed {PRICE.symbol}{PRICE.total} every {PRICE.months} months); payment instructions follow approval — no auto-charge, renewal is always your decision.
       </div>
     </div>
   </div>

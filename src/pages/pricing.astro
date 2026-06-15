@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import { PRICE } from '../data/site';
 ---
-<Base title="价格 — Lighthouse Club" description="Lighthouse Club 会员价格：180 美元 / 3 个月，到期不自动扣款，随时可停。" routeKey="pricing">
+<Base title="价格 — Lighthouse Club" description="Lighthouse Club 会员价格：每月约 60 美元，3 个月一期，到期不自动扣款，随时可停。" routeKey="pricing">
   <div class="subpage">
     <div class="container narrow">
       <a class="back-link" href="/">← 返回首页</a>
@@ -9,9 +10,9 @@ import Base from '../layouts/Base.astro';
       <p class="updated">一个价格 · 解锁全部板块与会员频道</p>
 
       <div class="price-card" style="margin:36px auto">
-        <div class="plan">季度会员</div>
-        <div class="amount"><span class="cur">$</span><span class="val">180</span><span class="per">/ 3 个月</span></div>
-        <div class="note">约合每月 $60 · 价格不含税（适用税率因国家/地区而异）</div>
+        <div class="plan">会员</div>
+        <div class="amount"><span class="cur">{PRICE.symbol}</span><span class="val">{PRICE.perMonth}</span><span class="per">/ 月</span></div>
+        <div class="note">{PRICE.months} 个月一期 · 每期 {PRICE.symbol}{PRICE.total} 结算<br />价格不含税（适用税率因国家/地区而异）</div>
         <ul>
           <li>全部会员板块与专属频道</li>
           <li>审核通过后即可加入全部会员频道</li>

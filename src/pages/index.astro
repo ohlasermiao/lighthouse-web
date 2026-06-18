@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { PRICE, MEMBERS } from '../data/site';
 ---
-<Base title="Lighthouse Club — 在时代的海上，找到同航的人" description="全球华人青年的会员制交流社区：AI、出海、留学、职业、生活——分享真实经验，交换一手观察，在彼此身上看见光。" routeKey="home">
+<Base title="Lighthouse Club — 全球华人的会员制生活社区" description="面向全球华人的会员制生活交流社区——聊旅行、美食、见闻、宠物、玄学与日常，分享真实经验，认识聊得来的朋友。" routeKey="home">
 
   <!-- ============ Hero ============ -->
   <div class="night">
@@ -12,17 +12,18 @@ import { PRICE, MEMBERS } from '../data/site';
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow">全球华人青年 · 会员制社区</span>
-          <h1 class="hero-title">在时代的海上，<br />找到<span class="light">同航的人</span></h1>
-          <p class="hero-sub">AI、出海、留学、新职业、新机会——浪一波接一波，一个人看不过来。Lighthouse Club 聚集了{MEMBERS.zh}认真生活的华人青年：分享真实经验，交换一手观察，在彼此身上看见光。</p>
+          <span class="eyebrow">全球华人 · 会员制生活社区</span>
+          <h1 class="hero-title">一群认真生活的华人，<br /><span class="light">聚在一起</span>的地方</h1>
+          <p class="slogan-line">Lighthouse Club · 在时代的海上，做彼此的光</p>
+          <p class="hero-sub">聊旅行、晒美食、撸猫狗、追世界杯、聊玄学、唠家常——分享真实经验，交换一手见闻，认识聊得来的朋友。{MEMBERS.zh}付费会员，每天都热闹。</p>
           <div class="hero-actions">
             <a class="btn gold lg" href="/apply/">申请加入 →</a>
-            <a class="btn ghost-night lg" href="/about/">这里是什么</a>
+            <a class="btn ghost-night lg" href="#inside">看看大家在聊什么</a>
           </div>
           <div class="hero-trust">
             <span class="t"><b>{MEMBERS.zh}</b>付费会员</span>
-            <span class="t"><b>7</b>大板块</span>
             <span class="t"><b>每日</b>活跃交流</span>
+            <span class="t"><b>多元</b>生活板块</span>
           </div>
         </div>
         <div class="hero-visual" aria-hidden="true">
@@ -44,19 +45,19 @@ import { PRICE, MEMBERS } from '../data/site';
     <svg class="contour" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true" style="height:70px"><path d="M0,40 C240,70 480,8 720,32 C960,56 1200,14 1440,42 L1440,70 L0,70 Z" fill="#faf8f3"/></svg>
   </div>
 
-  <!-- ============ 宣言（导向 /about/） ============ -->
+  <!-- ============ 这是什么（具体说清，导向 /about/） ============ -->
   <section class="block" id="about">
     <div class="container">
-      <div class="sec-label">为什么是灯塔</div>
-      <div class="manifesto">
-        <blockquote class="reveal">
-          人在海上，最怕的不是浪大，<br />
-          是不知道<em>光</em>在哪里。<br />
-          我们把各自看到的光带到一起——<br />
-          就没有谁是独自在航行。
-        </blockquote>
-        <a class="more-link" href="/about/">了解我们的故事 →</a>
+      <div class="sec-label">这是什么</div>
+      <h2 class="sec-title">一个面向全球华人的会员制生活社区</h2>
+      <p class="sec-lead">不卖课、不灌鸡汤——就是一群认真生活的华人，把各自的见闻、经验和日常带到一起，互相搭把手。</p>
+      <div class="grid cols-4">
+        <div class="card hue-gold reveal"><span class="chip">💡</span><h3>真实的经验</h3><p>过来人的一手分享——旅行、美食、生活里的真知识，不是搜来的。</p></div>
+        <div class="card hue-star reveal"><span class="chip">🤝</span><h3>同频的人</h3><p>认真生活、友善、聊得来的华人朋友，分布在世界各地。</p></div>
+        <div class="card hue-tide reveal"><span class="chip">🛟</span><h3>安心的环境</h3><p>申请制 + 社区公约 + 真人管理，氛围友善、可以放心说话。</p></div>
+        <div class="card hue-leaf reveal"><span class="chip">🎉</span><h3>每天的热闹</h3><p>世界杯、美食、萌宠、玄学……每天都有新鲜事和人陪你聊。</p></div>
       </div>
+      <a class="more-link" href="/about/">了解我们的故事 →</a>
     </div>
   </section>
 
@@ -65,14 +66,14 @@ import { PRICE, MEMBERS } from '../data/site';
     <div class="container">
       <div class="sec-label">社区板块</div>
       <h2 class="sec-title">大家都在聊什么</h2>
-      <p class="sec-lead">七大板块随社区一起生长，在你感兴趣的频道随心参与，不被单一话题绑定。</p>
+      <p class="sec-lead">板块会随社区兴趣与时事不断调整，在你感兴趣的频道随心参与，不被单一话题绑定。</p>
       <div class="grid cols-4">
-        <div class="card hue-gold reveal"><span class="chip">🎓</span><h3>升学教育</h3><p>在日本择校升学的一手经验——国际学校、私立中小学、补习资源，少走弯路。</p></div>
-        <div class="card hue-star reveal"><span class="chip">✈️</span><h3>旅日攻略</h3><p>来日本玩的实用攻略——去处、订票订房、交通支付，合法又省心。</p></div>
-        <div class="card hue-leaf reveal"><span class="chip">🛍️</span><h3>日本好物</h3><p>分享日本值得买的东西，以及在哪能买到。纯交流种草。</p></div>
-        <div class="card hue-tide reveal"><span class="chip">🔮</span><h3>玄学塔罗</h3><p>东西方的神秘文化，给日常添一点好奇与乐趣。</p></div>
+        <div class="card hue-star reveal"><span class="chip">📰</span><h3>今日见闻</h3><p>世界杯、热点、各地见闻与日常观察，换个视角看世界。</p></div>
+        <div class="card hue-gold reveal"><span class="chip">✈️</span><h3>旅行攻略</h3><p>去哪玩、怎么玩、怎么省心——过来人的一手攻略。</p></div>
+        <div class="card hue-leaf reveal"><span class="chip">🍜</span><h3>大众美食</h3><p>晒美食、找好店，分享在哪吃、在哪买。</p></div>
+        <div class="card hue-tide reveal"><span class="chip">🐾</span><h3>萌宠治愈</h3><p>晒猫晒狗晒一切，社区里最治愈的角落。</p></div>
       </div>
-      <a class="more-link" href="/inside/">看全部七大板块 →</a>
+      <a class="more-link" href="/inside/">看全部板块 →</a>
     </div>
   </section>
 
@@ -81,11 +82,11 @@ import { PRICE, MEMBERS } from '../data/site';
     <div class="container center">
       <div class="sec-label center">社群</div>
       <h2 class="sec-title">一群认真生活、乐于交流的人</h2>
-      <p class="sec-lead" style="margin-inline:auto">来自世界各地的华人青年，因为同样的好奇心聚在一起。</p>
+      <p class="sec-lead" style="margin-inline:auto">来自世界各地的华人，因为同样的好奇心聚在一起。</p>
       <div class="stats">
         <div class="stat reveal"><div class="num">{MEMBERS.zh}</div><div class="lab">付费会员</div></div>
-        <div class="stat reveal"><div class="num">7</div><div class="lab">大板块</div></div>
-        <div class="stat reveal"><div class="num">每日</div><div class="lab">持续的交流氛围</div></div>
+        <div class="stat reveal"><div class="num">每日</div><div class="lab">活跃交流</div></div>
+        <div class="stat reveal"><div class="num">多元</div><div class="lab">生活板块</div></div>
       </div>
     </div>
   </section>
@@ -97,7 +98,7 @@ import { PRICE, MEMBERS } from '../data/site';
       <h2 class="sec-title">加入后，你会得到什么</h2>
       <p class="sec-lead">不只是一个群——是一群人、一套让你安心参与的会员体验。</p>
       <div class="grid cols-4">
-        <div class="card hue-gold reveal"><span class="chip">💬</span><h3>七大板块，随心交流</h3><p>从升学教育到玄学塔罗，在你感兴趣的频道随心参与，认识同路人。</p></div>
+        <div class="card hue-gold reveal"><span class="chip">💬</span><h3>多元板块，随心交流</h3><p>从今日见闻到萌宠美食，在你感兴趣的频道随心参与，认识同路人。</p></div>
         <div class="card hue-star reveal"><span class="chip">🔒</span><h3>会员专属频道</h3><p>和认真参与的伙伴在一起，氛围更纯粹，讨论更有质量。</p></div>
         <div class="card hue-leaf reveal"><span class="chip">🛎️</span><h3>不被悄悄扣费</h3><p>到期前我们会提醒你，续费与否始终由你决定——不自动扣款。</p></div>
         <div class="card hue-tide reveal"><span class="chip">💳</span><h3>透明的会员状态</h3><p>加入与续费流程清晰透明，你的会员状态与记录随时可查，随时可停。</p></div>
@@ -165,8 +166,8 @@ import { PRICE, MEMBERS } from '../data/site';
     </svg>
     <section class="final-cta">
       <div class="container">
-        <h2>浪还在涨，灯一直亮着</h2>
-        <p>来 Lighthouse Club，和{MEMBERS.zh}同航的人一起看见光。</p>
+        <h2>来 Lighthouse Club，找到你的同温层</h2>
+        <p>{MEMBERS.zh}认真生活的华人，每天都在这里聊不停。灯一直亮着，等你上船。</p>
         <a class="btn gold lg" href="/apply/">申请加入 →</a>
       </div>
     </section>

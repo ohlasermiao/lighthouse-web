@@ -24,7 +24,7 @@ export const translatedRoutes: Record<string, Partial<Record<Lang, string>>> = {
 
 export const ui = {
   zh: {
-    'brand.tag': '全球华人青年社区',
+    'brand.tag': '全球华人生活社区',
     'nav.about': '关于',
     'nav.inside': '板块',
     'nav.pricing': '价格',
@@ -33,7 +33,7 @@ export const ui = {
     'nav.login': '登录',
     'nav.apply': '申请加入',
     'nav.menu': '打开菜单',
-    'footer.tagline': '在时代的海上，和同航的人一起看见光。\n全球华人青年的会员制交流社区。',
+    'footer.tagline': '面向全球华人的会员制生活交流社区。\n聊旅行、美食、见闻、宠物、玄学与日常。',
     'footer.community': '社区',
     'footer.support': '支持',
     'footer.account': '会员中心 / 登录',
@@ -47,7 +47,7 @@ export const ui = {
     'skip': '跳到主要内容',
   },
   en: {
-    'brand.tag': 'A community for global Chinese youth',
+    'brand.tag': 'A community for Chinese speakers worldwide',
     'nav.about': 'About',
     'nav.inside': 'Channels',
     'nav.pricing': 'Pricing',
@@ -56,7 +56,7 @@ export const ui = {
     'nav.login': 'Log in',
     'nav.apply': 'Apply to join',
     'nav.menu': 'Open menu',
-    'footer.tagline': 'Finding the light together, on the sea of our times.\nA membership community for global Chinese youth.',
+    'footer.tagline': 'A membership community for Chinese speakers worldwide.\nTravel, food, daily news, pets, tarot and everyday life.',
     'footer.community': 'Community',
     'footer.support': 'Support',
     'footer.account': 'Member portal / Log in',

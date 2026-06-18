@@ -2,22 +2,23 @@
 import Base from '../../layouts/Base.astro';
 import { PRICE, MEMBERS } from '../../data/site';
 ---
-<Base title="Lighthouse Club — Find your crew on the sea of our times" description="A membership community for global Chinese youth: AI, going global, studying abroad, careers, life — sharing real experience and first-hand observations." lang="en" routeKey="home">
+<Base title="Lighthouse Club — A membership community for Chinese speakers worldwide" description="A membership community for Chinese speakers worldwide — travel, food, daily news, pets, tarot and everyday life. Share real experience, meet your people." lang="en" routeKey="home">
   <div class="night">
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow">Global Chinese youth · Membership community</span>
-          <h1 class="hero-title">On the sea of our times,<br />find <span class="light">your crew</span></h1>
-          <p class="hero-sub">AI, going global, studying abroad, new careers, new opportunities — the waves keep coming, and no one can watch them all alone. Lighthouse Club brings together {MEMBERS.en} Chinese-speaking young people around the world: sharing real experience, exchanging first-hand observations, finding light in each other.</p>
+          <span class="eyebrow">Chinese speakers worldwide · Membership community</span>
+          <h1 class="hero-title">Where thoughtful Chinese speakers<br /><span class="light">come together</span></h1>
+          <p class="slogan-line">Lighthouse Club · be each other's light, on the sea of our times</p>
+          <p class="hero-sub">Talk travel, share food, post your pets, follow the World Cup, read tarot, chat about daily life — share real experience, swap first-hand tips, and meet people you click with. {MEMBERS.en} paying members, lively every day.</p>
           <div class="hero-actions">
             <a class="btn gold lg" href="/en/apply/">Apply to join →</a>
-            <a class="btn ghost-night lg" href="/en/about/">What is this</a>
+            <a class="btn ghost-night lg" href="#inside">See what members talk about</a>
           </div>
           <div class="hero-trust">
             <span class="t"><b>Hundreds</b> of paying members</span>
-            <span class="t"><b>7</b>channels</span>
-            <span class="t"><b>Daily</b>active discussions</span>
+            <span class="t"><b>Daily</b>active chat</span>
+            <span class="t"><b>Many</b>life topics</span>
           </div>
         </div>
       </div>
@@ -25,16 +26,16 @@ import { PRICE, MEMBERS } from '../../data/site';
     <svg class="contour" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true" style="height:70px"><path d="M0,40 C240,70 480,8 720,32 C960,56 1200,14 1440,42 L1440,70 L0,70 Z" fill="#faf8f3"/></svg>
   </div>
 
-  <section class="block">
+  <section class="block" id="inside">
     <div class="container">
       <div class="sec-label">What members talk about</div>
-      <h2 class="sec-title">Seven channels, one community</h2>
-      <p class="sec-lead">All conversations are in Chinese. Channels grow with the community.</p>
+      <h2 class="sec-title">A community, not a single topic</h2>
+      <p class="sec-lead">All conversations are in Chinese. Channels evolve with members' interests and current events.</p>
       <div class="grid cols-4">
-        <div class="card hue-gold"><span class="chip">🎓</span><h3>Schools in Japan</h3><p>Choosing schools, admissions, cram & tutoring — first-hand experience.</p></div>
-        <div class="card hue-star"><span class="chip">✈️</span><h3>Travel Japan</h3><p>Where to go, booking, transport & payment — the easy, legal way.</p></div>
-        <div class="card hue-leaf"><span class="chip">🛍️</span><h3>Japan Finds</h3><p>What's worth buying and where to get it. Sharing only.</p></div>
-        <div class="card hue-tide"><span class="chip">🔮</span><h3>Tarot & Mystic</h3><p>Tarot, I Ching and a little everyday curiosity.</p></div>
+        <div class="card hue-star"><span class="chip">📰</span><h3>Daily News</h3><p>World Cup, headlines and observations from around the world.</p></div>
+        <div class="card hue-gold"><span class="chip">✈️</span><h3>Travel</h3><p>Where to go and how to do it right — first-hand tips.</p></div>
+        <div class="card hue-leaf"><span class="chip">🍜</span><h3>Food</h3><p>Share great eats, find good spots, where to buy.</p></div>
+        <div class="card hue-tide"><span class="chip">🐾</span><h3>Pets</h3><p>Cats, dogs and the most healing corner of the community.</p></div>
       </div>
     </div>
   </section>
@@ -69,7 +70,7 @@ import { PRICE, MEMBERS } from '../../data/site';
     <section class="final-cta">
       <div class="container">
         <h2>The light stays on</h2>
-        <p>Join {MEMBERS.en} members sailing the same sea.</p>
+        <p>Join {MEMBERS.en} members and find your people.</p>
         <a class="btn gold lg" href="/en/apply/">Apply to join →</a>
       </div>
     </section>

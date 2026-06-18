@@ -389,3 +389,6 @@ table.profile th { width: 30%; font-weight: 700; white-space: nowrap; }
 .board-row h3 { font-size: 1.12rem; margin-bottom: 6px; }
 .board-row p { color: var(--ink-2); font-size: var(--fs-sm); margin-bottom: 4px; }
 .board-row .eg { font-size: .82rem; color: var(--ink-3); }
+
+/* Hero 灯塔副标语（slogan 降级行） */
+.slogan-line { margin: 14px 0 0; color: var(--gold-soft); font-size: .95rem; letter-spacing: .04em; opacity: .9; }

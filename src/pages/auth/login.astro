@@ -1,0 +1,58 @@
+---
+export const prerender = false;
+import Base from '../../layouts/Base.astro';
+import { supabaseServer } from '../../lib/supabase';
+
+let sent = false;
+let error = '';
+
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const email = String(form.get('email') || '').trim();
+  if (!email) {
+    error = '请输入邮箱地址。';
+  } else {
+    const supabase = supabaseServer(Astro.cookies, Astro.request.headers);
+    const origin = new URL(Astro.request.url).origin;
+    const { error: e } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: `${origin}/auth/callback` },
+    });
+    if (e) error = e.message;
+    else sent = true;
+  }
+}
+
+const qe = Astro.url.searchParams.get('e');
+if (qe && !error) error = '登录未完成，请重试。';
+---
+<Base title="会员登录 — Lighthouse Club" description="登录 Lighthouse Club 会员中心。" noindex={true} routeKey="account">
+  <div class="subpage">
+    <div class="container">
+      <div class="account-box">
+        {sent ? (
+          <Fragment>
+            <div class="ic">📧</div>
+            <h1>请查收邮箱</h1>
+            <p>一条一次性登录链接已发送到你的邮箱。点击邮件中的链接即可登录会员中心。</p>
+            <p class="fine" style="margin-top:18px;color:var(--ink-3);font-size:.82rem">没收到？检查垃圾邮件，或几分钟后<a href="/auth/login/">重新发送</a>。</p>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <div class="ic">🔑</div>
+            <h1>会员登录</h1>
+            <p>输入你的邮箱，我们会发送一条一次性登录链接（无需密码）。</p>
+            {error && <p style="color:#c0392b;font-size:.9rem;margin:.4rem 0">{error}</p>}
+            <form method="POST" style="display:flex;flex-direction:column;gap:12px;max-width:340px;margin:18px auto 0">
+              <input type="email" name="email" required placeholder="you@example.com"
+                style="padding:12px 14px;border:1px solid var(--line,#2a3550);border-radius:10px;background:transparent;color:inherit;font-size:1rem" />
+              <button class="btn gold" type="submit">发送登录链接</button>
+            </form>
+            <p class="fine" style="margin-top:22px;color:var(--ink-3);font-size:.82rem">首次登录、或还没绑定邮箱？</p>
+            <a class="btn" href="/auth/discord" style="margin-top:6px">用 Discord 验证身份</a>
+          </Fragment>
+        )}
+      </div>
+    </div>
+  </div>
+</Base>

@@ -14,6 +14,25 @@ const LABELS: Record<string, string> = {
 function env(locals: any, key: string): string | undefined {
   return locals?.runtime?.env?.[key] ?? (import.meta.env as any)[key];
 }
+
+// 邮箱域名可达性：用 Cloudflare DoH 查 MX（无则查 A）。查不到=拒（拼错/假域名）；查询失败=放行(避免误伤)。
+async function domainDeliverable(email: string): Promise<boolean> {
+  const domain = email.split('@')[1];
+  if (!domain) return false;
+  const has = async (type: string) => {
+    try {
+      const r = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=${type}`,
+        { headers: { Accept: 'application/dns-json' } });
+      const j: any = await r.json();
+      return Array.isArray(j.Answer) && j.Answer.some((a: any) => a.type === (type === 'MX' ? 15 : 1));
+    } catch { return null; } // null = 查询失败
+  };
+  const mx = await has('MX');
+  if (mx === true) return true;
+  if (mx === null) return true;          // DoH 失败 → 放行
+  const a = await has('A');
+  return a !== false;                    // 有 A 或查询失败都放行；仅明确无 MX 且无 A 才拒
+}
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -41,6 +60,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const email = (data.email || '').trim();
   if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return json({ ok: false, error: 'invalid' }, 422);
+  }
+
+  // 邮箱域名可达性检查（挡 qq.comq 这类拼错/假域名，减少回信退信）
+  if (!(await domainDeliverable(email))) {
+    return json({ ok: false, error: 'email_undeliverable' }, 422);
   }
 
   // Cloudflare Turnstile 人机校验（设了 secret 才校验；本地 dev 无 secret 则跳过）

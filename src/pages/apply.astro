@@ -43,10 +43,20 @@ import { PRICE } from '../data/site';
       </form>
 
       <div class="form-success" id="apply-success">
-        <h2 style="margin-top:0">申请已收到 ✅</h2>
-        <p>我们会认真阅读，并在 <strong>2 个工作日内</strong>把结果回复到你的邮箱。</p>
-        <p>另外我们给你发了一封<strong>确认邮件</strong>——顺手打开点一下里面的链接，就能确保审核结果一定送得到你（没收到记得看看垃圾箱）。</p>
-        <p style="margin-bottom:0"><a href="/">← 回到首页</a></p>
+        <div id="apply-pending">
+          <h2 style="margin-top:0">还差一步：验证你的邮箱 📩</h2>
+          <p>你的申请<strong>还没有提交成功</strong>。我们给 <strong id="apply-email"></strong> 发了一封验证邮件——请打开邮箱、点击里面的<strong>「验证邮箱并提交申请」</strong>按钮，你的申请才会正式送到我们手上。</p>
+          <div class="form-actions" style="margin-top:6px">
+            <button type="button" class="btn gold" id="apply-check">完成邮箱验证</button>
+            <p class="fine" id="apply-check-hint" style="display:none;color:#c0392b"></p>
+          </div>
+          <p class="fine" style="margin-top:14px;color:var(--ink-3)">没收到？检查垃圾箱，或<a href="/apply/">重新申请</a>。你在邮件里完成验证后，本页面会自动更新。</p>
+        </div>
+        <div id="apply-done" style="display:none">
+          <h2 style="margin-top:0">邮箱已验证，申请已提交！✅</h2>
+          <p>手续全部完成。我们会认真阅读，并在 <strong>2 个工作日内</strong>把结果回复到你的邮箱，请留意收件箱（包括垃圾箱）。</p>
+          <p style="margin-bottom:0"><a href="/">← 回到首页</a></p>
+        </div>
       </div>
 
       <div class="apply-note">
@@ -59,28 +69,68 @@ import { PRICE } from '../data/site';
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     const form = document.getElementById('apply-form') as HTMLFormElement;
-    const success = document.getElementById('apply-success')!;
-    const error = document.getElementById('apply-error')!;
+    const success = document.getElementById('apply-success') as HTMLElement;
+    const error = document.getElementById('apply-error') as HTMLElement;
     const btn = document.getElementById('apply-submit') as HTMLButtonElement;
+    const pending = document.getElementById('apply-pending') as HTMLElement;
+    const done = document.getElementById('apply-done') as HTMLElement;
+    const emailEl = document.getElementById('apply-email') as HTMLElement;
+    const checkBtn = document.getElementById('apply-check') as HTMLButtonElement;
+    const hint = document.getElementById('apply-check-hint') as HTMLElement;
+    let statusToken = '';
+    let pollTimer: any = null;
+
+    function showDone() {
+      if (pollTimer) clearInterval(pollTimer);
+      pending.style.display = 'none';
+      done.style.display = 'block';
+    }
+    async function checkStatus(): Promise<string | null> {
+      if (!statusToken) return null;
+      try {
+        const r = await fetch('/api/apply/status?token=' + encodeURIComponent(statusToken));
+        const j = await r.json();
+        return j.status;
+      } catch { return null; }
+    }
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      (error as HTMLElement).style.display = 'none';
+      error.style.display = 'none';
       btn.disabled = true;
       btn.textContent = '提交中…';
+      const emailVal = (form.elements.namedItem('email') as HTMLInputElement)?.value || '';
       fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-        .then((res) => {
-          if (res.ok) {
-            form.style.display = 'none';
-            (success as HTMLElement).style.display = 'block';
-            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          } else throw new Error('bad status');
+        .then((res) => res.ok ? res.json() : Promise.reject(new Error('bad status')))
+        .then((j) => {
+          statusToken = j.status_token || '';
+          emailEl.textContent = emailVal;
+          form.style.display = 'none';
+          success.style.display = 'block';
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (statusToken) {
+            pollTimer = setInterval(async () => {
+              if (await checkStatus() === 'confirmed') showDone();
+            }, 4000);
+          }
         })
         .catch(() => {
-          (error as HTMLElement).style.display = 'block';
+          error.style.display = 'block';
           btn.disabled = false;
           btn.textContent = '提交申请';
           if ((window as any).turnstile) (window as any).turnstile.reset();
         });
+    });
+
+    checkBtn.addEventListener('click', async () => {
+      checkBtn.disabled = true;
+      checkBtn.textContent = '检查中…';
+      const s = await checkStatus();
+      if (s === 'confirmed') { showDone(); return; }
+      hint.style.display = 'block';
+      hint.textContent = '还没检测到验证完成——请先打开我们发到你邮箱的邮件，点里面的「验证邮箱并提交申请」按钮。';
+      checkBtn.disabled = false;
+      checkBtn.textContent = '完成邮箱验证';
     });
   </script>
 </Base>

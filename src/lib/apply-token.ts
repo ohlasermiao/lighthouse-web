@@ -1,14 +1,12 @@
-// 申请确认令牌：无状态 HMAC 签名，不落库。payload 内含申请内容，24h 过期。
-// 用途：新用户填完申请表 → 我们发确认邮件（内含此令牌链接）→ 用户点击 → 校验通过后才把申请正式送到 hello@。
-// 这样既杜绝错邮箱退信（收不到确认邮件=点不了），又不必给"还没成为会员的人"建账号。
+// 无状态 HMAC 令牌：签名一个小 payload（含 exp 毫秒过期）。不落敏感内容，只带申请 id + 用途。
+// 用途：确认令牌(p:'confirm', 放邮件魔法链接) / 状态令牌(p:'status', 放成功页轮询)。
+// 真正的"邮箱已验证"状态落在 DB（web_applications），令牌只做防伪 + 防枚举。
 
-export interface ApplyPayload {
-  email: string;
-  name: string;
-  motivation: string;
-  source?: string;
-  lang: 'zh' | 'en';
+export interface TokenPayload {
+  id: string;
+  p: 'confirm' | 'status';
   exp: number; // 毫秒时间戳
+  [k: string]: unknown;
 }
 
 const enc = new TextEncoder();
@@ -35,23 +33,22 @@ async function hmac(data: string, secret: string): Promise<Uint8Array> {
   return new Uint8Array(sig);
 }
 
-export async function signApply(payload: ApplyPayload, secret: string): Promise<string> {
+export async function signToken(payload: TokenPayload, secret: string): Promise<string> {
   const body = b64urlEncode(enc.encode(JSON.stringify(payload)));
   const sig = b64urlEncode(await hmac(body, secret));
   return `${body}.${sig}`;
 }
 
-export async function verifyApply(token: string, secret: string): Promise<ApplyPayload | null> {
-  const [body, sig] = token.split('.');
+export async function verifyToken(token: string, secret: string): Promise<TokenPayload | null> {
+  const [body, sig] = (token || '').split('.');
   if (!body || !sig) return null;
   const expected = b64urlEncode(await hmac(body, secret));
-  // 定长比较，避免时序侧信道
   if (sig.length !== expected.length) return null;
   let diff = 0;
   for (let i = 0; i < sig.length; i++) diff |= sig.charCodeAt(i) ^ expected.charCodeAt(i);
   if (diff !== 0) return null;
   try {
-    const payload = JSON.parse(new TextDecoder().decode(b64urlDecode(body))) as ApplyPayload;
+    const payload = JSON.parse(new TextDecoder().decode(b64urlDecode(body))) as TokenPayload;
     if (!payload.exp || payload.exp < Date.now()) return null;
     return payload;
   } catch {

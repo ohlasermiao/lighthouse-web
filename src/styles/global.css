@@ -100,6 +100,9 @@ a { color: var(--night-700); text-decoration: none; }
 .btn.ghost-night:hover { border-color: var(--gold); color: var(--gold-soft); transform: translateY(-2px); }
 .btn.ghost-day { background: transparent; color: var(--ink); border: 1px solid var(--line-strong); }
 .btn.ghost-day:hover { border-color: var(--gold-deep); color: var(--gold-deep); }
+.btn.discord { background: #5865F2; color: #fff; }
+.btn.discord:hover { background: #4752c4; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(88,101,242,.32); }
+.btn.discord svg { width: 20px; height: 20px; }
 
 /* ============ Header ============ */
 header.site {

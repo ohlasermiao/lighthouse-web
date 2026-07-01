@@ -43,10 +43,20 @@ import { PRICE } from '../../data/site';
       </form>
 
       <div class="form-success" id="apply-success">
-        <h2 style="margin-top:0">Application received ✅</h2>
-        <p>We'll read it carefully and reply within <strong>2 business days</strong> to your email.</p>
-        <p>We've also sent you a <strong>confirmation email</strong> — clicking the link in it makes sure our decision reaches you (check spam if you don't see it).</p>
-        <p style="margin-bottom:0"><a href="/en/">← Back to home</a></p>
+        <div id="apply-pending">
+          <h2 style="margin-top:0">One step left: verify your email 📩</h2>
+          <p>Your application <strong>isn't submitted yet</strong>. We've sent a verification email to <strong id="apply-email"></strong> — please open it and click <strong>"Verify my email &amp; submit"</strong> so your application reaches us.</p>
+          <div class="form-actions" style="margin-top:6px">
+            <button type="button" class="btn gold" id="apply-check">Complete email verification</button>
+            <p class="fine" id="apply-check-hint" style="display:none;color:#c0392b"></p>
+          </div>
+          <p class="fine" style="margin-top:14px;color:var(--ink-3)">Didn't get it? Check spam, or <a href="/en/apply/">apply again</a>. This page updates automatically once you verify in the email.</p>
+        </div>
+        <div id="apply-done" style="display:none">
+          <h2 style="margin-top:0">Email verified — application submitted! ✅</h2>
+          <p>You're all set. We'll read it carefully and reply within <strong>2 business days</strong> to your email (check spam too).</p>
+          <p style="margin-bottom:0"><a href="/en/">← Back to home</a></p>
+        </div>
       </div>
 
       <div class="apply-note">
@@ -59,28 +69,68 @@ import { PRICE } from '../../data/site';
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     const form = document.getElementById('apply-form') as HTMLFormElement;
-    const success = document.getElementById('apply-success')!;
-    const error = document.getElementById('apply-error')!;
+    const success = document.getElementById('apply-success') as HTMLElement;
+    const error = document.getElementById('apply-error') as HTMLElement;
     const btn = document.getElementById('apply-submit') as HTMLButtonElement;
+    const pending = document.getElementById('apply-pending') as HTMLElement;
+    const done = document.getElementById('apply-done') as HTMLElement;
+    const emailEl = document.getElementById('apply-email') as HTMLElement;
+    const checkBtn = document.getElementById('apply-check') as HTMLButtonElement;
+    const hint = document.getElementById('apply-check-hint') as HTMLElement;
+    let statusToken = '';
+    let pollTimer: any = null;
+
+    function showDone() {
+      if (pollTimer) clearInterval(pollTimer);
+      pending.style.display = 'none';
+      done.style.display = 'block';
+    }
+    async function checkStatus(): Promise<string | null> {
+      if (!statusToken) return null;
+      try {
+        const r = await fetch('/api/apply/status?token=' + encodeURIComponent(statusToken));
+        const j = await r.json();
+        return j.status;
+      } catch { return null; }
+    }
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      (error as HTMLElement).style.display = 'none';
+      error.style.display = 'none';
       btn.disabled = true;
       btn.textContent = 'Submitting…';
+      const emailVal = (form.elements.namedItem('email') as HTMLInputElement)?.value || '';
       fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-        .then((res) => {
-          if (res.ok) {
-            form.style.display = 'none';
-            (success as HTMLElement).style.display = 'block';
-            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          } else throw new Error('bad status');
+        .then((res) => res.ok ? res.json() : Promise.reject(new Error('bad status')))
+        .then((j) => {
+          statusToken = j.status_token || '';
+          emailEl.textContent = emailVal;
+          form.style.display = 'none';
+          success.style.display = 'block';
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (statusToken) {
+            pollTimer = setInterval(async () => {
+              if (await checkStatus() === 'confirmed') showDone();
+            }, 4000);
+          }
         })
         .catch(() => {
-          (error as HTMLElement).style.display = 'block';
+          error.style.display = 'block';
           btn.disabled = false;
           btn.textContent = 'Submit application';
           if ((window as any).turnstile) (window as any).turnstile.reset();
         });
+    });
+
+    checkBtn.addEventListener('click', async () => {
+      checkBtn.disabled = true;
+      checkBtn.textContent = 'Checking…';
+      const s = await checkStatus();
+      if (s === 'confirmed') { showDone(); return; }
+      hint.style.display = 'block';
+      hint.textContent = 'Not verified yet — please open the email we sent you and click "Verify my email & submit" first.';
+      checkBtn.disabled = false;
+      checkBtn.textContent = 'Complete email verification';
     });
   </script>
 </Base>

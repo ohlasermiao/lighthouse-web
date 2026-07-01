@@ -7,40 +7,16 @@ import { PRICE } from '../../data/site';
     <div class="container apply-wrap">
       <a class="back-link" href="/en/">← Back to home</a>
       <h1>Apply to join Lighthouse Club</h1>
-      <p style="margin-bottom:28px">We deliberately keep the community small — every application is read by a human to protect the quality of discussion. You'll hear back by email within <strong>2 business days</strong>; if approved, you'll receive payment instructions, a Discord invite and an onboarding guide. Note: community conversations are in Chinese.</p>
+      <p style="margin-bottom:24px">We deliberately keep the community small — every application is read by a human to protect the quality of discussion. You'll hear back by email within <strong>2 business days</strong>; if approved, you'll receive payment instructions, a Discord invite and an onboarding guide. Note: community conversations are in Chinese.</p>
 
-      <form id="apply-form" action="/api/contact" method="POST">
-        <input type="hidden" name="_subject" value="Lighthouse Club application (EN)" />
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <div class="form-field">
-          <label for="f-name">What should we call you?</label>
-          <input type="text" id="f-name" name="name" required placeholder="Nickname" autocomplete="nickname" />
-        </div>
-        <div class="form-field">
-          <label for="f-email">Email</label>
-          <input type="email" id="f-email" name="email" required placeholder="you@example.com" autocomplete="email" />
-          <div class="hint">We'll send the result to this address.</div>
-        </div>
-        <div class="form-field">
-          <label for="f-motivation">In one sentence: what do you hope to get from the community?</label>
-          <textarea id="f-motivation" name="motivation" required placeholder="Making friends, learning, finding direction — anything goes"></textarea>
-        </div>
-        <div class="form-field">
-          <label for="f-source">How did you hear about us? <span style="font-weight:400">(optional)</span></label>
-          <input type="text" id="f-source" name="source" placeholder="Friend / social media / other" />
-        </div>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAADt8PjE4JgY0PwSh" style="margin:14px 0"></div>
-        <div class="form-actions">
-          <button class="btn gold" type="submit" id="apply-submit">Submit application</button>
-          <p class="fine">By submitting you agree to our <a href="/legal/tos/">Terms of Service</a> and <a href="/legal/privacy/">Privacy Policy</a> (Chinese, governing versions)</p>
-          <p class="form-error" id="apply-error">Submission failed — please check your email is correct, or try again later or leave a message via the <a href="/en/contact/">contact page</a>.</p>
-        </div>
-      </form>
+      <div class="apply-note" style="margin-bottom:22px">
+        <strong>First, verify your email 📧</strong><br />
+        Since the result is sent to your email, we ask you to verify it first so nothing gets lost to a typo: <strong>enter your email → click the link we send</strong>, and you're in. No password needed.
+      </div>
 
-      <div class="form-success" id="apply-success">
-        <h2 style="margin-top:0">Application received 🎉</h2>
-        <p>We read every application and will reply to your email within <strong>2 business days</strong> — please check your inbox (and spam folder).</p>
-        <p style="margin-bottom:0"><a href="/en/">← Back to home</a></p>
+      <div class="form-actions" style="margin-bottom:28px">
+        <a class="btn gold" href="/auth/login?next=/my/apply">Start application (verify email)</a>
+        <p class="fine" style="margin-top:10px">You can also <a href="/auth/login?next=/my/apply">verify with Discord</a>.</p>
       </div>
 
       <div class="apply-note">
@@ -49,24 +25,4 @@ import { PRICE } from '../../data/site';
       </div>
     </div>
   </div>
-
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  <script>
-    const form = document.getElementById('apply-form') as HTMLFormElement;
-    const success = document.getElementById('apply-success')!;
-    const error = document.getElementById('apply-error')!;
-    const btn = document.getElementById('apply-submit') as HTMLButtonElement;
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      (error as HTMLElement).style.display = 'none';
-      btn.disabled = true;
-      btn.textContent = 'Submitting…';
-      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-        .then((res) => {
-          if (res.ok) { form.style.display = 'none'; (success as HTMLElement).style.display = 'block'; success.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-          else throw new Error('bad status');
-        })
-        .catch(() => { (error as HTMLElement).style.display = 'block'; btn.disabled = false; btn.textContent = 'Submit application'; });
-    });
-  </script>
 </Base>

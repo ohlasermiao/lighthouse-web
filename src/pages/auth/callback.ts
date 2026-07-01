@@ -34,5 +34,9 @@ export const GET: APIRoute = async ({ cookies, request, redirect, url }) => {
   // 建账号失败不阻断登录；/my 会据实显示"未关联"
   if (rpcError) console.error('ensure_my_account failed:', rpcError.message);
 
-  return redirect('/my');
+  // 登录后跳回来源页：next 存在登录前设的 cookie 里（回调 URL 保持纯净，不依赖 Supabase redirect 白名单带参）
+  const next = cookies.get('lh_next')?.value || '';
+  cookies.delete('lh_next', { path: '/' });
+  const dest = /^\/(?!\/)/.test(next) ? next : '/my';
+  return redirect(dest);
 };

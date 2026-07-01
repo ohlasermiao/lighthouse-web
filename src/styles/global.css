@@ -288,7 +288,7 @@ footer.site { background: var(--night-950); color: var(--moon-3); font-size: .9r
 .footer-bottom a:hover { color: var(--gold-soft); }
 
 /* ============ 子页（法律 / 表单） ============ */
-main.subpage { padding: 64px 0 96px; min-height: 60vh; }
+.subpage { padding: 64px 0 96px; min-height: 60vh; }
 .subpage h1 { font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.4rem); font-weight: 800; margin-bottom: 6px; }
 .subpage .updated { color: var(--ink-3); font-size: .85rem; margin-bottom: 34px; }
 .subpage h2 { font-size: 1.22rem; font-weight: 700; margin: 36px 0 10px; }

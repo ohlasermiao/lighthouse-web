@@ -67,19 +67,27 @@ if (Astro.request.method === 'POST') {
       </Fragment>
     ) : (
       <Fragment>
-        <h1 style="margin:0 0 4px">申请加入 Lighthouse Club</h1>
-        <p class="fine" style="color:var(--ink-3);font-size:.84rem;margin:0 0 4px">审核结果将回复到已验证邮箱：<strong>{email}</strong></p>
-        <p style="font-size:.9rem;color:var(--ink-3);margin:0 0 18px">不是这个邮箱？<a href="/auth/signout">退出</a>后用别的邮箱重新验证。</p>
-        {error && <p style="color:#c0392b;font-size:.9rem;margin:0 0 12px">{error}</p>}
-        <form method="POST" style="display:flex;flex-direction:column;gap:14px">
-          <label style="font-size:.85rem;color:var(--ink-3)">怎么称呼你？ *
-            <input name="name" required placeholder="昵称或称呼" style="width:100%;padding:11px 13px;border:1px solid var(--line,#2a3550);border-radius:9px;background:transparent;color:inherit;margin-top:5px" /></label>
-          <label style="font-size:.85rem;color:var(--ink-3)">一句话：你希望从社区获得什么？ *
-            <textarea name="motivation" required rows="4" placeholder="交朋友、学东西、找方向、找个能安心说话的地方，都可以" style="width:100%;padding:11px 13px;border:1px solid var(--line,#2a3550);border-radius:9px;background:transparent;color:inherit;margin-top:5px"></textarea></label>
-          <label style="font-size:.85rem;color:var(--ink-3)">从哪里了解到我们？（选填）
-            <input name="source" placeholder="朋友推荐 / 社交媒体 / 其他" style="width:100%;padding:11px 13px;border:1px solid var(--line,#2a3550);border-radius:9px;background:transparent;color:inherit;margin-top:5px" /></label>
-          <button class="btn gold" type="submit">提交申请</button>
-          <p class="fine" style="font-size:.8rem;color:var(--ink-3)">提交即表示同意 <a href="/legal/tos/">服务条款</a> 与 <a href="/legal/privacy/">隐私政策</a></p>
+        <h1 style="margin:0 0 6px">申请加入 Lighthouse Club</h1>
+        <p style="margin:0 0 4px">审核结果将回复到已验证邮箱：<strong>{email}</strong></p>
+        <p style="margin:0 0 24px">不是这个邮箱？<a href="/auth/signout">退出</a>后用别的邮箱重新验证。</p>
+        {error && <p class="form-error" style="display:block">{error}</p>}
+        <form method="POST">
+          <div class="form-field">
+            <label for="a-name">怎么称呼你？ *</label>
+            <input type="text" id="a-name" name="name" required placeholder="昵称或称呼" autocomplete="nickname" />
+          </div>
+          <div class="form-field">
+            <label for="a-motivation">一句话：你希望从社区获得什么？ *</label>
+            <textarea id="a-motivation" name="motivation" required placeholder="交朋友、学东西、找方向、找个能安心说话的地方，都可以"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="a-source">从哪里了解到我们？<span style="font-weight:400">（选填）</span></label>
+            <input type="text" id="a-source" name="source" placeholder="朋友推荐 / 社交媒体 / 其他" />
+          </div>
+          <div class="form-actions">
+            <button class="btn gold" type="submit">提交申请</button>
+            <p class="fine">提交即表示同意 <a href="/legal/tos/">服务条款</a> 与 <a href="/legal/privacy/">隐私政策</a></p>
+          </div>
         </form>
       </Fragment>
     )}

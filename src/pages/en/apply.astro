@@ -7,9 +7,9 @@ import { PRICE } from '../../data/site';
     <div class="container apply-wrap">
       <a class="back-link" href="/en/">← Back to home</a>
       <h1>Apply to join Lighthouse Club</h1>
-      <p style="margin-bottom:24px">We deliberately keep the community small — every application is read by a human to protect the quality of discussion. You'll hear back by email within <strong>2 business days</strong>; if approved, you'll receive payment instructions, a Discord invite and an onboarding guide. Note: community conversations are in Chinese.</p>
+      <p class="apply-aux" style="margin-bottom:24px">We deliberately keep the community small — every application is read by a human to protect the quality of discussion. You'll hear back by email within <strong>2 business days</strong>; if approved, you'll receive payment instructions, a Discord invite and an onboarding guide. Note: community conversations are in Chinese.</p>
 
-      <div class="apply-note" style="margin-bottom:26px">
+      <div class="apply-note apply-aux" style="margin-bottom:26px">
         <strong>Already a member?</strong><br />
         Just <a href="/en/auth/login">log in</a> to see your membership status — no need to apply again.
       </div>
@@ -59,7 +59,7 @@ import { PRICE } from '../../data/site';
         </div>
       </div>
 
-      <div class="apply-note">
+      <div class="apply-note apply-aux">
         <strong>Before you join</strong><br />
         Joining means agreeing to our <a href="/legal/guidelines/">Community Guidelines</a>: share experience over conclusions, treat each other kindly, don't redistribute member-only content. Membership is {PRICE.symbol}{PRICE.perMonth}/month (billed {PRICE.symbol}{PRICE.total} every {PRICE.months} months); payment instructions follow approval — no auto-charge, renewal is always your decision.
       </div>
@@ -106,6 +106,7 @@ import { PRICE } from '../../data/site';
           statusToken = j.status_token || '';
           emailEl.textContent = emailVal;
           form.style.display = 'none';
+          document.querySelectorAll('.apply-aux').forEach((el) => { (el as HTMLElement).style.display = 'none'; });
           success.style.display = 'block';
           success.scrollIntoView({ behavior: 'smooth', block: 'center' });
           if (statusToken) {

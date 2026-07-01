@@ -23,6 +23,7 @@ import Base from '../../layouts/Base.astro';
           <label for="c-message">Message</label>
           <textarea id="c-message" name="message" required placeholder="Questions, suggestions, partnership — all welcome"></textarea>
         </div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADt8PjE4JgY0PwSh" style="margin:14px 0"></div>
         <div class="form-actions">
           <button class="btn gold" type="submit" id="contact-submit">Send</button>
           <p class="fine">By submitting you agree to our <a href="/legal/privacy/">Privacy Policy</a></p>
@@ -43,6 +44,7 @@ import Base from '../../layouts/Base.astro';
     </div>
   </div>
 
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const success = document.getElementById('contact-success')!;

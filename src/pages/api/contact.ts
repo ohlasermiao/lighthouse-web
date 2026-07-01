@@ -43,9 +43,25 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ ok: false, error: 'invalid' }, 422);
   }
 
-  // 渲染所有内容字段（跳过下划线 meta 与已单列的 name/email）
+  // Cloudflare Turnstile 人机校验（设了 secret 才校验；本地 dev 无 secret 则跳过）
+  const tsSecret = env(locals, 'TURNSTILE_SECRET');
+  if (tsSecret) {
+    try {
+      const v = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ secret: tsSecret, response: data['cf-turnstile-response'] || '' }),
+      });
+      const out: any = await v.json();
+      if (!out?.success) return json({ ok: false, error: 'captcha' }, 403);
+    } catch {
+      return json({ ok: false, error: 'captcha_error' }, 502);
+    }
+  }
+
+  // 渲染所有内容字段（跳过下划线 meta、turnstile token、已单列的 name/email）
   const rows = Object.entries(data)
-    .filter(([k, v]) => !k.startsWith('_') && k !== 'name' && k !== 'email' && String(v).trim())
+    .filter(([k, v]) => !k.startsWith('_') && k !== 'name' && k !== 'email' && k !== 'cf-turnstile-response' && String(v).trim())
     .map(([k, v]) => {
       const label = LABELS[k] || k;
       const val = String(v).slice(0, 5000);
@@ -74,7 +90,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   </div>`;
 
   const textBody = `Lighthouse Club 网站表单${subject ? `（${subject}）` : ''}\n称呼：${name}\n邮箱：${email}${when ? `\n提交时间：${when}` : ''}\n\n`
-    + Object.entries(data).filter(([k, v]) => !k.startsWith('_') && k !== 'name' && k !== 'email' && String(v).trim())
+    + Object.entries(data).filter(([k, v]) => !k.startsWith('_') && k !== 'name' && k !== 'email' && k !== 'cf-turnstile-response' && String(v).trim())
         .map(([k, v]) => `${LABELS[k] || k}：${v}`).join('\n')
     + `\n\n（直接回复本邮件即可回信给对方）`;
 

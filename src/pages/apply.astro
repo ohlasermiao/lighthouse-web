@@ -29,6 +29,7 @@ import { PRICE } from '../data/site';
           <label for="f-source">从哪里了解到我们？<span style="font-weight:400">（选填）</span></label>
           <input type="text" id="f-source" name="source" placeholder="朋友推荐 / 社交媒体 / 其他" />
         </div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADt8PjE4JgY0PwSh" style="margin:14px 0"></div>
         <div class="form-actions">
           <button class="btn gold" type="submit" id="apply-submit">提交申请</button>
           <p class="fine">提交即表示同意 <a href="/legal/tos/">服务条款</a> 与 <a href="/legal/privacy/">隐私政策</a></p>
@@ -49,6 +50,7 @@ import { PRICE } from '../data/site';
     </div>
   </div>
 
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     const form = document.getElementById('apply-form') as HTMLFormElement;
     const success = document.getElementById('apply-success')!;

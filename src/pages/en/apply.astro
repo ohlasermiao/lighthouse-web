@@ -29,6 +29,7 @@ import { PRICE } from '../../data/site';
           <label for="f-source">How did you hear about us? <span style="font-weight:400">(optional)</span></label>
           <input type="text" id="f-source" name="source" placeholder="Friend / social media / other" />
         </div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADt8PjE4JgY0PwSh" style="margin:14px 0"></div>
         <div class="form-actions">
           <button class="btn gold" type="submit" id="apply-submit">Submit application</button>
           <p class="fine">By submitting you agree to our <a href="/legal/tos/">Terms of Service</a> and <a href="/legal/privacy/">Privacy Policy</a> (Chinese, governing versions)</p>
@@ -49,6 +50,7 @@ import { PRICE } from '../../data/site';
     </div>
   </div>
 
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     const form = document.getElementById('apply-form') as HTMLFormElement;
     const success = document.getElementById('apply-success')!;

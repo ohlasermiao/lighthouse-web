@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ cookies, request, redirect, url }) => {
     provider: 'discord',
     options: {
       scopes: 'identify email guilds.join',
-      redirectTo: `${origin}/auth/callback`,
+      redirectTo: `${origin}/auth/callback${safeNext ? `?next=${encodeURIComponent(safeNext)}` : ''}`,
     },
   });
   if (error || !data?.url) return redirect('/auth/login?e=discord');

@@ -8,7 +8,7 @@ import Base from '../layouts/Base.astro';
       <h1>联系我们</h1>
       <p style="margin-bottom:28px">关于会员、付款或社区的任何问题，给我们留言——我们通常在 1 个工作日内回复到你的邮箱。会员也可以在社区内直接联系管理团队。</p>
 
-      <form id="contact-form" action="https://formspree.io/f/mqeoygjz" method="POST">
+      <form id="contact-form" action="/api/contact" method="POST">
         <input type="hidden" name="_subject" value="Lighthouse Club 网站联系" />
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="form-field">

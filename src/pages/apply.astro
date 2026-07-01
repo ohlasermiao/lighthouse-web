@@ -9,7 +9,7 @@ import { PRICE } from '../data/site';
       <h1>申请加入 Lighthouse Club</h1>
       <p style="margin-bottom:28px">我们刻意保持小规模——每一位成员的申请都会被认真阅读，以保证讨论的质量和社区的氛围。提交后 <strong>2 个工作日内</strong>，我们会把结果回复到你的邮箱；通过后你会收到付款方式、Discord 邀请与入门指引。</p>
 
-      <form id="apply-form" action="https://formspree.io/f/mqeoygjz" method="POST">
+      <form id="apply-form" action="/api/contact" method="POST">
         <input type="hidden" name="_subject" value="Lighthouse Club 入会申请" />
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="form-field">

@@ -9,7 +9,7 @@ import { PRICE } from '../../data/site';
       <h1>Apply to join Lighthouse Club</h1>
       <p style="margin-bottom:28px">We deliberately keep the community small — every application is read by a human to protect the quality of discussion. You'll hear back by email within <strong>2 business days</strong>; if approved, you'll receive payment instructions, a Discord invite and an onboarding guide. Note: community conversations are in Chinese.</p>
 
-      <form id="apply-form" action="https://formspree.io/f/mqeoygjz" method="POST">
+      <form id="apply-form" action="/api/contact" method="POST">
         <input type="hidden" name="_subject" value="Lighthouse Club application (EN)" />
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="form-field">

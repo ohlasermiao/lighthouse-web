@@ -52,11 +52,31 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return `<p><strong>${esc(label)}：</strong></p><p style="white-space:pre-wrap;border-left:3px solid #ccc;padding-left:12px;margin:4px 0 12px">${esc(val)}</p>`;
     }).join('');
 
-  const html = `<div style="font-family:sans-serif;font-size:14px;line-height:1.6;color:#222">
-    <p><strong>来自 Lighthouse Club 网站表单</strong></p>
-    <p><strong>称呼：</strong>${esc(name)}<br/><strong>邮箱：</strong>${esc(email)}</p>
-    ${rows}
+  // 提交时间（东京时区，便于运营）
+  let when = '';
+  try {
+    when = new Intl.DateTimeFormat('zh-CN', {
+      timeZone: 'Asia/Tokyo', dateStyle: 'medium', timeStyle: 'short',
+    }).format(new Date()) + ' (JST)';
+  } catch { /* ignore */ }
+
+  const html = `<div style="font-family:-apple-system,'PingFang SC',sans-serif;font-size:14px;line-height:1.7;color:#232323;max-width:560px">
+    <div style="background:#16314f;color:#fff;padding:14px 18px;border-radius:10px 10px 0 0;font-weight:600">
+      Lighthouse Club · 网站表单${subject ? `（${esc(subject)}）` : ''}
+    </div>
+    <div style="border:1px solid #e6ebf1;border-top:0;border-radius:0 0 10px 10px;padding:18px">
+      <table style="font-size:14px;margin:0 0 8px"><tr><td style="color:#6b7a88;padding:2px 12px 2px 0">称呼</td><td><strong>${esc(name)}</strong></td></tr>
+      <tr><td style="color:#6b7a88;padding:2px 12px 2px 0">邮箱</td><td><a href="mailto:${esc(email)}">${esc(email)}</a></td></tr>
+      ${when ? `<tr><td style="color:#6b7a88;padding:2px 12px 2px 0">提交时间</td><td>${esc(when)}</td></tr>` : ''}</table>
+      ${rows}
+      <p style="color:#9aa7b4;font-size:12px;border-top:1px solid #eef2f6;padding-top:10px;margin-top:14px">直接回复本邮件即可回信给对方（reply-to 已设为其邮箱）。</p>
+    </div>
   </div>`;
+
+  const textBody = `Lighthouse Club 网站表单${subject ? `（${subject}）` : ''}\n称呼：${name}\n邮箱：${email}${when ? `\n提交时间：${when}` : ''}\n\n`
+    + Object.entries(data).filter(([k, v]) => !k.startsWith('_') && k !== 'name' && k !== 'email' && String(v).trim())
+        .map(([k, v]) => `${LABELS[k] || k}：${v}`).join('\n')
+    + `\n\n（直接回复本邮件即可回信给对方）`;
 
   const key = env(locals, 'RESEND_API_KEY');
   if (!key) return json({ ok: false, error: 'not_configured' }, 500);
@@ -66,7 +86,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: FROM, to: [to], reply_to: email, subject: `[表单] ${subject} — ${name}`, html }),
+      body: JSON.stringify({ from: FROM, to: [to], reply_to: email, subject: `[表单] ${subject} — ${name}`, html, text: textBody }),
     });
     if (!res.ok) return json({ ok: false, error: 'send_failed' }, 502);
     return json({ ok: true });

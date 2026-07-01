@@ -24,7 +24,7 @@ import { PRICE } from '../data/site';
         <div class="form-field">
           <label for="a-email">邮箱 *</label>
           <input type="email" id="a-email" name="email" required placeholder="you@example.com" autocomplete="email" />
-          <div class="hint">我们会先给这个邮箱发一封确认邮件——点击其中的链接才算提交，以防填错收不到审核结果。</div>
+          <div class="hint">审核结果会回复到这个邮箱，请确认无误。提交后我们还会发一封确认信，点一下就能确保回复送得到。</div>
         </div>
         <div class="form-field">
           <label for="a-motivation">一句话：你希望从社区获得什么？ *</label>
@@ -43,8 +43,9 @@ import { PRICE } from '../data/site';
       </form>
 
       <div class="form-success" id="apply-success">
-        <h2 style="margin-top:0">确认邮件已发出 📧</h2>
-        <p>我们给你的邮箱发了一封确认邮件。<strong>请打开邮箱、点击其中的链接</strong>，你的申请才会正式送到我们手上。没收到？检查垃圾箱，或几分钟后重试。</p>
+        <h2 style="margin-top:0">申请已收到 ✅</h2>
+        <p>我们会认真阅读，并在 <strong>2 个工作日内</strong>把结果回复到你的邮箱。</p>
+        <p>另外我们给你发了一封<strong>确认邮件</strong>——顺手打开点一下里面的链接，就能确保审核结果一定送得到你（没收到记得看看垃圾箱）。</p>
         <p style="margin-bottom:0"><a href="/">← 回到首页</a></p>
       </div>
 

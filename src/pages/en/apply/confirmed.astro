@@ -21,27 +21,22 @@ if (token && state !== 'ok') {
   } else if (!key) {
     state = 'error';
   } else {
+    // 申请已在提交时送达 hello@。此处只追一条"✓邮箱已确认"提示（供 Ethan 判断回信可达性）。
     const to = env('CONTACT_TO') || 'hello@sync-value.com';
     let when = '';
     try { when = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Tokyo', dateStyle: 'medium', timeStyle: 'short' }).format(new Date()) + ' (JST)'; } catch {}
-    const html = `<div style="font-family:-apple-system,'PingFang SC',sans-serif;font-size:14px;line-height:1.7;color:#232323;max-width:560px">
-      <div style="background:#16314f;color:#fff;padding:14px 18px;border-radius:10px 10px 0 0;font-weight:600">Lighthouse Club · 入会申请 (EN)　<span style="color:#7fd6a3">✓ 邮箱已确认</span></div>
-      <div style="border:1px solid #e6ebf1;border-top:0;border-radius:0 0 10px 10px;padding:18px">
-        <table style="font-size:14px;margin:0 0 8px">
-          <tr><td style="color:#6b7a88;padding:2px 12px 2px 0">称呼 Name</td><td><strong>${esc(payload.name)}</strong></td></tr>
-          <tr><td style="color:#6b7a88;padding:2px 12px 2px 0">邮箱（已确认）</td><td><a href="mailto:${esc(payload.email)}">${esc(payload.email)}</a></td></tr>
-          ${when ? `<tr><td style="color:#6b7a88;padding:2px 12px 2px 0">确认时间</td><td>${esc(when)}</td></tr>` : ''}
-        </table>
-        <p><strong>加入动机 Motivation：</strong></p><p style="white-space:pre-wrap;border-left:3px solid #ccc;padding-left:12px;margin:4px 0 12px">${esc(payload.motivation)}</p>
-        ${payload.source ? `<p><strong>来源 Source：</strong>${esc(payload.source)}</p>` : ''}
-        <p style="color:#9aa7b4;font-size:12px;border-top:1px solid #eef2f6;padding-top:10px;margin-top:14px">申请人邮箱已通过点击确认链接验证，回信可直达（reply-to 已设为其邮箱）。</p>
+    const html = `<div style="font-family:-apple-system,'PingFang SC',sans-serif;font-size:14px;line-height:1.7;color:#232323;max-width:520px">
+      <div style="background:#0f7a4d;color:#fff;padding:12px 18px;border-radius:10px 10px 0 0;font-weight:600">Lighthouse Club · <span>✓ 邮箱已确认</span> (EN)</div>
+      <div style="border:1px solid #e6ebf1;border-top:0;border-radius:0 0 10px 10px;padding:16px 18px">
+        <p style="margin:0 0 8px"><strong>${esc(payload.name)}</strong>（<a href="mailto:${esc(payload.email)}">${esc(payload.email)}</a>）刚刚确认了邮箱，<strong>回信可放心送达</strong>。</p>
+        <p style="margin:0;color:#6b7a88;font-size:13px">对应此前那封"待确认"的入会申请。${when ? `确认时间 ${esc(when)}。` : ''}</p>
       </div>
     </div>`;
     try {
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from: 'Lighthouse Club <noreply@mail.sync-value.com>', to: [to], reply_to: payload.email, subject: `[入会申请·已确认·EN] ${payload.name}`, html }),
+        body: JSON.stringify({ from: 'Lighthouse Club <noreply@mail.sync-value.com>', to: [to], reply_to: payload.email, subject: `[入会申请·已确认✓·EN] ${payload.name}`, html }),
       });
       if (res.ok) return Astro.redirect('/en/apply/confirmed?ok=1');
       state = 'error';
@@ -49,13 +44,13 @@ if (token && state !== 'ok') {
   }
 }
 ---
-<Base title="Application confirmed — Lighthouse Club" description="Lighthouse Club application confirmation." lang="en" noindex={true} routeKey="apply">
+<Base title="Email confirmed — Lighthouse Club" description="Lighthouse Club application email confirmation." lang="en" noindex={true} routeKey="apply">
   <div class="subpage"><div class="container"><div class="account-box" style="max-width:520px">
     {state === 'ok' && (
       <Fragment>
-        <div style="font-size:1.8rem">🎉</div>
-        <h1 style="margin:.3rem 0">Application submitted</h1>
-        <p>Your email is confirmed and your application is on its way to us. We'll read it carefully and reply within <strong>2 business days</strong>. Please keep an eye on your inbox (including spam).</p>
+        <div style="font-size:1.8rem">✅</div>
+        <h1 style="margin:.3rem 0">Email confirmed — thank you!</h1>
+        <p>We already received your application, and now your email is confirmed too — our decision will reach you for sure. We'll reply within <strong>2 business days</strong>; please keep an eye on your inbox (including spam).</p>
         <p class="fine" style="margin-top:16px"><a href="/en/">← Back to home</a></p>
       </Fragment>
     )}
@@ -63,7 +58,7 @@ if (token && state !== 'ok') {
       <Fragment>
         <div style="font-size:1.8rem">⏳</div>
         <h1 style="margin:.3rem 0">Link invalid or expired</h1>
-        <p>This confirmation link couldn't be verified — it may be older than 24 hours or already used. Please submit your application again.</p>
+        <p>This confirmation link couldn't be verified — it may be older than 24 hours or already used. Don't worry: <strong>we already received your application</strong>; only the email confirmation didn't go through. To be sure you get our reply, you can apply again.</p>
         <p class="fine" style="margin-top:16px"><a class="btn gold" href="/en/apply/">Apply again</a></p>
       </Fragment>
     )}
@@ -71,7 +66,7 @@ if (token && state !== 'ok') {
       <Fragment>
         <div style="font-size:1.8rem">😥</div>
         <h1 style="margin:.3rem 0">Something went wrong</h1>
-        <p>A temporary error occurred. Please click the link in your confirmation email again shortly, or <a href="/en/contact/">contact us</a>.</p>
+        <p>A temporary error occurred during confirmation. Your application was already received and this step doesn't affect the review; you can click the link in your confirmation email again shortly, or <a href="/en/contact/">contact us</a>.</p>
       </Fragment>
     )}
   </div></div></div>

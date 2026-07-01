@@ -1,0 +1,71 @@
+---
+export const prerender = false;
+import Base from '../../../layouts/Base.astro';
+import { supabaseServer } from '../../../lib/supabase';
+
+let sent = false;
+let error = '';
+let next = Astro.url.searchParams.get('next') || '/en/my';
+
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const email = String(form.get('email') || '').trim();
+  next = String(form.get('next') || next);
+  const safeNextPost = /^\/(?!\/)/.test(next) ? next : '';
+  if (!email) {
+    error = 'Please enter your email address.';
+  } else {
+    if (safeNextPost) Astro.cookies.set('lh_next', safeNextPost, { path: '/', maxAge: 1800, sameSite: 'lax', httpOnly: true });
+    const supabase = supabaseServer(Astro.cookies, Astro.request.headers);
+    const origin = new URL(Astro.request.url).origin;
+    const { error: e } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: `${origin}/auth/callback${safeNextPost ? `?next=${encodeURIComponent(safeNextPost)}` : ''}` },
+    });
+    if (e) error = e.message;
+    else sent = true;
+  }
+}
+
+const safeNext = /^\/(?!\/)/.test(next) ? next : '';
+const discordHref = `/auth/discord${safeNext ? `?next=${encodeURIComponent(safeNext)}` : ''}`;
+const applying = safeNext === '/en/my/apply';
+
+const qe = Astro.url.searchParams.get('e');
+if (qe && !error) error = 'Sign-in did not complete, please try again.';
+---
+<Base title="Member sign-in — Lighthouse Club" description="Sign in to the Lighthouse Club member center." lang="en" noindex={true} routeKey="account">
+  <div class="subpage">
+    <div class="container">
+      <div class="account-box">
+        {sent ? (
+          <Fragment>
+            <div class="ic">📧</div>
+            <h1>Check your inbox</h1>
+            <p>A one-time sign-in link has been sent to your email. Click the link in that email to sign in.</p>
+            <p class="fine" style="margin-top:18px;color:var(--ink-3);font-size:.82rem">Didn't get it? Check spam, or <a href="/en/auth/login/">resend</a> in a few minutes.</p>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <div class="ic">🔑</div>
+            <h1>{applying ? 'Verify your email to continue' : 'Member sign-in'}</h1>
+            <p>{applying ? 'To make sure you receive our decision, please verify your email first — enter it below and click the link we send to continue your application.' : 'Enter your email and we\'ll send a one-time sign-in link (no password needed).'}</p>
+            {error && <p style="color:#c0392b;font-size:.9rem;margin:.4rem 0">{error}</p>}
+            <form method="POST" style="display:flex;flex-direction:column;gap:12px;max-width:340px;margin:18px auto 0">
+              <input type="hidden" name="next" value={safeNext} />
+              <input type="email" name="email" required placeholder="you@example.com"
+                style="padding:12px 14px;border:1px solid var(--line,#2a3550);border-radius:10px;background:transparent;color:inherit;font-size:1rem" />
+              <button class="btn gold" type="submit">{applying ? 'Send verification link' : 'Send sign-in link'}</button>
+            </form>
+            {!applying && (
+              <Fragment>
+                <p class="fine" style="margin-top:22px;color:var(--ink-3);font-size:.82rem">Or verify with Discord:</p>
+                <a class="btn" href={discordHref} style="margin-top:6px">Verify with Discord</a>
+              </Fragment>
+            )}
+          </Fragment>
+        )}
+      </div>
+    </div>
+  </div>
+</Base>

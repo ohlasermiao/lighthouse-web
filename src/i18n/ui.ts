@@ -19,6 +19,7 @@ export const translatedRoutes: Record<string, Partial<Record<Lang, string>>> = {
   faq:     { zh: '/faq/' },
   news:    { zh: '/news/' },
   account: { zh: '/account/' },
+  my:      { zh: '/my/',      en: '/en/my/' },
   welcome: { zh: '/welcome/' },
 };
 

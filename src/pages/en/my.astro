@@ -1,13 +1,13 @@
 ---
 export const prerender = false;
-import Base from '../layouts/Base.astro';
-import { supabaseServer } from '../lib/supabase';
+import Base from '../../layouts/Base.astro';
+import { supabaseServer } from '../../lib/supabase';
 
 const supabase = supabaseServer(Astro.cookies, Astro.request.headers);
 const { data: { user } } = await supabase.auth.getUser();
-if (!user) return Astro.redirect('/auth/login');
+if (!user) return Astro.redirect('/en/auth/login');
 
-// 自助查询：security definer 函数，仅返回本人（auth.email()）的会员状态
+// Self-service: security-definer function, returns only the caller's (auth.email()) membership.
 const { data: rows } = await supabase.rpc('my_membership');
 const m = Array.isArray(rows) && rows.length ? rows[0] : null;
 
@@ -22,24 +22,24 @@ const isActive = status === 'active' && !!expiresAt && expiresAt.getTime() > Dat
 const daysLeft = expiresAt ? Math.ceil((expiresAt.getTime() - Date.now()) / 86400000) : null;
 const fmt = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 const channelLabel: Record<string, string> = {
-  alipay: '支付宝', wechat: '微信', wise: 'Wise', crypto: '加密货币',
-  comp: '赠送', legacy: '历史记录',
+  alipay: 'Alipay', wechat: 'WeChat', wise: 'Wise', crypto: 'Crypto',
+  comp: 'Complimentary', legacy: 'Legacy record',
 };
 ---
-<Base title="会员中心 — Lighthouse Club" description="Lighthouse Club 会员中心。" noindex={true} routeKey="my">
+<Base title="Member center — Lighthouse Club" description="Lighthouse Club member center." lang="en" noindex={true} routeKey="my">
   <div class="subpage">
     <div class="container">
       <div class="account-box" style="text-align:left">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-          <h1 style="margin:0">会员中心</h1>
-          <a class="btn" href="/auth/signout" style="font-size:.82rem;padding:6px 14px">退出登录</a>
+          <h1 style="margin:0">Member center</h1>
+          <a class="btn" href="/auth/signout" style="font-size:.82rem;padding:6px 14px">Sign out</a>
         </div>
         <p style="color:var(--ink-3);font-size:.95rem;margin:.3rem 0 1.2rem">{user.email}</p>
 
         {!hasAccount && (
           <div class="status-card" style="border:1px solid var(--line,#2a3550);border-radius:14px;padding:20px">
-            <p>你的邮箱还没有关联到会员账号。如果你已经是社区会员，请用 Discord 验证身份完成关联。</p>
-            <a class="btn gold" href="/auth/discord" style="margin-top:10px">用 Discord 验证身份</a>
+            <p>Your email isn't linked to a member account yet. If you're already a community member, verify your identity with Discord to link them.</p>
+            <a class="btn gold" href="/auth/discord" style="margin-top:10px">Verify with Discord</a>
           </div>
         )}
 
@@ -49,24 +49,24 @@ const channelLabel: Record<string, string> = {
               <Fragment>
                 <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
                   <span style="font-size:1.6rem">✨</span>
-                  <strong style="font-size:1.15rem">{tier === 'FAN' ? 'FAN 会员' : 'VIP 会员'}</strong>
-                  <span style="margin-left:auto;color:#1e9e64;font-weight:600;font-size:.85rem">有效</span>
+                  <strong style="font-size:1.15rem">{tier === 'FAN' ? 'FAN member' : 'VIP member'}</strong>
+                  <span style="margin-left:auto;color:#1e9e64;font-weight:600;font-size:.85rem">Active</span>
                 </div>
                 <div style="display:grid;grid-template-columns:auto 1fr;gap:10px 16px;font-size:1rem">
-                  <span style="color:var(--ink-3)">到期日</span><span>{expiresAt && fmt(expiresAt)}（剩 {daysLeft} 天）</span>
-                  {channel && <Fragment><span style="color:var(--ink-3)">最近付款方式</span><span>{channelLabel[channel] ?? channel}</span></Fragment>}
+                  <span style="color:var(--ink-3)">Expires</span><span>{expiresAt && fmt(expiresAt)} ({daysLeft} days left)</span>
+                  {channel && <Fragment><span style="color:var(--ink-3)">Last payment method</span><span>{channelLabel[channel] ?? channel}</span></Fragment>}
                 </div>
-                <p class="fine" style="margin-top:16px;color:var(--ink-3);font-size:.82rem">续费方式与自助续费入口正在完善中。到期前我们会提醒你；如需提前续费，请通过<a href="/contact/">联系我们</a>。</p>
+                <p class="fine" style="margin-top:16px;color:var(--ink-3);font-size:.82rem">Self-service renewal is coming soon. We'll remind you before expiry; to renew early, please <a href="/en/contact/">contact us</a>.</p>
               </Fragment>
             ) : (
               <Fragment>
                 <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
                   <span style="font-size:1.6rem">⏳</span>
-                  <strong style="font-size:1.1rem">{discordLinked ? '当前无有效订阅' : '账号已关联'}</strong>
+                  <strong style="font-size:1.1rem">{discordLinked ? 'No active subscription' : 'Account linked'}</strong>
                 </div>
-                <p>{discordLinked ? '你目前没有生效中的会员订阅，可能已到期。' : '已关联账号，但尚未检测到 Discord 绑定。'}</p>
-                {!discordLinked && <a class="btn" href="/auth/discord" style="margin-top:10px">绑定 Discord</a>}
-                <p class="fine" style="margin-top:14px;color:var(--ink-3);font-size:.82rem">需要续费或协助？请通过<a href="/contact/">联系我们</a>。</p>
+                <p>{discordLinked ? 'You don\'t have an active membership right now — it may have expired.' : 'Account linked, but no Discord binding detected yet.'}</p>
+                {!discordLinked && <a class="btn" href="/auth/discord" style="margin-top:10px">Link Discord</a>}
+                <p class="fine" style="margin-top:14px;color:var(--ink-3);font-size:.82rem">Need to renew or get help? Please <a href="/en/contact/">contact us</a>.</p>
               </Fragment>
             )}
           </div>

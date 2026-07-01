@@ -1,0 +1,95 @@
+---
+export const prerender = false;
+import Base from '../../../layouts/Base.astro';
+import { supabaseServer } from '../../../lib/supabase';
+
+const supabase = supabaseServer(Astro.cookies, Astro.request.headers);
+const { data: { user } } = await supabase.auth.getUser();
+if (!user) return Astro.redirect('/en/auth/login?next=/en/my/apply');
+
+const email = user.email!; // verified via login
+let sent = false;
+let error = '';
+
+function env(key: string): string | undefined {
+  return (Astro.locals as any)?.runtime?.env?.[key] ?? (import.meta.env as any)[key];
+}
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const name = String(form.get('name') || '').trim();
+  const motivation = String(form.get('motivation') || '').trim();
+  const source = String(form.get('source') || '').trim();
+  if (!name || !motivation) {
+    error = 'Please fill in your name and what you hope to get from the community.';
+  } else {
+    const key = env('RESEND_API_KEY');
+    const to = env('CONTACT_TO') || 'hello@sync-value.com';
+    if (!key) {
+      error = 'Temporarily unable to submit, please try again later.';
+    } else {
+      let when = '';
+      try { when = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Tokyo', dateStyle: 'medium', timeStyle: 'short' }).format(new Date()) + ' (JST)'; } catch {}
+      const html = `<div style="font-family:-apple-system,'PingFang SC',sans-serif;font-size:14px;line-height:1.7;color:#232323;max-width:560px">
+        <div style="background:#16314f;color:#fff;padding:14px 18px;border-radius:10px 10px 0 0;font-weight:600">Lighthouse Club · 入会申请 (EN)　<span style="color:#7fd6a3">✓ 邮箱已验证</span></div>
+        <div style="border:1px solid #e6ebf1;border-top:0;border-radius:0 0 10px 10px;padding:18px">
+          <table style="font-size:14px;margin:0 0 8px">
+            <tr><td style="color:#6b7a88;padding:2px 12px 2px 0">称呼 Name</td><td><strong>${esc(name)}</strong></td></tr>
+            <tr><td style="color:#6b7a88;padding:2px 12px 2px 0">邮箱（已验证）</td><td><a href="mailto:${esc(email)}">${esc(email)}</a></td></tr>
+            ${when ? `<tr><td style="color:#6b7a88;padding:2px 12px 2px 0">提交时间</td><td>${esc(when)}</td></tr>` : ''}
+          </table>
+          <p><strong>加入动机 Motivation：</strong></p><p style="white-space:pre-wrap;border-left:3px solid #ccc;padding-left:12px;margin:4px 0 12px">${esc(motivation)}</p>
+          ${source ? `<p><strong>来源 Source：</strong>${esc(source)}</p>` : ''}
+          <p style="color:#9aa7b4;font-size:12px;border-top:1px solid #eef2f6;padding-top:10px;margin-top:14px">此申请人邮箱已通过登录验证，回信可直达（reply-to 已设为其邮箱）。</p>
+        </div>
+      </div>`;
+      try {
+        const res = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from: 'Lighthouse Club <noreply@mail.sync-value.com>', to: [to], reply_to: email, subject: `[入会申请·已验证·EN] ${name}`, html }),
+        });
+        if (res.ok) sent = true; else error = 'Submission failed, please try again later.';
+      } catch { error = 'Submission failed, please try again later.'; }
+    }
+  }
+}
+---
+<Base title="Apply — Lighthouse Club" description="Apply to join Lighthouse Club." lang="en" noindex={true} routeKey="apply">
+  <div class="subpage"><div class="container"><div class="account-box" style="text-align:left;max-width:520px">
+    {sent ? (
+      <Fragment>
+        <div style="font-size:1.6rem">🎉</div>
+        <h1 style="margin:.3rem 0">Application received</h1>
+        <p>We'll read it carefully and reply within <strong>2 business days</strong> to <strong>{email}</strong>. Since your email is verified, the reply will reach you.</p>
+        <p class="fine" style="margin-top:14px"><a href="/en/">← Back to home</a></p>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <h1 style="margin:0 0 6px">Apply to join Lighthouse Club</h1>
+        <p style="margin:0 0 4px">The result will be sent to your verified email: <strong>{email}</strong></p>
+        <p style="margin:0 0 24px">Not this email? <a href="/auth/signout">Sign out</a> and verify with another address.</p>
+        {error && <p class="form-error" style="display:block">{error}</p>}
+        <form method="POST">
+          <div class="form-field">
+            <label for="a-name">What should we call you? *</label>
+            <input type="text" id="a-name" name="name" required placeholder="Nickname" autocomplete="nickname" />
+          </div>
+          <div class="form-field">
+            <label for="a-motivation">In one sentence: what do you hope to get from the community? *</label>
+            <textarea id="a-motivation" name="motivation" required placeholder="Making friends, learning, finding direction — anything goes"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="a-source">How did you hear about us? <span style="font-weight:400">(optional)</span></label>
+            <input type="text" id="a-source" name="source" placeholder="Friend / social media / other" />
+          </div>
+          <div class="form-actions">
+            <button class="btn gold" type="submit">Submit application</button>
+            <p class="fine">By submitting you agree to our <a href="/legal/tos/">Terms</a> and <a href="/legal/privacy/">Privacy Policy</a> (Chinese, governing).</p>
+          </div>
+        </form>
+      </Fragment>
+    )}
+  </div></div></div>
+</Base>

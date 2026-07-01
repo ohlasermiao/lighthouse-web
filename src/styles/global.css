@@ -119,6 +119,7 @@ nav.primary a:hover { color: var(--gold-soft); }
 .header-cta { display: flex; align-items: center; gap: 14px; }
 .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
 .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--moon); margin: 5px 0; border-radius: 2px; transition: .3s var(--ease); }
+nav.primary a.nav-login-mobile { display: none; } /* 桌面用右侧描边按钮，移动端才在菜单里露出 */
 
 /* ============ 夜面（hero / final / footer 共用底） ============ */
 .night {
@@ -345,6 +346,8 @@ table.profile th { width: 30%; font-weight: 700; white-space: nowrap; }
   }
   nav.primary.open { display: flex; }
   nav.primary a { padding: 12px 0; border-bottom: 1px solid var(--night-line); }
+  nav.primary a.nav-login-mobile { display: block; }
+  .login-cta { display: none; } /* 移动端登录入口收进菜单，右侧只留金色申请按钮 */
   .nav-toggle { display: block; }
   .cols-4, .cols-3 { grid-template-columns: 1fr; }
   .hero { padding: 72px 0 90px; }

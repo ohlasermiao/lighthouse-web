@@ -1,18 +1,6 @@
 ---
-import Base from '../layouts/Base.astro';
+// 旧的会员中心占位页已废弃。真正的登录在 /auth/login、会员中心在 /my。
+// 这里做重定向兜底：/my 若未登录会自己转去 /auth/login。
+export const prerender = false;
+return Astro.redirect('/my', 302);
 ---
-<Base title="会员中心 — Lighthouse Club" description="Lighthouse Club 会员中心 — 管理你的订阅。" noindex={true} routeKey="account">
-  <div class="subpage">
-    <div class="container">
-      <div class="account-box">
-        <div class="ic">🔐</div>
-        <h1>会员中心</h1>
-        <p>登录后即可在这里管理你的订阅——查看会员状态、续费记录、更新或取消订阅。会员中心正在完善中。</p>
-        <a class="btn gold" href="/apply/">申请加入</a>
-        <p class="fine" style="margin-top:18px;color:var(--ink-3);font-size:.82rem">
-          已是会员？账户管理入口即将开放。如需协助，请通过<a href="/contact/">联系我们</a>页面留言，或在社区内通过官方渠道联系我们。
-        </p>
-      </div>
-    </div>
-  </div>
-</Base>

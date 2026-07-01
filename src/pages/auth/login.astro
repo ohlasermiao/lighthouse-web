@@ -29,7 +29,6 @@ if (Astro.request.method === 'POST') {
 
 const safeNext = /^\/(?!\/)/.test(next) ? next : '';
 const discordHref = `/auth/discord${safeNext ? `?next=${encodeURIComponent(safeNext)}` : ''}`;
-const applying = safeNext === '/my/apply';
 
 const qe = Astro.url.searchParams.get('e');
 if (qe && !error) error = '登录未完成，请重试。';
@@ -48,21 +47,17 @@ if (qe && !error) error = '登录未完成，请重试。';
         ) : (
           <Fragment>
             <div class="ic">🔑</div>
-            <h1>{applying ? '验证邮箱以继续申请' : '会员登录'}</h1>
-            <p>{applying ? '为确保能收到审核结果，请先验证邮箱——输入邮箱，点击我们发送的链接即可继续申请。' : '输入你的邮箱，我们会发送一条一次性登录链接（无需密码）。'}</p>
+            <h1>会员登录</h1>
+            <p>输入你的邮箱，我们会发送一条一次性登录链接（无需密码）。</p>
             {error && <p style="color:#c0392b;font-size:.9rem;margin:.4rem 0">{error}</p>}
             <form method="POST" style="display:flex;flex-direction:column;gap:12px;max-width:340px;margin:18px auto 0">
               <input type="hidden" name="next" value={safeNext} />
               <input type="email" name="email" required placeholder="you@example.com"
                 style="padding:12px 14px;border:1px solid var(--line,#2a3550);border-radius:10px;background:transparent;color:inherit;font-size:1rem" />
-              <button class="btn gold" type="submit">{applying ? '发送验证链接' : '发送登录链接'}</button>
+              <button class="btn gold" type="submit">发送登录链接</button>
             </form>
-            {!applying && (
-              <Fragment>
-                <p class="fine" style="margin-top:22px;color:var(--ink-3);font-size:.82rem">或用 Discord 验证身份：</p>
-                <a class="btn" href={discordHref} style="margin-top:6px">用 Discord 验证身份</a>
-              </Fragment>
-            )}
+            <p class="fine" style="margin-top:22px;color:var(--ink-3);font-size:.82rem">或用 Discord 登录：</p>
+            <a class="btn" href={discordHref} style="margin-top:6px">用 Discord 登录</a>
           </Fragment>
         )}
       </div>

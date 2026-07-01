@@ -9,14 +9,43 @@ import { PRICE } from '../../data/site';
       <h1>Apply to join Lighthouse Club</h1>
       <p style="margin-bottom:24px">We deliberately keep the community small — every application is read by a human to protect the quality of discussion. You'll hear back by email within <strong>2 business days</strong>; if approved, you'll receive payment instructions, a Discord invite and an onboarding guide. Note: community conversations are in Chinese.</p>
 
-      <div class="apply-note" style="margin-bottom:22px">
-        <strong>First, verify your email 📧</strong><br />
-        Since the result is sent to your email, we ask you to verify it first so nothing gets lost to a typo: <strong>enter your email → click the link we send</strong>, and you're in. No password needed.
+      <div class="apply-note" style="margin-bottom:26px">
+        <strong>Already a member?</strong><br />
+        Just <a href="/en/auth/login">log in</a> to see your membership status — no need to apply again.
       </div>
 
-      <div class="form-actions" style="margin-bottom:28px">
-        <a class="btn gold" href="/en/auth/login?next=/en/my/apply">Start application (verify email)</a>
-        <p class="fine" style="margin-top:10px">Takes about a minute — no password, no account to create.</p>
+      <form id="apply-form" action="/api/apply" method="POST">
+        <input type="hidden" name="lang" value="en" />
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="form-field">
+          <label for="a-name">What should we call you? *</label>
+          <input type="text" id="a-name" name="name" required placeholder="Nickname" autocomplete="nickname" />
+        </div>
+        <div class="form-field">
+          <label for="a-email">Email *</label>
+          <input type="email" id="a-email" name="email" required placeholder="you@example.com" autocomplete="email" />
+          <div class="hint">We'll first send a confirmation email to this address — click the link in it to submit, so a typo never costs you the decision.</div>
+        </div>
+        <div class="form-field">
+          <label for="a-motivation">In one sentence: what do you hope to get from the community? *</label>
+          <textarea id="a-motivation" name="motivation" required placeholder="Making friends, learning, finding direction — anything goes"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="a-source">How did you hear about us? <span style="font-weight:400">(optional)</span></label>
+          <input type="text" id="a-source" name="source" placeholder="Friend / social media / other" />
+        </div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADt8PjE4JgY0PwSh" style="margin:14px 0"></div>
+        <div class="form-actions">
+          <button class="btn gold" type="submit" id="apply-submit">Submit application</button>
+          <p class="fine">By submitting you agree to our <a href="/legal/tos/">Terms</a> and <a href="/legal/privacy/">Privacy Policy</a> (Chinese, governing).</p>
+          <p class="form-error" id="apply-error">Submission failed — please check your email is correct, or try again shortly.</p>
+        </div>
+      </form>
+
+      <div class="form-success" id="apply-success">
+        <h2 style="margin-top:0">Confirmation email sent 📧</h2>
+        <p>We've sent a confirmation email to your address. <strong>Please open it and click the link</strong> — only then is your application sent to us. Didn't get it? Check spam, or try again in a few minutes.</p>
+        <p style="margin-bottom:0"><a href="/en/">← Back to home</a></p>
       </div>
 
       <div class="apply-note">
@@ -25,4 +54,32 @@ import { PRICE } from '../../data/site';
       </div>
     </div>
   </div>
+
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+    const form = document.getElementById('apply-form') as HTMLFormElement;
+    const success = document.getElementById('apply-success')!;
+    const error = document.getElementById('apply-error')!;
+    const btn = document.getElementById('apply-submit') as HTMLButtonElement;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      (error as HTMLElement).style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Submitting…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then((res) => {
+          if (res.ok) {
+            form.style.display = 'none';
+            (success as HTMLElement).style.display = 'block';
+            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else throw new Error('bad status');
+        })
+        .catch(() => {
+          (error as HTMLElement).style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Submit application';
+          if ((window as any).turnstile) (window as any).turnstile.reset();
+        });
+    });
+  </script>
 </Base>

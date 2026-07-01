@@ -29,7 +29,6 @@ if (Astro.request.method === 'POST') {
 
 const safeNext = /^\/(?!\/)/.test(next) ? next : '';
 const discordHref = `/auth/discord${safeNext ? `?next=${encodeURIComponent(safeNext)}` : ''}`;
-const applying = safeNext === '/en/my/apply';
 
 const qe = Astro.url.searchParams.get('e');
 if (qe && !error) error = 'Sign-in did not complete, please try again.';
@@ -48,21 +47,17 @@ if (qe && !error) error = 'Sign-in did not complete, please try again.';
         ) : (
           <Fragment>
             <div class="ic">🔑</div>
-            <h1>{applying ? 'Verify your email to continue' : 'Member sign-in'}</h1>
-            <p>{applying ? 'To make sure you receive our decision, please verify your email first — enter it below and click the link we send to continue your application.' : 'Enter your email and we\'ll send a one-time sign-in link (no password needed).'}</p>
+            <h1>Member sign-in</h1>
+            <p>Enter your email and we'll send a one-time sign-in link (no password needed).</p>
             {error && <p style="color:#c0392b;font-size:.9rem;margin:.4rem 0">{error}</p>}
             <form method="POST" style="display:flex;flex-direction:column;gap:12px;max-width:340px;margin:18px auto 0">
               <input type="hidden" name="next" value={safeNext} />
               <input type="email" name="email" required placeholder="you@example.com"
                 style="padding:12px 14px;border:1px solid var(--line,#2a3550);border-radius:10px;background:transparent;color:inherit;font-size:1rem" />
-              <button class="btn gold" type="submit">{applying ? 'Send verification link' : 'Send sign-in link'}</button>
+              <button class="btn gold" type="submit">Send sign-in link</button>
             </form>
-            {!applying && (
-              <Fragment>
-                <p class="fine" style="margin-top:22px;color:var(--ink-3);font-size:.82rem">Or verify with Discord:</p>
-                <a class="btn" href={discordHref} style="margin-top:6px">Verify with Discord</a>
-              </Fragment>
-            )}
+            <p class="fine" style="margin-top:22px;color:var(--ink-3);font-size:.82rem">Or sign in with Discord:</p>
+            <a class="btn" href={discordHref} style="margin-top:6px">Sign in with Discord</a>
           </Fragment>
         )}
       </div>

@@ -1,0 +1,80 @@
+---
+export const prerender = false;
+import Base from '../../layouts/Base.astro';
+import { verifyApply } from '../../lib/apply-token';
+
+function env(key: string): string | undefined {
+  return (Astro.locals as any)?.runtime?.env?.[key] ?? (import.meta.env as any)[key];
+}
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+const url = Astro.url;
+// 已交付后重定向到 ?ok=1，刷新不会重复发信
+let state: 'ok' | 'invalid' | 'error' = url.searchParams.get('ok') === '1' ? 'ok' : 'error';
+
+const token = url.searchParams.get('token');
+if (token && state !== 'ok') {
+  const key = env('RESEND_API_KEY');
+  const secret = env('APPLY_SECRET') || key || '';
+  const payload = await verifyApply(token, secret);
+  if (!payload) {
+    state = 'invalid';
+  } else if (!key) {
+    state = 'error';
+  } else {
+    const to = env('CONTACT_TO') || 'hello@sync-value.com';
+    let when = '';
+    try { when = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Tokyo', dateStyle: 'medium', timeStyle: 'short' }).format(new Date()) + ' (JST)'; } catch {}
+    const langTag = payload.lang === 'en' ? ' (EN)' : '';
+    const html = `<div style="font-family:-apple-system,'PingFang SC',sans-serif;font-size:14px;line-height:1.7;color:#232323;max-width:560px">
+      <div style="background:#16314f;color:#fff;padding:14px 18px;border-radius:10px 10px 0 0;font-weight:600">Lighthouse Club · 入会申请${langTag}　<span style="color:#7fd6a3">✓ 邮箱已确认</span></div>
+      <div style="border:1px solid #e6ebf1;border-top:0;border-radius:0 0 10px 10px;padding:18px">
+        <table style="font-size:14px;margin:0 0 8px">
+          <tr><td style="color:#6b7a88;padding:2px 12px 2px 0">称呼</td><td><strong>${esc(payload.name)}</strong></td></tr>
+          <tr><td style="color:#6b7a88;padding:2px 12px 2px 0">邮箱（已确认）</td><td><a href="mailto:${esc(payload.email)}">${esc(payload.email)}</a></td></tr>
+          ${when ? `<tr><td style="color:#6b7a88;padding:2px 12px 2px 0">确认时间</td><td>${esc(when)}</td></tr>` : ''}
+        </table>
+        <p><strong>加入动机：</strong></p><p style="white-space:pre-wrap;border-left:3px solid #ccc;padding-left:12px;margin:4px 0 12px">${esc(payload.motivation)}</p>
+        ${payload.source ? `<p><strong>来源：</strong>${esc(payload.source)}</p>` : ''}
+        <p style="color:#9aa7b4;font-size:12px;border-top:1px solid #eef2f6;padding-top:10px;margin-top:14px">申请人邮箱已通过点击确认链接验证，回信可直达（reply-to 已设为其邮箱）。</p>
+      </div>
+    </div>`;
+    try {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from: 'Lighthouse Club <noreply@mail.sync-value.com>', to: [to], reply_to: payload.email, subject: `[入会申请·已确认]${langTag} ${payload.name}`, html }),
+      });
+      if (res.ok) return Astro.redirect('/apply/confirmed?ok=1');
+      state = 'error';
+    } catch { state = 'error'; }
+  }
+}
+---
+<Base title="申请确认 — Lighthouse Club" description="Lighthouse Club 入会申请确认。" noindex={true} routeKey="apply">
+  <div class="subpage"><div class="container"><div class="account-box" style="max-width:520px">
+    {state === 'ok' && (
+      <Fragment>
+        <div style="font-size:1.8rem">🎉</div>
+        <h1 style="margin:.3rem 0">申请已提交</h1>
+        <p>你的邮箱已确认，申请已送到我们手上。我们会认真阅读，并在 <strong>2 个工作日内</strong>把结果回复到你的邮箱。请留意收件箱（包括垃圾箱）。</p>
+        <p class="fine" style="margin-top:16px"><a href="/">← 回到首页</a></p>
+      </Fragment>
+    )}
+    {state === 'invalid' && (
+      <Fragment>
+        <div style="font-size:1.8rem">⏳</div>
+        <h1 style="margin:.3rem 0">链接无效或已过期</h1>
+        <p>这个确认链接无法验证，可能已超过 24 小时或被打开过。请重新提交一次申请。</p>
+        <p class="fine" style="margin-top:16px"><a class="btn gold" href="/apply/">重新申请</a></p>
+      </Fragment>
+    )}
+    {state === 'error' && (
+      <Fragment>
+        <div style="font-size:1.8rem">😥</div>
+        <h1 style="margin:.3rem 0">出了点问题</h1>
+        <p>提交时遇到临时故障。请稍后重新点击确认邮件里的链接，或<a href="/contact/">联系我们</a>。</p>
+      </Fragment>
+    )}
+  </div></div></div>
+</Base>

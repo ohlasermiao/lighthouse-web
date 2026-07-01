@@ -8,6 +8,8 @@ const t = useT(lang);
 const p = langPrefix[lang];
 const alts = altUrls(routeKey);
 const langLabels = { zh: '中文', en: 'EN' } as const;
+const loginHref = lang === 'zh' ? '/auth/login' : '/en/auth/login';
+const applyHref = lang === 'zh' ? '/apply/' : p + '/apply/';
 ---
 <header class="site">
   <div class="container header-inner">
@@ -21,7 +23,7 @@ const langLabels = { zh: '中文', en: 'EN' } as const;
       <a href={lang === 'zh' ? '/pricing/' : p + '/pricing/'}>{t('nav.pricing')}</a>
       {lang === 'zh' && <a href="/faq/">{t('nav.faq')}</a>}
       {lang === 'zh' && <a href="/news/">{t('nav.news')}</a>}
-      <a href="/account/">{t('nav.login')}</a>
+      <a class="nav-login-mobile" href={loginHref}>{t('nav.login')}</a>
     </nav>
     <div class="header-cta">
       <div class="lang-switch" aria-label="Language">
@@ -31,7 +33,8 @@ const langLabels = { zh: '中文', en: 'EN' } as const;
             : <a href={alts[l]}>{langLabels[l]}</a>
         ))}
       </div>
-      <a class="btn gold sm" href={lang === 'zh' ? '/apply/' : p + '/apply/'}>{t('nav.apply')}</a>
+      <a class="btn ghost-night sm login-cta" href={loginHref}>{t('nav.login')}</a>
+      <a class="btn gold sm" href={applyHref}>{t('nav.apply')}</a>
       <button type="button" class="nav-toggle" aria-label={t('nav.menu')} aria-expanded="false" aria-controls="primary-nav">
         <span></span><span></span><span></span>
       </button>

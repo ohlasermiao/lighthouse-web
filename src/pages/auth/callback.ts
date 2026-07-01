@@ -22,8 +22,9 @@ export const GET: APIRoute = async ({ cookies, request, redirect, url }) => {
   const discordName = isDiscord
     ? (meta.full_name ?? meta.name ?? meta.custom_claims?.global_name ?? null)
     : null;
-  // provider_refresh_token 仅在 OAuth 回调当下可得 → 在这里抓取存库（guilds.join 灾备召回用）
-  const refreshToken = isDiscord ? (session?.provider_refresh_token ?? null) : null;
+  // guilds.join 召回 token：上线阶段先不存（避免在真实会员上明文存 OAuth token）。
+  // 待加密方案（Vault + pgcrypto）就绪后再改回 session.provider_refresh_token 采集。
+  const refreshToken = null;
 
   const { error: rpcError } = await supabase.rpc('ensure_my_account', {
     p_discord_uid: discordUid,

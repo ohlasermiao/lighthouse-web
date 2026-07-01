@@ -1,0 +1,135 @@
+---
+export const prerender = false;
+import Base from '../../layouts/Base.astro';
+import { supabaseServer } from '../../lib/supabase';
+
+const TERMS_VERSION = '2026-06'; // 条款/退款政策版本，改版时更新
+
+const supabase = supabaseServer(Astro.cookies, Astro.request.headers);
+const { data: { user } } = await supabase.auth.getUser();
+if (!user) return Astro.redirect('/auth/login?next=/my/join');
+
+let error = '';
+
+// 处理各步提交
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const action = String(form.get('action') || '');
+  try {
+    if (action === 'consent') {
+      if (!form.get('agree_tos') || !form.get('agree_refund')) {
+        error = '请同时勾选同意《服务条款》与《退款政策》。';
+      } else {
+        await supabase.rpc('record_consent', { p_doc: 'tos', p_version: TERMS_VERSION });
+        await supabase.rpc('record_consent', { p_doc: 'refund', p_version: TERMS_VERSION });
+        return Astro.redirect('/my/join');
+      }
+    } else if (action === 'profile') {
+      const real_name = String(form.get('real_name') || '').trim();
+      const address = String(form.get('address') || '').trim();
+      const phone = String(form.get('phone') || '').trim();
+      if (!real_name) error = '请填写真实姓名。';
+      else {
+        await supabase.rpc('save_my_profile', { p_real_name: real_name, p_address: address, p_phone: phone });
+        return Astro.redirect('/my/join');
+      }
+    } else if (action === 'purchase') {
+      const plan = String(form.get('plan') || 'VIP');
+      const method = String(form.get('method') || '');
+      const proof = String(form.get('proof') || '').trim();
+      if (!method) error = '请选择付款方式。';
+      else {
+        await supabase.rpc('submit_purchase_request', {
+          p_kind: 'new', p_plan: plan, p_amount: null, p_method: method, p_proof: proof || null,
+        });
+        return Astro.redirect('/my/join');
+      }
+    }
+  } catch (e) {
+    error = '提交失败，请稍后重试。';
+  }
+}
+
+const { data: st } = await supabase.rpc('my_onboarding_state');
+const s = Array.isArray(st) && st.length ? st[0] : { has_tos: false, has_refund: false, has_profile: false, pending_request: false };
+const consented = s.has_tos && s.has_refund;
+const step = s.pending_request ? 'done' : !consented ? 'consent' : !s.has_profile ? 'profile' : 'purchase';
+---
+<Base title="加入 Lighthouse Club" description="加入 Lighthouse Club 会员社区。" noindex={true} routeKey="account">
+  <div class="subpage"><div class="container"><div class="account-box" style="text-align:left;max-width:520px">
+    <h1 style="margin:0 0 4px">加入 Lighthouse Club</h1>
+    <p class="fine" style="color:var(--ink-3);font-size:.84rem;margin:0 0 18px">{user.email}　·　几步即可完成</p>
+
+    {/* 进度指示 */}
+    <div style="display:flex;gap:8px;font-size:.78rem;color:var(--ink-3);margin-bottom:20px">
+      <span style={`font-weight:${step==='consent'?700:400};color:${consented?'#1e9e64':'inherit'}`}>①同意条款</span>›
+      <span style={`font-weight:${step==='profile'?700:400};color:${s.has_profile?'#1e9e64':'inherit'}`}>②填写资料</span>›
+      <span style={`font-weight:${step==='purchase'||step==='done'?700:400};color:${s.pending_request?'#1e9e64':'inherit'}`}>③付款</span>
+    </div>
+
+    {error && <p style="color:#c0392b;font-size:.9rem;margin:0 0 12px">{error}</p>}
+
+    {step === 'consent' && (
+      <form method="POST">
+        <input type="hidden" name="action" value="consent" />
+        <p style="font-size:.95rem">加入前，请阅读并同意以下条款：</p>
+        <label style="display:flex;gap:10px;align-items:flex-start;margin:12px 0;font-size:.9rem">
+          <input type="checkbox" name="agree_tos" style="margin-top:3px" />
+          <span>我已阅读并同意 <a href="/legal/tos/" target="_blank">《服务条款》</a></span>
+        </label>
+        <label style="display:flex;gap:10px;align-items:flex-start;margin:12px 0;font-size:.9rem">
+          <input type="checkbox" name="agree_refund" style="margin-top:3px" />
+          <span>我已阅读并同意 <a href="/legal/tos/#refund" target="_blank">《退款政策》</a>（首次开通 7 天内可全额退款，之后不予退款）</span>
+        </label>
+        <button class="btn gold" type="submit" style="margin-top:10px">同意并继续</button>
+      </form>
+    )}
+
+    {step === 'profile' && (
+      <form method="POST" style="display:flex;flex-direction:column;gap:12px">
+        <input type="hidden" name="action" value="profile" />
+        <p style="font-size:.95rem;margin:0">请填写你的资料（用于开通与后续联系）：</p>
+        <label style="font-size:.85rem;color:var(--ink-3)">真实姓名 *
+          <input name="real_name" required style="width:100%;padding:10px 12px;border:1px solid var(--line,#2a3550);border-radius:8px;background:transparent;color:inherit;margin-top:4px" /></label>
+        <label style="font-size:.85rem;color:var(--ink-3)">地址
+          <input name="address" style="width:100%;padding:10px 12px;border:1px solid var(--line,#2a3550);border-radius:8px;background:transparent;color:inherit;margin-top:4px" /></label>
+        <label style="font-size:.85rem;color:var(--ink-3)">联系电话
+          <input name="phone" style="width:100%;padding:10px 12px;border:1px solid var(--line,#2a3550);border-radius:8px;background:transparent;color:inherit;margin-top:4px" /></label>
+        <button class="btn gold" type="submit">保存并继续</button>
+      </form>
+    )}
+
+    {step === 'purchase' && (
+      <form method="POST" style="display:flex;flex-direction:column;gap:12px">
+        <input type="hidden" name="action" value="purchase" />
+        <p style="font-size:.95rem;margin:0">选择套餐与付款方式：</p>
+        <label style="font-size:.85rem;color:var(--ink-3)">套餐
+          <select name="plan" style="width:100%;padding:10px 12px;border:1px solid var(--line,#2a3550);border-radius:8px;background:transparent;color:inherit;margin-top:4px">
+            <option value="VIP">VIP 会员 · US$180 / 3 个月</option>
+          </select></label>
+        <label style="font-size:.85rem;color:var(--ink-3)">付款方式
+          <select name="method" required style="width:100%;padding:10px 12px;border:1px solid var(--line,#2a3550);border-radius:8px;background:transparent;color:inherit;margin-top:4px">
+            <option value="">— 请选择 —</option>
+            <option value="alipay">支付宝</option>
+            <option value="wise">Wise</option>
+            <option value="crypto">USDT</option>
+          </select></label>
+        <p class="fine" style="font-size:.82rem;color:var(--ink-3);background:rgba(127,127,127,.08);padding:10px 12px;border-radius:8px;margin:0">
+          付款指引将在选择方式后提供（当前为线下人工审核）。付款后请在下方填写交易号或凭证说明，我们会尽快为你开通。
+        </p>
+        <label style="font-size:.85rem;color:var(--ink-3)">交易号 / 凭证说明
+          <input name="proof" placeholder="例如：支付宝交易号，或已在群内提交截图" style="width:100%;padding:10px 12px;border:1px solid var(--line,#2a3550);border-radius:8px;background:transparent;color:inherit;margin-top:4px" /></label>
+        <button class="btn gold" type="submit">提交购买申请</button>
+      </form>
+    )}
+
+    {step === 'done' && (
+      <div>
+        <div style="font-size:1.6rem">📨</div>
+        <h2 style="margin:.4rem 0;font-size:1.1rem">申请已提交，等待确认</h2>
+        <p style="font-size:.92rem">我们已收到你的购买申请，确认付款后会尽快为你开通会员并发送 Discord 邀请。如需协助请通过<a href="/contact/">联系我们</a>。</p>
+        <p class="fine" style="margin-top:14px"><a href="/my">← 返回会员中心</a></p>
+      </div>
+    )}
+  </div></div></div>
+</Base>

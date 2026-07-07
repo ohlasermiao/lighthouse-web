@@ -1,6 +1,6 @@
 # lighthouse-web
 
-Nunu 社区自营品牌站(Astro+夜海航图设计系统),含 ToS/公约/隐私/特商法法务页。经营背景看 ../sync-value 与 discord 项目。
+Nunu 社区自营品牌站(Astro+夜海航图设计系统),含 ToS/公约/隐私/特商法法务页。经营背景看 ../sync-value 与 ../discord-membership-management 项目。
 
 本仓库无独立状态文件,进度记录在 dispatch 卡片
 

@@ -1,0 +1,12 @@
+# 安全响应头（静态资源）——2026-07-09 ZAP baseline 首轮加固
+# 注意：CF Pages 的 _headers 只作用于静态资源，SSR 路由（/my、/auth/*、/api/*）
+# 的同一套头由 src/middleware.ts 下发，两处需保持同步。
+# CSP 现处 Report-Only 观察期，违规只报不拦（浏览器控制台可见），确认无误报后再转强制。
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=()
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://challenges.cloudflare.com https://*.supabase.co; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'

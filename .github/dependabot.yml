@@ -1,0 +1,16 @@
+# 依赖漏洞自动监控（安全问卷 #4「定期脆弱性诊断」制度化的一环）
+# 背景与季度扫描 SOP 见 ../sync-value/docs/security-plan.md §3.1
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "security"
+      - "dependencies"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

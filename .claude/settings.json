@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/miao/Dev/00-dispatch/scripts/session-report-hook.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

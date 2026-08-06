@@ -10,7 +10,8 @@ updates:
     labels:
       - "security"
       - "dependencies"
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+  # ⚠️ 2026-08-06 撤掉 github-actions 生态：本仓**根本没有 workflow**
+  #    （无 /action.yml、无 .github/workflows/*.yml），Dependabot 每周照跑照失败：
+  #    `Error during file fetching; aborting: /action.yml or /.github/workflows/<anything>.yml not found`
+  #    从 2026-07-23 起每周红一次，红了没人看 —— 红灯天天亮就等于没有红灯。
+  #    哪天真加了 workflow，再把这段加回来。npm 那一条是真的在跑，保留。

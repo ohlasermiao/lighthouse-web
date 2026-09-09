@@ -1,6 +1,6 @@
 ## handoff
-- 停在：gov D287① 只读评估已完成并落盘 `docs/2026-09-09-astro-rce-exposure-and-v7-upgrade-assessment.md`；结论①「只构建期」（运行期 `/_image` 走 Cloudflare Images binding/透传，sharp 被 external 且 workerd 跑不了；构建期两仓零图像经 sharp）⇒ D287② 不触发、不建 needs_human 卡；结论②「升 7」已于 2026-08-07 完成（两仓 astro 7.2.0 / 适配器 14.2.0），剩补丁级升级 astro→≥7.2.8（sharp 0.35.4 才是真修复），`npm audit fix --dry-run` 显示只动 lockfile；两仓依赖文件一字未动。附带发现：`lighthouse.sync-value.com` 线上全站 404（未定性）。
-- 未落盘的判断：①绝不要 `npm audit fix --force`（它会把 @astrojs/cloudflare 降到 12.6.13）；②升级后 audit 不归零（miniflare 钉死 sharp 0.35.2，dev 工具链）；③c226 卡指向的 fortunavirtu-web 没跟它的 src，同结论只是推测。
-- 下一步：按 D287③ 并入 c226 走例行升级：两仓各跑 `npm audit fix`（不带 --force）→ build/verify → 看 dist/server/wrangler.json 的 compatibility_date → 提交 package-lock.json；部署另议。
-- session：0dc2cd4e-b7a3-4edf-b393-fa9d6018be23
-- 更新：2026-09-09 17:20
+- 停在：gov D287③ 例行升级已在分支 `chore/astro-patch-7.2.8` 落地并 push(commit `9708d12`,只动 package-lock.json,基点 main `d3cc530`);astro 7.2.0→7.3.2、sharp 0.35.3→0.35.4、@astrojs/cloudflare 14.2.0→14.3.1、wrangler 4.122.0→4.130.0;npm audit 改前 8 条(7 high+1 critical)→改后 5 high+0 critical,astro 那条 AVIF RCE(GHSA-26w7-cxv4-gfx2)已不在名单;`npm run build` 通过(19 个静态路由全部预渲染),产物 compatibility_date 2026-04-15→2026-09-08;🔴 本轮**没有部署、没有合并**,线上仍是旧构建,「分支上修好」≠「线上修好」;姊妹仓 lighthouse-fortuna 同批同结果(commit `61db29e`)。
+- 未落盘的判断：①剩下 5 条 high 全是 miniflare 5.20260908.0-alpha 钉死的 sharp 0.35.2 那条链(@astrojs/cloudflare→@cloudflare/vite-plugin→miniflare→sharp,外加 wrangler),只在本地 dev 模拟器里,不进 dist/server 产物,要清得在 package.json 加 overrides,属改 package.json 的决定,本轮没动;②`npm audit fix --force` 现在的建议是把 @astrojs/cloudflare 降到 12.6.13(web 改前那次 audit 报的是 12.6.7),两种都是反方向,绝不要跑;③compatibility_date 前移 5 个月是本次唯一会改 Worker 运行时旗标的变化,合并前值得 `npm run preview` 过一遍 SSR 路由(/my、/auth/*、/account),本轮没跑 preview;④push 分支若触发 Cloudflare Pages 的 git 集成预览构建,那是预览环境不是生产,但仓里查不到集成是否存在,未验。
+- 下一步：Ethan 或引擎室决定何时合并 `chore/astro-patch-7.2.8` 进 main 并部署;合并前建议 `git checkout chore/astro-patch-7.2.8 && npm ci && npm run build && npm run preview` 目测 SSR 路由;部署后在线上核 astro 版本与 /_image 行为,把 c226 的「线上实测」补齐。
+- session：435f6178-c2fe-469b-bb32-5fc747ce8f4b
+- 更新：2026-09-09 21:34

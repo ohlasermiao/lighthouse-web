@@ -1,6 +1,6 @@
 ## handoff
-- 停在：gov D287③ 例行升级已在分支 `chore/astro-patch-7.2.8` 落地并 push(commit `9708d12`,只动 package-lock.json,基点 main `d3cc530`);astro 7.2.0→7.3.2、sharp 0.35.3→0.35.4、@astrojs/cloudflare 14.2.0→14.3.1、wrangler 4.122.0→4.130.0;npm audit 改前 8 条(7 high+1 critical)→改后 5 high+0 critical,astro 那条 AVIF RCE(GHSA-26w7-cxv4-gfx2)已不在名单;`npm run build` 通过(19 个静态路由全部预渲染),产物 compatibility_date 2026-04-15→2026-09-08;🔴 本轮**没有部署、没有合并**,线上仍是旧构建,「分支上修好」≠「线上修好」;姊妹仓 lighthouse-fortuna 同批同结果(commit `61db29e`)。
-- 未落盘的判断：①剩下 5 条 high 全是 miniflare 5.20260908.0-alpha 钉死的 sharp 0.35.2 那条链(@astrojs/cloudflare→@cloudflare/vite-plugin→miniflare→sharp,外加 wrangler),只在本地 dev 模拟器里,不进 dist/server 产物,要清得在 package.json 加 overrides,属改 package.json 的决定,本轮没动;②`npm audit fix --force` 现在的建议是把 @astrojs/cloudflare 降到 12.6.13(web 改前那次 audit 报的是 12.6.7),两种都是反方向,绝不要跑;③compatibility_date 前移 5 个月是本次唯一会改 Worker 运行时旗标的变化,合并前值得 `npm run preview` 过一遍 SSR 路由(/my、/auth/*、/account),本轮没跑 preview;④push 分支若触发 Cloudflare Pages 的 git 集成预览构建,那是预览环境不是生产,但仓里查不到集成是否存在,未验。
-- 下一步：Ethan 或引擎室决定何时合并 `chore/astro-patch-7.2.8` 进 main 并部署;合并前建议 `git checkout chore/astro-patch-7.2.8 && npm ci && npm run build && npm run preview` 目测 SSR 路由;部署后在线上核 astro 版本与 /_image 行为,把 c226 的「线上实测」补齐。
-- session：435f6178-c2fe-469b-bb32-5fc747ce8f4b
-- 更新：2026-09-09 21:34
+- 停在：生产事故「13 条 SSR 路由 404」只读诊断 + 本地预览验证已完成,**未部署、未切流、未推送**;根因=@astrojs/cloudflare 14 不支持 Pages、Pages 输出目录 dist/client 只发静态半边(断站起点实为 2026-08-08 f119c61,不是 08-17);第二层故障=代码 locals.runtime.env 在 adapter 14 下抛错(API/确认页 500),已在本地分支 `fix/ssr-workers-migration` 修复(commit `a9d9e38`,改走 cloudflare:workers env);修复构建在本地 wrangler dev(workerd)上四类出口全活(静态 200 / /my 302→登录 / /api/apply/status 400 JSON、表单 POST 422 / /auth/login 200、callback 302);报告 `docs/2026-09-11-ssr-routes-404-root-cause-and-preview-verification.md`。
+- 未落盘的判断：①另有一项同源安全发现(旧部署暴露构建期内联的 secret),细节只在 dispatch 私有回执,本仓公开故不写;②两个香港站 form-mail.ts 有同一行 locals.runtime 陷阱,c-346 迁 Workers 时必须一并改,否则联系表单从 404 变 500;③分支基于 chore/astro-patch-7.2.8,合并即同时带上 astro 7.3.2 补丁升级;④推送本分支会触发 Pages 预览构建(无害但不是 SSR 预览),所以没推。
+- 下一步：引擎室先处理私有回执里的安全事项(轮换两把键 + 删旧部署,Ethan 定),再按报告 ④ 的切流清单建卡请 Ethan 授权:先 codex review `a9d9e38`,再首发 workers.dev 复跑四类出口,最后切自定义域。
+- session：7b14b862-31e6-410d-a96c-abeb90d1ed01
+- 更新：2026-09-11 04:10

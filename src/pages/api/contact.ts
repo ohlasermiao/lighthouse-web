@@ -1,6 +1,7 @@
 // 联系/申请表单后端 —— 自建，走 Resend 发信（替代 Formspree）。字段无关：通吃任意表单。
 export const prerender = false;
 import type { APIRoute } from 'astro';
+import { serverEnv } from '../../lib/server-env';
 
 const DEFAULT_TO = 'hello@sync-value.com';
 const FROM = 'Lighthouse Club <noreply@mail.sync-value.com>';
@@ -11,8 +12,8 @@ const LABELS: Record<string, string> = {
   source: '来源', phone: '电话', address: '地址',
 };
 
-function env(locals: any, key: string): string | undefined {
-  return locals?.runtime?.env?.[key] ?? (import.meta.env as any)[key];
+function env(_locals: any, key: string): string | undefined {
+  return serverEnv(key);
 }
 
 // 邮箱域名可达性：用 Cloudflare DoH 查 MX（无则查 A）。查不到=拒（拼错/假域名）；查询失败=放行(避免误伤)。

@@ -4,12 +4,13 @@ export const prerender = false;
 import type { APIRoute } from 'astro';
 import { signToken } from '../../lib/apply-token';
 import { supabaseServer } from '../../lib/supabase';
+import { serverEnv } from '../../lib/server-env';
 
 const FROM = 'Lighthouse Club <noreply@mail.sync-value.com>';
 const DAY = 24 * 3600 * 1000;
 
-function env(locals: any, key: string): string | undefined {
-  return locals?.runtime?.env?.[key] ?? (import.meta.env as any)[key];
+function env(_locals: any, key: string): string | undefined {
+  return serverEnv(key);
 }
 
 async function domainDeliverable(email: string): Promise<boolean> {

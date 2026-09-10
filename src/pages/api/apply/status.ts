@@ -4,9 +4,10 @@ export const prerender = false;
 import type { APIRoute } from 'astro';
 import { verifyToken } from '../../../lib/apply-token';
 import { supabaseServer } from '../../../lib/supabase';
+import { serverEnv } from '../../../lib/server-env';
 
-function env(locals: any, key: string): string | undefined {
-  return locals?.runtime?.env?.[key] ?? (import.meta.env as any)[key];
+function env(_locals: any, key: string): string | undefined {
+  return serverEnv(key);
 }
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });

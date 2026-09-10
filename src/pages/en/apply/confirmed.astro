@@ -3,9 +3,10 @@ export const prerender = false;
 import Base from '../../../layouts/Base.astro';
 import { verifyToken } from '../../../lib/apply-token';
 import { supabaseServer } from '../../../lib/supabase';
+import { serverEnv } from '../../../lib/server-env';
 
 function env(key: string): string | undefined {
-  return (Astro.locals as any)?.runtime?.env?.[key] ?? (import.meta.env as any)[key];
+  return serverEnv(key);
 }
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 

@@ -1,5 +1,5 @@
 ## handoff
-- 停在：c-353 经 Ethan 明确授权，由 Codex 独立施工；2026-09-11 15:15 JST 正式域名 lighthouse.sync-value.com 已从 Pages 切到 Worker lighthouse-web。18项机械复验通过。原 Resend/Turnstile 未换，新增独立 APPLY_SECRET；一次性取键认证已清除，无密钥落盘。
-- 未落盘的判断：无。全部证据、原配置回退快照、版本和时间线见 docs/2026-09-11-workers-cutover-progress.md。
-- 下一步：三项真人验收全部通过，用户原话已归档；源分支尚未合并/推送：自动审批要求用户明确授权合并并推送main。Pages保留回退，生产/预览自动构建已关闭。未来部署必须用Pages正式PUBLIC_*（本地.env不同），保留三secret。dispatch/Claude因token停摆，当前Codex独立续办。
+- 停在：c-353 迁移交付完成。正式域名已运行于Worker；18项机械验收及用户三项真人验收全过。修复分支已快进合并并推送origin/main，远端哈希已核。原两键保留、新增独立APPLY_SECRET；临时取键认证已清除。
+- 未落盘的判断：无。用户原话、截图、版本、验收及回退快照见 docs/2026-09-11-workers-cutover-progress.md。
+- 后续：旧Pages项目保留回退，生产/预览自动构建已关闭；未设置后台观察器，七天观察未完成，不自动删项目。未来发布使用Wrangler并使用正式PUBLIC_*构建，三secret只保留运行时。dispatch/Claude停摆不阻塞本次交付。
 - 更新：2026-09-11

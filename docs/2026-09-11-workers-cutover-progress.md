@@ -441,3 +441,6 @@ RESEND_API_KEY 尚未迁入。Pages API不返回secret值。尝试申请通过�
 三项真人验收全部通过后，旧Pages production_deployments_enabled已关闭，preview_deployment_setting=none，API回读一致。项目及旧部署保留回退。后续发布使用Wrangler显式部署，构建必须注入正式PUBLIC_SUPABASE_URL/PUBLIC_SUPABASE_ANON_KEY，不能直接信本机.env；三项secret仅留Worker运行时。
 
 本轮申请将修复分支快进归并并推送origin/main，被自动审批拒绝：迁移授权未明确覆盖共享默认主分支推送。整条命令未执行，main未归并、未推送。没有绕过；待用户明确授权该Git动作。网站运行和真人验收不受影响。旧Pages观察清理不在本轮删除。
+
+## 主分支归并与推送完成
+用户针对合并并推送main明确答复「授权」（当前Codex对话2026-09-11本轮）。已git fetch确认无远端分叉，git merge --ff-only成功；git push origin main成功，首次推送后本地及git ls-remote均为916318c89d11360f1d17e5013c3da8cd32602a7d，工作区干净。此前待Git授权/待归并状态已解除。推送后正式站18项机械复验结果与切域后相同。迁移交付完成；旧Pages项目保留回退、不删除，生产/预览自动构建关闭。未设后台观察器，不宣称七天观察已完成。

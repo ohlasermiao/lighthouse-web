@@ -15,5 +15,11 @@
       "binding": "SESSION",
       "id": "3024529f59fb4bae9333dfea9e56ed1f"
     }
+  ],
+  "routes": [
+    {
+      "pattern": "lighthouse.sync-value.com",
+      "custom_domain": true
+    }
   ]
 }

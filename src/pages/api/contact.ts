@@ -68,20 +68,20 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ ok: false, error: 'email_undeliverable' }, 422);
   }
 
-  // Cloudflare Turnstile 人机校验（设了 secret 才校验；本地 dev 无 secret 则跳过）
+  // Cloudflare Turnstile 人机校验（必需配置：缺 secret 就拒绝请求，fail-closed，不静默跳过；
+  // 本地 dev 在 .dev.vars 里放 Cloudflare 公开测试键 1x0000000000000000000000000000000AA 即可放行）
   const tsSecret = env(locals, 'TURNSTILE_SECRET');
-  if (tsSecret) {
-    try {
-      const v = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ secret: tsSecret, response: data['cf-turnstile-response'] || '' }),
-      });
-      const out: any = await v.json();
-      if (!out?.success) return json({ ok: false, error: 'captcha' }, 403);
-    } catch {
-      return json({ ok: false, error: 'captcha_error' }, 502);
-    }
+  if (!tsSecret) return json({ ok: false, error: 'not_configured' }, 500);
+  try {
+    const v = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ secret: tsSecret, response: data['cf-turnstile-response'] || '' }),
+    });
+    const out: any = await v.json();
+    if (!out?.success) return json({ ok: false, error: 'captcha' }, 403);
+  } catch {
+    return json({ ok: false, error: 'captcha_error' }, 502);
   }
 
   // 渲染所有内容字段（跳过下划线 meta、turnstile token、已单列的 name/email）
